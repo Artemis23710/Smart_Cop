@@ -1,5 +1,4 @@
-
-main#loginsection {
+#loginsection {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,16 +14,15 @@ main#loginsection {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('Images/login.png');
     background-size: cover;
     background-position: center;
 }
 .user_card {
-    height: 400px;
-    width: 350px;
+    height: 500px;
+    width: 400px;
     margin-top: auto;
     margin-bottom: auto;
-    background: #3a97e4;
+    background: #67C6E3;
     position: relative;
     display: flex;
     justify-content: center;
@@ -34,15 +32,15 @@ main#loginsection {
     -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 5px;
-
 }
+
 .brand_logo_container {
     position: absolute;
     height: 170px;
     width: 170px;
     top: -75px;
     border-radius: 50%;
-    background: #251ca3;
+    background: #5356FF;
     padding: 10px;
     text-align: center;
 }
@@ -53,31 +51,53 @@ main#loginsection {
     border: 2px solid white;
 }
 .form_container {
-    margin-top: 100px;
+    margin-top: 120px;
 }
 .login_btn {
+    margin-top: 40px;
+    outline: 0px ;
     width: 100%;
-    background: #8b281d !important;
-    color: white !important;
+    background: #5356FF ;
+    color: white ;
 }
+.login_btn:hover,
 .login_btn:focus {
-    box-shadow: none !important;
-    outline: 0px !important;
+    box-shadow: none ;
+    outline: 0px ;
+    width: 100%;
+    background: #5356FF;
+    color: #e0e0e0;
 }
+
 .login_container {
     padding: 0 2rem;
 }
 .input-group-text {
-    background: #816562 !important;
-    color: white !important;
-    border: 0 !important;
-    border-radius: 0.25rem 0 0 0.25rem !important;
+    background: #5356FF;
+    color: white;
+    border: 0;
+    border-radius: 0.25rem 0 0 0.25rem;
+    width: 50px; 
+    height: 40px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
 }
 .input_user,
-.input_pass:focus {
-    box-shadow: none !important;
-    outline: 0px !important;
+.input_pass {
+    width: 100%;
+    height: 40px; 
+    box-shadow: none;
+    outline: 0px;
 }
-.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
-    background-color: #c0392b !important;
+.input_user:focus,
+.input_pass:focus {
+    box-shadow: none;
+    outline: 0px;
+}
+.input-group-text i.fas {
+    width: 20px !important; 
+    height: 20px !important; 
+    font-size: 30px !important; 
+    line-height: 20px;
 }

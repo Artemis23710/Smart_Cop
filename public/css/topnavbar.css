@@ -1,0 +1,59 @@
+#navtop {
+    margin-bottom:0;
+}
+#topnav_container {
+    position: fixed;
+    top: 0;
+    left: 260px;
+    right: 0;
+    margin: 0;
+    background-color: white;
+    width: 100%;
+    box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.1);
+}
+
+.material-icons {
+    font-size: 48px; 
+    color: black; 
+    cursor: pointer; 
+    transition: color 0.3s ease; 
+}
+.material-icons:hover {
+    color: gray; 
+}
+.fullscreen-container {
+    position: fixed;
+    top: 10px; 
+    right: 10px; 
+    z-index: 1050; 
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px; 
+    padding: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+#fullscreen-icon,#exit-fullscreen-icon{
+    font-size: 25px; 
+    color: black;
+    margin-top: 6px;
+}
+#fullscreen-icon:hover,#exit-fullscreen-icon:hover{
+    color: gray;
+}
+#loginuser_section{
+    margin-left: 5px;
+}
+#navbarDropdownProfile{
+    background-color:white;
+   padding-left: 20px;
+   border-radius: 30px;
+}
+#navbarDropdownProfile:hover{
+    background-color: skyblue;
+}
+#userimage{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-left: 10px;
+}

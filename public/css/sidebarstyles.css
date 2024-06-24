@@ -1,0 +1,60 @@
+#sidebartext{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+.list-nav #listtext{
+    color: black;
+    font-size: 15px;
+}
+.list-nav {         
+    padding: 10px;        
+}
+
+#sidebaricons {
+    color: black;
+}
+
+.dashbordlink {
+    display: flex;
+    align-items: center;
+    text-decoration: none; 
+}
+.dashbordlink i {
+    margin-right: 10px; 
+}
+
+.list-nav .dashbordlink:hover {             
+    border-radius: 10px;
+}
+#dashbordlinks:hover ,#departmentlink:hover,#criminallink:hover,
+#crimelink:hover,#adminlink:hover{
+    background-color: skyblue;
+}
+#userlogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+#userphoto {
+    margin-bottom: 10px;
+}
+
+#imguser {
+    width: 140px; /* Adjust the width as needed */
+    height: 140px; /* Ensure it's a square */
+    border-radius: 25px;
+    border: 2px solid #000; /* Adjust the border color and width as needed */
+}
+
+.userinfo {
+    margin-top: 10px;
+}
+
+.username, .designation {
+    margin: 0;
+}
+
