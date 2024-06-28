@@ -1,7 +1,14 @@
-#sidebartext{
-    color: black;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: bold;
+#sidemenu{
+    position: fixed; 
+    background-color:white;
+    top: 45px;
+    z-index: 999;
+}
+#sidebarwrapper{
+    position:relative;
+    overflow-y: auto;
+    display: block;
+    height: 61em;
 }
 .list-nav #listtext{
     color: black;
@@ -37,6 +44,7 @@
     align-items: center;
     text-align: center;
     padding: 20px;
+    margin-top: 10px;
 }
 
 #userphoto {

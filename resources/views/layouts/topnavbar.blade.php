@@ -1,5 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navtop" >
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navtop" style=" position: fixed;  top: 0; width: 100%; z-index: 1000;">
     <div class="container-fluid" id="topnav_container">
+
+      <div class="logo" id="systemlogo">
+        <a href="http://www.creative-tim.com" class="simple-text logo-mini" id="sidebartext"> SC </a>
+    <a href="http://www.creative-tim.com" class="simple-text logo-normal " id="sidebartext">
+        Smart Cop
+    </a></div>
       <div class="navbar-wrapper">
         <div class="navbar-minimize">
           <button id="minimizeSidebar" class="btn btn-just-icon btn-white btn-fab btn-round">
@@ -18,7 +24,7 @@
       </button>
 
 
-      <div class="collapse navbar-collapse"  style="margin-left:68%;">
+      <div class="collapse navbar-collapse  justify-content-end">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <button  class="nav-link">

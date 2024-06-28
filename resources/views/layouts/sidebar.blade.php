@@ -1,11 +1,5 @@
-<div class="sidebar no-scrollbar" data-color="rose" data-background-color="black" style="background-color:white;">
-    <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-mini" id="sidebartext">
-            SC
-        </a>
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal " id="sidebartext">
-            Smart Cop
-        </a></div>
-    <div class="sidebar-wrapper">
+<div class="sidebar no-scrollbar" data-color="rose" data-background-color="black" id="sidemenu">
+    <div class="sidebar-wrapper" id="sidebarwrapper">
         <div id="userlogin">
             <div id="userphoto">
                 <img src="{{ asset('Images/avatar.jpg') }}" id="imguser" alt="User Image">
@@ -36,7 +30,7 @@
 
         <ul class="nav">
             <li class="list-nav">
-                <a class="dashbordlink nav-link" href="#" id="dashbordlinks">
+                <a class="dashbordlink nav-link" href="{{ route('home')}}" id="dashbordlinks">
                     <i class="material-icons" id="sidebaricons">dashboard</i>
                     <p id="listtext"> Dashboard </p>
                 </a>
@@ -44,7 +38,7 @@
             <li class="list-nav">
                 <a class="nav-link dashbordlink" href="../examples/widgets.html" id="departmentlink">
                     <i class="material-icons" id="sidebaricons">business</i>
-                    <p id="listtext">Departments</p>
+                    <p id="listtext">Department Details</p>
                 </a>
             </li>
             <li class="list-nav">
@@ -56,11 +50,11 @@
             <li class="list-nav">
                 <a class="nav-link dashbordlink" href="../examples/charts.html" id="crimelink">
                     <i class="material-icons " id="sidebaricons">gavel</i>
-                    <p id="listtext"> Crime </p>
+                    <p id="listtext"> Investigations </p>
                 </a>
             </li>
             <li class="list-nav">
-                <a class="nav-link dashbordlink" href="../examples/calendar.html" id="adminlink">
+                <a class="nav-link dashbordlink" href="{{ route('userdashbord')}}" id="adminlink">
                     <i class="material-icons" id="sidebaricons">admin_panel_settings</i>
                     <p id="listtext"> Administrator </p>
                 </a>

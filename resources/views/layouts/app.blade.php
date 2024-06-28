@@ -39,14 +39,23 @@
 <body class="nav-fixed">
     <div id="app">
 
-        @include('layouts.sidebar')
-
-
         @include('layouts.topnavbar')
 
-        
+        <div id="layoutSidenav">
+            @include('layouts.sidebar')
+        </div>
+        <div class="main-panel">
+
             @yield('content')
-        
+            
+            {{-- <footer class="footer">
+              <div class="container-fluid">
+                  <div class="copyright float-right">Copyright &copy; Smart Cop <?php echo date('Y') ?> Made with <i class="fa fa-heart pulse text-danger"></i>
+                  </div>
+              </div>
+          </footer> --}}
+
+        </div>
     </div>
     @livewireScripts
 
@@ -278,40 +287,8 @@
 
     });
   </script>
+
+
+@yield('script')
 </body>
-{{-- <footer class="footer">
-    <div class="container-fluid">
-      <nav class="float-left">
-        <ul>
-          <li>
-            <a href="https://www.creative-tim.com/">
-              Creative Tim
-            </a>
-          </li>
-          <li>
-            <a href="https://www.creative-tim.com/presentation">
-              About Us
-            </a>
-          </li>
-          <li>
-            <a href="https://www.creative-tim.com/blog">
-              Blog
-            </a>
-          </li>
-          <li>
-            <a href="https://www.creative-tim.com/license">
-              Licenses
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <div class="copyright float-right">
-        &copy;
-        <script>
-          document.write(new Date().getFullYear())
-        </script>, made with <i class="material-icons">favorite</i> by
-        <a href="https://www.creative-tim.com/" target="_blank">Creative Tim</a> for a better web.
-      </div>
-    </div>
-  </footer> --}}
 </html>
