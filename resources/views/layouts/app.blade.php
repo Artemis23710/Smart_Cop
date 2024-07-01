@@ -30,8 +30,11 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css" rel="stylesheet" />
 
+
     <link rel="stylesheet" href="{{ asset('css/sidebarstyles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/topnavbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sectionnavbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bredcrumplist.css') }}">
 
 
     @livewireStyles

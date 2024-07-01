@@ -1,0 +1,26 @@
+.rowsection{
+    padding-top: 5px;
+    margin-bottom: 0;
+}
+.navbutton{
+    margin-left: 25px;
+    background-color: white;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    font-weight: 600;
+    border-radius:85rem;
+    align-items: center;
+    display: flex; 
+    align-items: center; 
+    text-decoration: none;
+}
+.navbutton:hover{
+    background-color: rgba(110, 145, 252, 0.24);
+    color: skyblue;
+  }
+  .navbutton i.material-icons {
+    font-size: 18px; 
+    padding: 0;
+    margin: 0; 
+    margin-right: 10px; 
+  }

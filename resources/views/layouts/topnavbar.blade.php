@@ -23,6 +23,7 @@
         <span class="navbar-toggler-icon icon-bar"></span>
       </button>
 
+      @include('layouts.breadcrump')
 
       <div class="collapse navbar-collapse  justify-content-end">
         <ul class="navbar-nav">
@@ -48,7 +49,7 @@
             </div>
           </li>
           <li class="nav-item dropdown" id="loginuser_section">
-            <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span>{{ Auth::user()->name }}</span>
+            <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="usernametext">{{ Auth::user()->name }}</span>
                     <img src="{{ asset('Images/avatar.jpg') }}" id="userimage">
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
