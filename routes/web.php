@@ -26,3 +26,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/userdashbord', [Admincontroller::class, 'userdetails'])->name('userdashbord');
 
+Route::get('/rolelists', [Admincontroller::class, 'rolesdetails'])->name('rolelists');
+
+Route::get('/permisionlist', [Admincontroller::class, 'permisiondetails'])->name('permisionlist');
+

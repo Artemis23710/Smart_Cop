@@ -36,7 +36,19 @@
     <link rel="stylesheet" href="{{ asset('css/sectionnavbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bredcrumplist.css') }}">
 
-
+     <style>
+          .bootstrap-select .dropdown-menu li a:hover,
+          .bootstrap-select .dropdown-menu li a:focus,
+          .bootstrap-select .dropdown-menu li a.active {
+              background-color: rgb(25, 101, 241) !important;
+              color: white !important;
+          }
+                  .bootstrap-select .dropdown-menu .selected {
+              background-color: (25, 101, 241);
+              color: white !important;
+          }
+        
+  </style>
     @livewireStyles
 </head>
 <body class="nav-fixed">
@@ -68,7 +80,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/material-ui/4.12.4/index.js" integrity="sha512-wEnX3bNd/CdyrOFR0KIGlHihK/w9x3/It8Vc18aymEF/F/f1q0Mq8T+GSxF1wYUACLEGECapuIYQdQlKY1LBJw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+   
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -76,8 +88,10 @@
     <script src="{{ url('/js/core/popper.min.js') }}"></script>
     <script src="{{ url('/js/core/bootstrap-material-design.min.js') }}"></script>
     <script src="{{ url('/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
+    <script src="{{ url('/js/plugins/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url('/js/plugins/bootstrap-selectpicker.js') }}"></script>
 
- 
+
     <script>
 
           function toggleFullscreen() {
