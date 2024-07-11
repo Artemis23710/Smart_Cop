@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class Admincontroller extends Controller
 {
@@ -10,13 +11,9 @@ class Admincontroller extends Controller
         return view('Administrator.users.users');
     }
 
-
-    public function rolesdetails(){
-        return view('Administrator.roles.roles');
-    }
-
-
+    
     public function permisiondetails(){
         return view('Administrator.privileges.priviliges');
     }
+
 }
