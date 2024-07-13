@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admincontroller;
 use App\Http\Controllers\RolemanageController;
+use App\Http\Controllers\UsermanageController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +26,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/userdashbord', [Admincontroller::class, 'userdetails'])->name('userdashbord');
+
 
 Route::get('/permisionlist', [Admincontroller::class, 'permisiondetails'])->name('permisionlist');
 
@@ -34,3 +35,9 @@ Route::get('/rolelists', [RolemanageController::class, 'index'])->name('rolelist
 Route::post('/insertrole', [RolemanageController::class, 'storeRole'])->name('insertrole');
 Route::post('/editrole', [RolemanageController::class, 'edit'])->name('editrole');
 Route::delete('/roledelete/{role}', [RolemanageController::class, 'destroy'])->name('roledelete');
+
+// user manage controller routes
+Route::get('/userdashbord', [UsermanageController::class, 'index'])->name('userdashbord');
+Route::post('/storeuser', [UsermanageController::class, 'store'])->name('storeuser');
+Route::post('/edituser', [UsermanageController::class, 'edit'])->name('edituser');
+Route::get('/userstatus/{id}/{status}', [UsermanageController::class, 'status'])->name('userstatus');

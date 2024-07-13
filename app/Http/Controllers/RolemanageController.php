@@ -10,7 +10,6 @@ class RolemanageController extends Controller
     public function index()
     {
         $roles = Role::all();
-
         return view('Administrator.roles.roles', compact('roles'));
     }
 
