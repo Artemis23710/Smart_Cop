@@ -26,9 +26,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//admin controller routes
+Route::get('/permisionlist', [Admincontroller::class, 'index'])->name('permisionlist');
+Route::get('/addpermision/{id}', [Admincontroller::class, 'addprivilegesview'])->name('addpermision');
+Route::post('/saveprivilegies', [Admincontroller::class, 'updateprivilegies'])->name('saveprivilegies');
 
 
-Route::get('/permisionlist', [Admincontroller::class, 'permisiondetails'])->name('permisionlist');
 
 // role mange controller routes
 Route::get('/rolelists', [RolemanageController::class, 'index'])->name('rolelists');

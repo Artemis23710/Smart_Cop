@@ -21,6 +21,11 @@
           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
           <li><a href="#2"><i class="material-icons">admin_panel_settings</i> Administrator</a></li>
           <li><a href="#3"><i class="material-icons">security</i> Privileges</a></li>
+          @elseif(request()->route()->getName() == 'addpermision')
+          <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+          <li><a href="#2"><i class="material-icons">admin_panel_settings</i> Administrator</a></li>
+          <li><a href="#3"><i class="material-icons">security</i> Privileges</a></li>
+          <li><a href="#3"><i class="material-icons">add</i>Add Privileges</a></li>
           
           @endif
       </ul>

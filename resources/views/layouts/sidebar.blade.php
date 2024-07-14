@@ -23,11 +23,7 @@
                 </td>
             </tr>
         </table>
-
-
         <hr>
-
-
         <ul class="nav">
             <li class="list-nav">
                 <a class="dashbordlink nav-link" href="{{ route('home')}}" id="dashbordlinks">
@@ -53,12 +49,16 @@
                     <p id="listtext"> Investigations </p>
                 </a>
             </li>
+            @can('Access-Administrator')
             <li class="list-nav">
                 <a class="nav-link dashbordlink" href="{{ route('userdashbord')}}" id="adminlink">
                     <i class="material-icons" id="sidebaricons">admin_panel_settings</i>
                     <p id="listtext"> Administrator </p>
                 </a>
             </li>
+            @endcan
+        
+            
         </ul>
 
 

@@ -35,7 +35,7 @@ class UsermanageController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput();
             }else{
     
-                 User::create([
+                $user =User::create([
                     'role_id' => $request->input('roleid'),
                     'name' => $request->input('accountname'),
                     'email' => $request->input('useremail'),
@@ -44,6 +44,12 @@ class UsermanageController extends Controller
                     'created_by' => Auth::id(),
                     'update_by' => 0
                 ]);
+
+
+                // Find the role by id
+                $role = Role::findById($request->input('roleid'));
+                // Assign the role to the user
+                $user->assignRole($role);
     
                 $message = 'User successfully created.';
             }
@@ -73,6 +79,12 @@ class UsermanageController extends Controller
 
                 $user->updated_by = Auth::id();
                 $user->save();
+                // Find the role by id
+                $role = Role::findById($request->input('roleid'));
+                // Assign the role to the user (if role is changed)
+                $user->syncRoles([$role]);
+
+
                 $message = 'User successfully updated.';
             }
         }
