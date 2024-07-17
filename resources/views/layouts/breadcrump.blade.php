@@ -27,6 +27,22 @@
           <li><a href="#3"><i class="material-icons">security</i> Privileges</a></li>
           <li><a href="#3"><i class="material-icons">add</i>Add Privileges</a></li>
           
+
+           {{-- Department section --}}
+           @elseif(request()->route()->getName() == 'departmentdashboard')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">business</i> Department Infomation</a></li>
+
+           @elseif(request()->route()->getName() == 'divisions')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">business</i> Department Infomation</a></li>
+           <li><a href="#3"><i class="material-icons">group</i> Divisions</a></li>
+
+           @elseif(request()->route()->getName() == 'stations')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">business</i> Department Infomation</a></li>
+           <li><a href="#3"><i class="material-icons">location_city</i> Stations</a></li>
+
           @endif
       </ul>
   </div>

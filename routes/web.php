@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admincontroller;
 use App\Http\Controllers\RolemanageController;
 use App\Http\Controllers\UsermanageController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -44,3 +45,8 @@ Route::get('/userdashbord', [UsermanageController::class, 'index'])->name('userd
 Route::post('/storeuser', [UsermanageController::class, 'store'])->name('storeuser');
 Route::post('/edituser', [UsermanageController::class, 'edit'])->name('edituser');
 Route::get('/userstatus/{id}/{status}', [UsermanageController::class, 'status'])->name('userstatus');
+
+// Department Controller Routes
+Route::get('/departmentdashboard', [DepartmentController::class, 'index'])->name('departmentdashboard');
+Route::get('/divisions', [DepartmentController::class, 'divisionlist'])->name('divisions');
+Route::get('/stations', [DepartmentController::class, 'stationlist'])->name('stations');

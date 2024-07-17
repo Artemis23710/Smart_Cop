@@ -28,6 +28,17 @@ class PermissionSeeder extends Seeder
             // ['name' => 'Permission-Create', 'module_name' => 'Permission'],
             // ['name' => 'Permission-Edit', 'module_name' => 'Permission'],
             // ['name' => 'Permission-Delete', 'module_name' => 'Permission'],
+            // ['name' => 'Access-Department', 'module_name' => 'Department'],
+            // ['name' => 'Division-List', 'module_name' => 'Division'],
+            // ['name' => 'Division-Create', 'module_name' => 'Division'],
+            // ['name' => 'Division-Edit', 'module_name' => 'Division'],
+            // ['name' => 'Division-Delete', 'module_name' => 'Division'],
+            // ['name' => 'Division-Status', 'module_name' => 'Division'],
+            // ['name' => 'Station-List', 'module_name' => 'Station'],
+            // ['name' => 'Station-Create', 'module_name' => 'Station'],
+            // ['name' => 'Station-Edit', 'module_name' => 'Station'],
+            // ['name' => 'Station-Delete', 'module_name' => 'Station'],
+            // ['name' => 'Station-Status', 'module_name' => 'Station'],
         ];
 
         foreach ($permissions as $permission) {

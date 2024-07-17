@@ -31,12 +31,14 @@
                     <p id="listtext"> Dashboard </p>
                 </a>
             </li>
+            @can('Access-Department')
             <li class="list-nav">
-                <a class="nav-link dashbordlink" href="../examples/widgets.html" id="departmentlink">
+                <a class="nav-link dashbordlink" href="{{ route('departmentdashboard')}}" id="departmentlink">
                     <i class="material-icons" id="sidebaricons">business</i>
                     <p id="listtext">Department Details</p>
                 </a>
             </li>
+            @endcan
             <li class="list-nav">
                 <a class="nav-link dashbordlink" href="../examples/charts.html" id="criminallink">
                     <i class="material-icons" id="sidebaricons">person_outline</i>
