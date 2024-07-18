@@ -48,6 +48,14 @@
               background-color: (25, 101, 241);
               color: white !important;
           }
+		.required::before {
+		  content: '*';
+		  color: red;
+		  margin-right: 5px;
+		}
+        .requirednot{
+            margin-left: 20px; 
+        }
         
   </style>
     @livewireStyles

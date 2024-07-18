@@ -43,6 +43,11 @@
            <li><a href="#2"><i class="material-icons">business</i> Department Infomation</a></li>
            <li><a href="#3"><i class="material-icons">location_city</i> Stations</a></li>
 
+           @elseif(request()->route()->getName() == 'offiers')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">business</i> Department Infomation</a></li>
+           <li><a href="#3"><i class="fas fa-user-tie fasicons" ></i> Officers</a></li>
+
           @endif
       </ul>
   </div>

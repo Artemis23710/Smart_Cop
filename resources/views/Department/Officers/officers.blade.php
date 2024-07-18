@@ -6,11 +6,13 @@
         @include('layouts.department_navbar')
     </div>
 </div>
+
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-3">
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
+
+                    
                     <form action="" method="POST" >
                         @csrf
                         <div class="form-group required">
@@ -18,14 +20,22 @@
                               
                             </select>
                         </div>
-                        <div class="form-group" style="margin-left:10px;">
-                            <select class="selectpicker" data-style="select-with-transition"  title="Choose District" name="districtid" id="districtid">
+                        <div class="form-group required">
+                            <select class="selectpicker" data-style="select-with-transition"  title="Choose Division" name="divisionid" id="divisionid">
                               
                             </select>
                         </div>
                           <div class="form-group required">
-                            <label for="divisionname" class="bmd-label-floating">Division Name</label>
-                            <input type="text" class="form-control" id="divisionname" name="divisionname" required>
+                            <label for="stationname" class="bmd-label-floating">Station Name</label>
+                            <input type="text" class="form-control" id="stationname" name="stationname" required>
+                          </div>
+                          <div class="form-group required">
+                            <label for="stationaddress" class="bmd-label-floating">Station Address</label>
+                            <textarea class="form-control" name="stationaddress" id="stationaddress" cols="10" rows="2"></textarea>
+                          </div>
+                          <div class="form-group required">
+                            <label for="stationcontact" class="bmd-label-floating">Station Contact</label>
+                            <input type="text" class="form-control" id="stationcontact" name="stationcontact" required>
                           </div>
                           <div class="col-12 d-flex align-items-center justify-content-center">
                               <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
@@ -40,45 +50,48 @@
                               </div>
                           @endif
                           <input type="hidden" id="hiddenid" name="hiddenid" value="1">
+                          <input type="hidden" id="distrrictid" name="distrrictid">
                           <input type="hidden" id="recordID" name="recordID">
                         </form>
                 </div>
             </div>
         </div>
-        <div class="col-9">
-            <div class="card">
-                <div class="card-body">
-                    <div class="material-datatables">
-                        <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                            <thead>
-                                <tr>
-                                  <th>Province</th>
-                                  <th>District</th>
-                                  <th>Division</th>
-                                  <th class="disabled-sorting text-right">Actions</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                              </tbody>
-                        </table>
-                    </div>
+</div>
 
+<div class="container-fluid">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="material-datatables">
+                    <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                        <thead>
+                            <tr>
+                              <th>Province</th>
+                              <th>District</th>
+                              <th>Division</th>
+                              <th>Station</th>
+                              <th>Contact</th>
+                              <th class="disabled-sorting text-right">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                    </table>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
 
 @endsection
-
-
 @section('script')
 
 <script>
-
-
 $(document).ready(function(){
-    $("#divisionlink").addClass('active');
+
+    $("#officerslink").addClass('active');
+
 
     var table = $('#datatable').DataTable();
     $('#datatables').DataTable({
@@ -107,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             @endif
         });
+
 </script>
 
 @endsection

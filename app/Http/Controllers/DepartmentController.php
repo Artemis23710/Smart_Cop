@@ -18,6 +18,10 @@ class DepartmentController extends Controller
     public function stationlist(){
         return view('Department.Stations.station');
     }
+
+    public function offiersist(){
+        return view('Department.Officers.officers');
+    }
     
 
 }

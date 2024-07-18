@@ -50,3 +50,4 @@ Route::get('/userstatus/{id}/{status}', [UsermanageController::class, 'status'])
 Route::get('/departmentdashboard', [DepartmentController::class, 'index'])->name('departmentdashboard');
 Route::get('/divisions', [DepartmentController::class, 'divisionlist'])->name('divisions');
 Route::get('/stations', [DepartmentController::class, 'stationlist'])->name('stations');
+Route::get('/offiers', [DepartmentController::class, 'offiersist'])->name('offiers');
