@@ -11,37 +11,40 @@
         <div class="col-3">
             <div class="card">
                 <div class="card-body">
-                    <form action="" method="POST" >
+                    <form action="{{ route('divisionstore') }}" method="POST">
                         @csrf
                         <div class="form-group required">
-                            <select class="selectpicker" data-style="select-with-transition"  title="Choose Province" name="provinceid" id="provinceid" required>
-                              
+                            <select class="selectpicker" data-style="select-with-transition" title="Choose Province"
+                                name="provinceid" id="provinceid" required>
+                                @foreach($provinces as $province)
+                                <option value="{{ $province->id }}">{{ $province->province_name}}</option>
+                                @endforeach
                             </select>
                         </div>
-                        <div class="form-group" style="margin-left:10px;">
-                            <select class="selectpicker" data-style="select-with-transition"  title="Choose District" name="districtid" id="districtid">
-                              
+                        <div class="form-group required">
+                            <select class="selectpicker" data-style="select-with-transition" title="Choose District"
+                                name="districtid" id="districtid">
                             </select>
                         </div>
-                          <div class="form-group required">
+                        <div class="form-group required">
                             <label for="divisionname" class="bmd-label-floating">Division Name</label>
                             <input type="text" class="form-control" id="divisionname" name="divisionname" required>
-                          </div>
-                          <div class="col-12 d-flex align-items-center justify-content-center">
-                              <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
-                               <i class="fas fa-save"></i>&nbsp;Save </button>
-                          </div>
-  
-                          @if ($errors->any())
-                              <div class="alert alert-danger">
-                                      @foreach ($errors->all() as $error)
-                                        {{ $error }}
-                                      @endforeach
-                              </div>
-                          @endif
-                          <input type="hidden" id="hiddenid" name="hiddenid" value="1">
-                          <input type="hidden" id="recordID" name="recordID">
-                        </form>
+                        </div>
+                        <div class="col-12 d-flex align-items-center justify-content-center">
+                            <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
+                                <i class="fas fa-save"></i>&nbsp;Save </button>
+                        </div>
+
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                            {{ $error }}
+                            @endforeach
+                        </div>
+                        @endif
+                        <input type="hidden" id="hiddenid" name="hiddenid" value="1">
+                        <input type="hidden" id="recordID" name="recordID">
+                    </form>
                 </div>
             </div>
         </div>
@@ -49,18 +52,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="material-datatables">
-                        <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                            <thead>
-                                <tr>
-                                  <th>Province</th>
-                                  <th>District</th>
-                                  <th>Division</th>
-                                  <th class="disabled-sorting text-right">Actions</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                              </tbody>
-                        </table>
+                        @livewire('division-table')
                     </div>
 
                 </div>
@@ -95,7 +87,7 @@ $(document).ready(function(){
       });
 });
 
-document.addEventListener('DOMContentLoaded', function () {
+         document.addEventListener('DOMContentLoaded', function () {
             @if(session('message'))
                 Swal.fire({
                     icon: 'success',
@@ -107,6 +99,36 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             @endif
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const provinceSelect = document.getElementById('provinceid');
+            const districtSelect = document.getElementById('districtid');
+
+            provinceSelect.addEventListener('change', function () {
+                const provinceId = this.value;
+
+                if (provinceId) {
+                    fetch(`/districts/${provinceId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            districtSelect.innerHTML = '<option value="">Choose District</option>';
+                            data.forEach(district => {
+                                const option = document.createElement('option');
+                                option.value = district.id;
+                                option.textContent = district.distric_name;
+                                districtSelect.appendChild(option);
+                            });
+                            $('.selectpicker').selectpicker('refresh');
+                        })
+                        .catch(error => console.error('Error fetching districts:', error));
+                } else {
+                    districtSelect.innerHTML = '<option value="">Choose District</option>';
+                    $('.selectpicker').selectpicker('refresh');
+                }
+            });
+        });
+
+
 </script>
 
 @endsection

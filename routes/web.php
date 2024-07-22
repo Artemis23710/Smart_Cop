@@ -4,6 +4,7 @@ use App\Http\Controllers\Admincontroller;
 use App\Http\Controllers\RolemanageController;
 use App\Http\Controllers\UsermanageController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +49,11 @@ Route::get('/userstatus/{id}/{status}', [UsermanageController::class, 'status'])
 
 // Department Controller Routes
 Route::get('/departmentdashboard', [DepartmentController::class, 'index'])->name('departmentdashboard');
-Route::get('/divisions', [DepartmentController::class, 'divisionlist'])->name('divisions');
 Route::get('/stations', [DepartmentController::class, 'stationlist'])->name('stations');
 Route::get('/offiers', [DepartmentController::class, 'offiersist'])->name('offiers');
+
+
+// Division Controller Routes
+Route::get('/divisions', [DivisionController::class, 'index'])->name('divisions');
+Route::get('/districts/{provinceId}', [DivisionController::class, 'getDistricts'])->name('districts');
+Route::post('/divisionstore', [DivisionController::class, 'store'])->name('divisionstore');

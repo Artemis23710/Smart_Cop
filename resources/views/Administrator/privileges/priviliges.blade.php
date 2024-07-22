@@ -26,7 +26,9 @@
                                     <td>{{ $role->id }}</td>
                                     <td>{{ $role->name }}</td>
                                     <td class="text-right">  
+                                        @can('Permission-Create')
                                         <a href="{{ route('addpermision', ['id' => $role->id]) }}" class="icon-button btn btn-info btn-sm mr-1 addbtn1"><i class="material-icons">add</i></a>                                      
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

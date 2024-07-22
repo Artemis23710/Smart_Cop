@@ -15,10 +15,10 @@ class Districts extends Model
      * Get the province that owns the district.
      */
     
-    public function province()
-    {
-        return $this->belongsTo(provinces::class);
-    }
+     public function province()
+     {
+         return $this->belongsTo(provinces::class, 'province_id');
+     }
 
 
 }

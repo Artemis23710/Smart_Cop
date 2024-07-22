@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('police_divisions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('district_id');
+            $table->string('division_name');  
+            $table->integer('status'); 
+            $table->integer('created_by')->nullable();  
+            $table->integer('updated_by')->nullable(); 
             $table->timestamps();
         });
     }

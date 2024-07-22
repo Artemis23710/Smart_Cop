@@ -11,9 +11,6 @@ class DepartmentController extends Controller
         return view('Dashboards.departmentdashboard');
 
     }
-    public function divisionlist(){
-        return view('Department.Division.division');
-    }
 
     public function stationlist(){
         return view('Department.Stations.station');
