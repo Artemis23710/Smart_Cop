@@ -57,3 +57,5 @@ Route::get('/offiers', [DepartmentController::class, 'offiersist'])->name('offie
 Route::get('/divisions', [DivisionController::class, 'index'])->name('divisions');
 Route::get('/districts/{provinceId}', [DivisionController::class, 'getDistricts'])->name('districts');
 Route::post('/divisionstore', [DivisionController::class, 'store'])->name('divisionstore');
+Route::post('/divisionsedit', [DivisionController::class, 'edit'])->name('divisionsedit');
+Route::get('/divisionsstatus/{id}/{status}', [DivisionController::class, 'status'])->name('divisionsstatus');

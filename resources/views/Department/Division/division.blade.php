@@ -30,10 +30,13 @@
                             <label for="divisionname" class="bmd-label-floating">Division Name</label>
                             <input type="text" class="form-control" id="divisionname" name="divisionname" required>
                         </div>
+
+                        @can('Division-Create')
                         <div class="col-12 d-flex align-items-center justify-content-center">
                             <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
                                 <i class="fas fa-save"></i>&nbsp;Save </button>
                         </div>
+                        @endcan
 
                         @if ($errors->any())
                         <div class="alert alert-danger">
@@ -71,7 +74,7 @@
 
 $(document).ready(function(){
     $("#divisionlink").addClass('active');
-
+    $('.selectpicker').selectpicker();
     var table = $('#datatable').DataTable();
     $('#datatables').DataTable({
         "pagingType": "full_numbers",
@@ -85,6 +88,46 @@ $(document).ready(function(){
           searchPlaceholder: "Search records",
         }
       });
+
+      $(document).on('click', '.editbtn', function () {
+            var id = $(this).attr('id');
+
+            $('#form_result').html('');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: '{!! route("divisionsedit") !!}',
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    $('#divisionname').val(data.result.division_name);
+                    $('#provinceid').val(data.province_id); 
+                    $('#provinceid').selectpicker('refresh');
+                    $('#districtid').empty(); 
+                    
+                    $('#districtid').empty();
+                    $.each(data.districts, function (key, value) {
+                        $('#districtid').append('<option value="' + value.id + '">' + value.distric_name + '</option>');
+                    });
+
+                    $('#districtid').val(data.result.district_id);
+                    $('#districtid').selectpicker('refresh');
+
+                    $('#recordID').val(id);
+                    $('#hiddenid').val(2);
+
+               
+                }
+            });
+        });
+
 });
 
          document.addEventListener('DOMContentLoaded', function () {
