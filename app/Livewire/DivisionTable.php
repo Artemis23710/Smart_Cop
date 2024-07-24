@@ -15,11 +15,12 @@ class DivisionTable extends Component
             ->with(['district.province' => function ($query) {
                 $query->select('id', 'province_name', 'created_at', 'updated_at');
             }])
+            ->whereIn('police_divisions.status', [1, 2])
             ->get();
     }
 
     public function render()
     {
-        return view('livewire.division-table');
+        return view('livewire.Department_Tables.division-table');
     }
 }

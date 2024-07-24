@@ -5,7 +5,9 @@ use App\Http\Controllers\RolemanageController;
 use App\Http\Controllers\UsermanageController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\StationController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OfficerController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -49,8 +51,6 @@ Route::get('/userstatus/{id}/{status}', [UsermanageController::class, 'status'])
 
 // Department Controller Routes
 Route::get('/departmentdashboard', [DepartmentController::class, 'index'])->name('departmentdashboard');
-Route::get('/stations', [DepartmentController::class, 'stationlist'])->name('stations');
-Route::get('/offiers', [DepartmentController::class, 'offiersist'])->name('offiers');
 
 
 // Division Controller Routes
@@ -59,3 +59,13 @@ Route::get('/districts/{provinceId}', [DivisionController::class, 'getDistricts'
 Route::post('/divisionstore', [DivisionController::class, 'store'])->name('divisionstore');
 Route::post('/divisionsedit', [DivisionController::class, 'edit'])->name('divisionsedit');
 Route::get('/divisionsstatus/{id}/{status}', [DivisionController::class, 'status'])->name('divisionsstatus');
+
+// Station Controller Routes
+Route::get('/stations', [StationController::class, 'index'])->name('stations');
+Route::post('/stationsstore', [StationController::class, 'store'])->name('stationsstore');
+Route::post('/stationsedit', [StationController::class, 'edit'])->name('stationsedit');
+Route::get('/stationsstatus/{id}/{status}', [StationController::class, 'status'])->name('stationsstatus');
+
+// Officer Controller Routes
+Route::get('/offiers', [OfficerController::class, 'index'])->name('offiers');
+Route::get('/newoffiers', [OfficerController::class, 'newofficer'])->name('newoffiers');

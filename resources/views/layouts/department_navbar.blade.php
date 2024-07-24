@@ -14,13 +14,13 @@
           </a>
         </li>
         @endcan
-
+        @can('Officer-List')
         <li class="nav-item">
           <a class="nav-link navbutton"  href="{{ route('offiers')}}" id="officerslink" ><i class="fas fa-user-tie navfasicon"></i>
             Officers
           </a>
         </li>
-
+        @endcan
 
       </ul>
 </div>

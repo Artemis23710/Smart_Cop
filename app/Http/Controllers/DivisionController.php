@@ -46,6 +46,7 @@ class DivisionController extends Controller
 
         }else{
 
+            
             $division = PoliceDivision::find($request->recordID);
 
             if ($division) {
@@ -54,7 +55,7 @@ class DivisionController extends Controller
                     'division_name' => $request->divisionname,
                     'updated_by' => Auth::id()
                 ]);
-                
+
                 $message = 'Division Updated Successfully.';
             }
 
@@ -65,23 +66,22 @@ class DivisionController extends Controller
 
   
     public function edit(Request $request)
-        {
-            $id = $request->input('id');
-            if ($request->ajax()) {
-                $division = PoliceDivision::with('district')->find($id);
+    {
+        $id = $request->input('id');
+        if ($request->ajax()) {
+            $division = PoliceDivision::with('district')->find($id);
 
-                // Fetch the province_id from the related district
-                $province_id = $division->district->province_id;
+            // Fetch the province_id from the related district
+            $province_id = $division->district->province_id;
 
-                // Fetch districts for the province
-                $districts = Districts::where('province_id', $province_id)->get();
-                return response()->json(['result' => $division, 'province_id' => $province_id, 'districts' => $districts]);
-            }
+            // Fetch districts for the province
+            $districts = Districts::where('province_id', $province_id)->get();
+            return response()->json(['result' => $division, 'province_id' => $province_id, 'districts' => $districts]);
         }
+    }
 
 
     public function status($requestid, $statusid)
-
     {
         $user = Auth::user();
 
@@ -115,5 +115,6 @@ class DivisionController extends Controller
 
         return redirect()->back()->with('message', $message);
     }
+
 
 }

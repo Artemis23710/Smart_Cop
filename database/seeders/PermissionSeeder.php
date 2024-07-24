@@ -39,6 +39,12 @@ class PermissionSeeder extends Seeder
             // ['name' => 'Station-Edit', 'module_name' => 'Station'],
             // ['name' => 'Station-Delete', 'module_name' => 'Station'],
             // ['name' => 'Station-Status', 'module_name' => 'Station'],
+            ['name' => 'Officer-List', 'module_name' => 'Officer'],
+            ['name' => 'Officer-Create', 'module_name' => 'Officer'],
+            ['name' => 'Officer-Edit', 'module_name' => 'Officer'],
+            ['name' => 'Officer-Delete', 'module_name' => 'Officer'],
+            ['name' => 'Officer-Status', 'module_name' => 'Officer'],
+            ['name' => 'Officer-Login', 'module_name' => 'Officer'],
         ];
 
         foreach ($permissions as $permission) {
