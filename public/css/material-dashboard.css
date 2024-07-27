@@ -1699,7 +1699,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   margin-top: 0.3rem;
   margin-left: -1.25rem; }
   .form-check-input:disabled ~ .form-check-label {
-    color: #6c757d; }
+    color: black; }
 
 .form-check-label {
   margin-bottom: 0; }
@@ -8919,7 +8919,7 @@ fieldset[disabled][disabled] .has-rose .form-control, .has-rose .form-control.di
   position: relative; }
   .bmd-form-group:not(.has-success):not(.has-danger) [class^='bmd-label'].bmd-label-floating,
   .bmd-form-group:not(.has-success):not(.has-danger) [class*=' bmd-label'].bmd-label-floating {
-    color: #AAAAAA; }
+    color: black; }
   .bmd-form-group [class^='bmd-label'],
   .bmd-form-group [class*=' bmd-label'] {
     position: absolute;

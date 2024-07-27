@@ -14,19 +14,19 @@
                     <form action="{{ route('storeuser') }}" method="POST" >
                       @csrf
                         <div class="form-group">
-                          <label for="accountname" class="bmd-label-floating">Account Name</label>
+                          <label class="inputlabel">Account Name</label>
                           <input type="text" class="form-control" id="accountname" name="accountname">
                         </div>
                         <div class="form-group">
-                            <label for="useremail" class="bmd-label-floating">User Name</label>
+                            <label class="inputlabel">User Name</label>
                             <input type="email" class="form-control" id="useremail" name="useremail">
                           </div>
                         <div class="form-group">
-                          <label for="password" class="bmd-label-floating">Password</label>
+                          <label class="inputlabel">Password</label>
                           <input type="password" class="form-control" id="password" name="password">
                         </div>
                         <div class="form-group">
-                            <label for="confirmpassword" class="bmd-label-floating">Confirm Password</label>
+                            <label class="inputlabel">Confirm Password</label>
                             <input type="password" class="form-control" id="confirmpassword" name="password_confirmation">
                         </div>
                         <div class="form-group">

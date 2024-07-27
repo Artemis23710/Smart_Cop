@@ -24,10 +24,11 @@
                     <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                         <thead>
                             <tr>
-                              <th>Province</th>
-                              <th>District</th>
+                              <th>Officer Name</th>
+                              <th>Officer ID</th>
+                              <th>Rank</th>
                               <th>Division</th>
-                              <th>Station</th>
+                              <th>Assigned Station</th>
                               <th>Contact</th>
                               <th class="disabled-sorting text-right">Actions</th>
                             </tr>

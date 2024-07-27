@@ -17,7 +17,7 @@
                         <input type="hidden" name="role_name" value="{{ $role->name }}">
                         <div class="row col-4">
                             <div class="form-group">
-                                <label for="roleName">Role Name:</label>
+                                <label class="inputlabel">Role Name:</label>
                                 <input type="text" class="form-control" id="roleName" value="{{ $role->name }}" disabled>
                             </div>
                         </div>

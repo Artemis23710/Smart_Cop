@@ -21,15 +21,15 @@
                             </select>
                         </div>
                           <div class="form-group required">
-                            <label for="stationname" class="bmd-label-floating">Station Name</label>
+                            <label class="inputlabel">Station Name</label>
                             <input type="text" class="form-control" id="stationname" name="stationname" required>
                           </div>
                           <div class="form-group required">
-                            <label for="stationaddress" class="bmd-label-floating">Station Address</label>
+                            <label class="inputlabel">Station Address</label>
                             <textarea class="form-control" name="stationaddress" id="stationaddress" cols="10" rows="2"></textarea>
                           </div>
                           <div class="form-group required">
-                            <label for="stationcontact" class="bmd-label-floating">Station Contact</label>
+                            <label class="inputlabel" >Station Contact</label>
                             <input type="text" class="form-control" id="stationcontact" name="stationcontact" required>
                           </div>
 

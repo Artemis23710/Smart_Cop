@@ -27,7 +27,7 @@
                             </select>
                         </div>
                         <div class="form-group required">
-                            <label for="divisionname" class="bmd-label-floating">Division Name</label>
+                            <label class="inputlabel">Division Name</label>
                             <input type="text" class="form-control" id="divisionname" name="divisionname" required>
                         </div>
 

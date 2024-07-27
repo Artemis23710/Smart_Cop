@@ -56,6 +56,9 @@
         .requirednot{
             margin-left: 20px; 
         }
+        .inputlabel{
+            color: black;
+        }
         
   </style>
     @livewireStyles

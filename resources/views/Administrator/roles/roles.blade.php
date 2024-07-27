@@ -14,7 +14,7 @@
                     <form action="{{ route('insertrole') }}" method="POST" >
                         @csrf
                         <div class="form-group">
-                          <label for="accountname" class="bmd-label-floating">Role Name</label>
+                          <label class="inputlabel" >Role Name</label>
                           <input type="text" class="form-control" id="accountname" name="accountname" >
                         </div>
                         @can('Role-Create')
