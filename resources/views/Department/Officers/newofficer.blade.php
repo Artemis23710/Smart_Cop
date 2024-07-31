@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="" method="POST" >
+                    <form action="{{ route('offiersstore') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                           <div class="col-9">
@@ -103,7 +103,7 @@
                               <div class="col-4">
                                 <div class="form-group">
                                   <label class="inputlabel">Officer Email</label>
-                                  <input type="email" class="form-control" id="contactno" name="contactno">
+                                  <input type="email" class="form-control" id="officeremail" name="officeremail">
                                 </div>
                               </div>
                             </div>
@@ -134,8 +134,8 @@
                             <div class="row">
                               <div class="col-sm-4">
                                 <label id="officerphoto">
-                                  <img src="{{ asset('Images/marc.jpg') }}" id="officerimg" alt="Current Officer Image" />
-                                  <input type="file" id="imageofficerupload" accept="image/*" onchange="previewImage(event)">
+                                  <img src="{{ asset('Images/marc.jpg') }}" id="officerimg" name="officerimg" alt="Current Officer Image" />
+                                  <input type="file" id="imageofficerupload" accept="image/*" name="officerphoto" onchange="previewImage(event)">
                                 </label>
                               </div>
                             </div>    
@@ -149,6 +149,9 @@
                               <div class="col-3">
                                 <div class="form-group required">
                                   <select class="selectpicker" data-style="select-with-transition"  title="Choose Division" name="divisionid" id="divisionid" required>
+                                    @foreach($policedivisions as $division)
+                                        <option value="{{ $division->id }}">{{ $division->division_name}}</option>
+                                    @endforeach
                                   </select>
                               </div>
                               </div>
@@ -161,6 +164,9 @@
                               <div class="col-3 ">
                                 <div class="form-group required">
                                   <select class="selectpicker" data-style="select-with-transition"  title="Choose Rank" name="rankid" id="rankid" required>
+                                    @foreach($ranks as $rank)
+                                        <option value="{{ $rank->id }}">{{ $rank->Rank_name}}</option>
+                                    @endforeach
                                   </select>
                               </div>
                               </div>
@@ -226,29 +232,58 @@ $(document).ready(function(){
       });
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-            @if(session('message'))
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: '{{ session('message') }}',
-                    showConfirmButton: false,
-                    position: "top-end",
-                    timer: 1000
-                });
-            @endif
-        });
+  document.addEventListener('DOMContentLoaded', function () {
+      const divisionSelect = document.getElementById('divisionid');
+      const stationSelect = document.getElementById('stationid');
 
-        function previewImage(event) {
-      const file = event.target.files[0];
-      if (file) {
+      divisionSelect.addEventListener('change', function () {
+          const divisionID = this.value;
+
+          if (divisionID) {
+              fetch(`/policestations/${divisionID}`)
+                  .then(response => response.json())
+                  .then(data => {
+                      stationSelect.innerHTML = '<option value="">Choose Station</option>';
+                      data.forEach(stations => {
+                          const option = document.createElement('option');
+                          option.value = stations.id;
+                          option.textContent = stations.station_name;
+                          stationSelect.appendChild(option);
+                      });
+                      $('.selectpicker').selectpicker('refresh');
+                  })
+                  .catch(error => console.error('Error fetching districts:', error));
+          } else {
+              stationSelect.innerHTML = '<option value="">Choose Station</option>';
+              $('.selectpicker').selectpicker('refresh');
+          }
+      });
+  });
+
+document.addEventListener('DOMContentLoaded', function () {
+    @if(session('message'))
+    Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: '{{ session('
+        message ') }}',
+        showConfirmButton: false,
+        position: "top-end",
+        timer: 1000
+    });
+    @endif
+});
+
+function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
         const reader = new FileReader();
-        reader.onload = function(e) {
-          document.getElementById('officerimg').src = e.target.result;
+        reader.onload = function (e) {
+            document.getElementById('officerimg').src = e.target.result;
         };
         reader.readAsDataURL(file);
-      }
     }
+}
 </script>
 
 @endsection
