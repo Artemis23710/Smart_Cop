@@ -59,7 +59,6 @@
         .inputlabel{
             color: black;
         }
-        
   </style>
     @livewireStyles
 </head>

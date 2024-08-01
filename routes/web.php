@@ -69,5 +69,6 @@ Route::get('/stationsstatus/{id}/{status}', [StationController::class, 'status']
 // Officer Controller Routes
 Route::get('/offiers', [OfficerController::class, 'index'])->name('offiers');
 Route::get('/newoffiers', [OfficerController::class, 'newofficer'])->name('newoffiers');
+Route::get('/showofficers', [OfficerController::class, 'showofficers'])->name('showofficers');
 Route::get('/policestations/{divisionID}', [OfficerController::class, 'getpolicestation'])->name('policestations');
 Route::post('/offiersstore', [OfficerController::class, 'store'])->name('offiersstore');

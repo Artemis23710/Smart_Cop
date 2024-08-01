@@ -51,6 +51,7 @@ $(document).ready(function(){
 
     $("#officerslink").addClass('active');
     
+
     var table = $('#datatable').DataTable();
     $('#datatables').DataTable({
         "pagingType": "full_numbers",
@@ -62,8 +63,23 @@ $(document).ready(function(){
         language: {
           search: "_INPUT_",
           searchPlaceholder: "Search records",
-        }
+        },
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('showofficers') }}",
+        columns: [
+            {data: 'namewithintial', name: 'namewithintial'},
+            {data: 'officerid', name: 'officerid'},
+            {data: 'rank', name: 'rank'},
+            {data: 'policedivision', name: 'policedivision'},
+            {data: 'station', name: 'station'},
+            {data: 'contactno', name: 'contactno'},
+            {data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-right'}
+        ]
       });
+
+
+
 });
 
 document.addEventListener('DOMContentLoaded', function () {

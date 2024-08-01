@@ -35,8 +35,13 @@ class Officers extends Model
         
     ];
 
-    public function policeststion()
+    public function station()
     {
         return $this->belongsTo(policestations::class, 'stationid');
+    }
+
+    public function rank()
+    {
+        return $this->belongsTo(OfficerRank::class, 'rankid');
     }
 }

@@ -10,4 +10,9 @@ class OfficerRank extends Model
     use HasFactory;
 
     protected $fillable = ['Rank_name'];
+
+    public function officers()
+    {
+        return $this->hasMany(Officers::class, 'rankid');
+    }
 }

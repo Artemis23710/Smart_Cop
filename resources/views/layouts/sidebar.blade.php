@@ -35,22 +35,23 @@
             <li class="list-nav">
                 <a class="nav-link dashbordlink" href="{{ route('departmentdashboard')}}" id="departmentlink">
                     <i class="material-icons" id="sidebaricons">business</i>
-                    <p id="listtext">Department Details</p>
+                    <p id="listtext">Officers</p>
                 </a>
             </li>
             @endcan
-            <li class="list-nav">
-                <a class="nav-link dashbordlink" href="../examples/charts.html" id="criminallink">
-                    <i class="material-icons" id="sidebaricons">person_outline</i>
-                    <p id="listtext"> Criminal </p>
-                </a>
-            </li>
             <li class="list-nav">
                 <a class="nav-link dashbordlink" href="../examples/charts.html" id="crimelink">
                     <i class="material-icons " id="sidebaricons">gavel</i>
                     <p id="listtext"> Investigations </p>
                 </a>
             </li>
+            <li class="list-nav">
+                <a class="nav-link dashbordlink" href="../examples/charts.html" id="criminallink">
+                    <i class="material-icons" id="sidebaricons">person_outline</i>
+                    <p id="listtext"> Criminal </p>
+                </a>
+            </li>
+    
             @can('Access-Administrator')
             <li class="list-nav">
                 <a class="nav-link dashbordlink" href="{{ route('userdashbord')}}" id="adminlink">

@@ -7,12 +7,16 @@ use App\Models\OfficerRank;
 use App\Models\Officers;
 use App\Models\PoliceDivision;
 use App\Models\policestations;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Can;
+use Yajra\DataTables\Facades\DataTables;
 
 class OfficerController extends Controller
 {
     public function index(){
+
         return view('Department.Officers.officers');
     }
 
@@ -27,6 +31,55 @@ class OfficerController extends Controller
         $stations = policestations::where('division_id', $divisionID)->get();
         return response()->json($stations);
     }
+
+    public function showofficers(Request $request)
+    {
+        if ($request->ajax()) {
+
+            $data = Officers::with(['rank', 'station.policedivision'])->get();
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('rank', function($row){
+                    return $row->rank->Rank_name ?? 'N/A';
+                })
+                ->addColumn('station', function($row){
+                    return $row->station->station_name ?? 'N/A';
+                })
+                ->addColumn('policedivision', function($row){
+                    return $row->station->policedivision->division_name ?? 'N/A';
+                })
+                ->addColumn('action', function($row) {
+                    $btn = '<td class="text-right">';
+                    
+
+                    if (auth()->user()->can('Officer-Edit')) {
+                        $btn .= '<button class="icon-button btn btn-info btn-sm mr-1 editbtn" title="Edit" data-bs-toggle="tooltip" data-bs-placement="top" id="' . $row->id . '"><i class="material-icons">edit</i></button>';
+                    }
+                 
+                    if (auth()->user()->can('Officer-Status')) {
+                        if ($row->status == 1) {
+                            $btn .= '<a href="' . route('divisionsstatus', ['id' => $row->id, 'status' => 2]) . '" onclick="return deactive_confirm()" target="_self" title="Deactivate" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-success btn-sm mr-1"><i class="fas fa-check"></i></a>';
+                        } else {
+                            $btn .= '<a href="' . route('divisionsstatus', ['id' => $row->id, 'status' => 1]) . '" onclick="return active_confirm()" target="_self" title="Activate" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-warning btn-sm mr-1"><i class="fas fa-times"></i></a>';
+                        }
+                    }
+
+                    if (auth()->user()->can('Officer-Login')) {
+                        $btn .= '<a href="' . route('divisionsstatus', ['id' => $row->id, 'status' => 3]) . '" onclick="return delete_confirm()" target="_self" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-danger btn-sm mr-1"><i class="material-icons">delete</i></a>';
+                    }
+                
+                    $btn .= '</td>';
+
+                    return $btn;
+                })
+                ->rawColumns(['rank', 'station', 'policedivision', 'action'])
+                ->make(true);
+        }
+
+        return view('Department.Officers.officers');
+    }
+
 
     public function store(Request $request){
 
