@@ -216,20 +216,65 @@
 $(document).ready(function(){
 
     $("#officerslink").addClass('active');
-    
-    var table = $('#datatable').DataTable();
-    $('#datatables').DataTable({
-        "pagingType": "full_numbers",
-        "lengthMenu": [
-          [10, 25, 50, -1],
-          [10, 25, 50, "All"]
-        ],
-        responsive: true,
-        language: {
-          search: "_INPUT_",
-          searchPlaceholder: "Search records",
+
+    // validate user enterd id card no with database
+    $('#idcardno').on('blur', function () {
+        var idcardno = $(this).val();
+        $.ajax({
+            url: '{{ route("checkidcardavalibility") }}',
+            method: 'POST',
+            data: {
+                idcardno: idcardno,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function (response) {
+                if (response.exists) {
+                    $('#idcardno').addClass('is-invalid');
+                    $('#idcardno-feedback').text('ID card number already exists.');
+                    $('#btnsubmituser').prop('disabled', true);
+                } else {
+                    $('#idcardno').removeClass('is-invalid');
+                    $('#idcardno').addClass('is-valid');
+                    $('#idcardno-feedback').text('ID card number is available.');
+                    $('#btnsubmituser').prop('disabled', false);
+                }
+            }
+        });
+    });
+
+    // validate user entered officerid with database
+    $('#officerid').on('blur', function () {
+        var officerid = $(this).val();
+        $.ajax({
+            url: '{{ route("checkofficeridavalibility") }}',
+            method: 'POST',
+            data: {
+                officerid: officerid,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function (response) {
+                if (response.exists) {
+                    $('#officerid').addClass('is-invalid');
+                    $('#officerid-feedback').text('Officer ID already exists.');
+                    $('#btnsubmituser').prop('disabled', true);
+                } else {
+                    $('#officerid').removeClass('is-invalid');
+                    $('#officerid').addClass('is-valid');
+                    $('#officerid-feedback').text('Officer ID is available.');
+                    $('#btnsubmituser').prop('disabled', false);
+                }
+            }
+        });
+    });
+
+    $('#officerForm').on('submit', function (e) {
+        if ($('#idcardno').hasClass('is-invalid') || $('#officerid').hasClass('is-invalid')) {
+            e.preventDefault();
+            alert('Please fix the errors before submitting.');
         }
-      });
+    });
+
+
 });
 
   document.addEventListener('DOMContentLoaded', function () {
