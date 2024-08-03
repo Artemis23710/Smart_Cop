@@ -29,6 +29,7 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 
     <link rel="stylesheet" href="{{ asset('css/sidebarstyles.css') }}">
@@ -101,7 +102,7 @@
     <script src="{{ url('/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
     <script src="{{ url('/js/plugins/jquery.dataTables.min.js') }}"></script>
     <script src="{{ url('/js/plugins/bootstrap-selectpicker.js') }}"></script>
-    <script src="{{ url('/js/plugins/sweetalert2.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
 

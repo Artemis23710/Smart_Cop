@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Validator;
 class OfficerController extends Controller
 {
     public function index(){
-
         $roles = Role::where('id', '!=', 1)->get();
         return view('Department.Officers.officers', compact('roles'));
     }
@@ -60,7 +59,7 @@ class OfficerController extends Controller
                     $btn = '<td class="text-right">';
                     
                     if (auth()->user()->can('Officer-Edit')) {
-                        $btn .= '<button class="icon-button btn btn-info btn-sm mr-1 editbtn" title="Edit" data-bs-toggle="tooltip" data-bs-placement="top" id="' . $row->id . '"><i class="material-icons">edit</i></button>';
+                        $btn .= '<a href="' . route('offieredit', ['id' => $row->id]) . '"  target="_self" title="Edit" data-bs-toggle="tooltip" data-bs-placement="top"  class="icon-button btn btn-info btn-sm mr-1 editbtn"><i class="material-icons">edit</i></a>';
                     }
 
                         // Check if user exists
@@ -79,8 +78,8 @@ class OfficerController extends Controller
                         }
                     }
 
-                    if (auth()->user()->can('Officer-Login')) {
-                        $btn .= '<a href="' . route('offiersstatus', ['id' => $row->id, 'status' => 3]) . '" onclick="return delete_confirm()" target="_self" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-danger btn-sm mr-1"><i class="material-icons">delete</i></a>';
+                    if (auth()->user()->can('Officer-Delete')) {
+                        $btn .= '<button class="btn btn-danger btn-sm mr-1 delete-btn" data-id="' . $row->id . '" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">delete</i></button>';
                     }
                 
                     $btn .= '</td>';
@@ -213,10 +212,20 @@ class OfficerController extends Controller
 
         }
 
-        return redirect()->back()->with('message', $message);
+        return redirect()->route('offiers')->with('message', $message);
     }
 
 
+    public function edit($officerID){
+
+        $ranks = OfficerRank::all();
+        $policedivisions = PoliceDivision::all();
+        $stations = policestations::all();
+        $officerinfo = Officers::find($officerID);
+
+        return view('Department.Officers.editofficer', compact('ranks','policedivisions','stations','officerinfo'));
+
+    }
 
 
     public function status($requestid, $statusid)

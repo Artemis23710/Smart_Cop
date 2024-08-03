@@ -188,6 +188,28 @@ document.addEventListener('DOMContentLoaded', function () {
                     timer: 1000
                 });
             @endif
+
+            document.addEventListener('click', function (event) {
+        if (event.target.closest('.delete-btn')) {
+            var deleteButton = event.target.closest('.delete-btn');
+            var officerId = deleteButton.getAttribute('data-id');
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '{{ url("offiersstatus") }}/' + officerId + '/3';
+                }
+            });
+        }
+    });
         });
 
 </script>

@@ -72,6 +72,7 @@ Route::get('/newoffiers', [OfficerController::class, 'newofficer'])->name('newof
 Route::get('/showofficers', [OfficerController::class, 'showofficers'])->name('showofficers');
 Route::get('/policestations/{divisionID}', [OfficerController::class, 'getpolicestation'])->name('policestations');
 Route::post('/offiersstore', [OfficerController::class, 'store'])->name('offiersstore');
+Route::get('/offieredit/{id}', [OfficerController::class, 'edit'])->name('offieredit');
 Route::get('/offiersstatus/{id}/{status}', [OfficerController::class, 'status'])->name('offiersstatus');
 Route::post('/checkidcardavalibility', [OfficerController::class, 'checkIdCard'])->name('checkidcardavalibility');
 Route::post('/checkofficeridavalibility', [OfficerController::class, 'checkOfficerId'])->name('checkofficeridavalibility');
