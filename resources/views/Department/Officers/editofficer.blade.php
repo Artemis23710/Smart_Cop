@@ -134,7 +134,13 @@
                             <div class="row">
                               <div class="col-sm-4">
                                 <label id="officerphoto">
-                                  <img src="{{ asset('Images/marc.jpg') }}" id="officerimg" name="officerimg" alt="Current Officer Image" />
+                                  @if ($officerphoto && $officerphoto->photourl)
+                                  <!-- Display the current officer's image -->
+                                  <img src="{{ asset('storage/Photos/' . $officerphoto->photourl) }}" id="officerimg" name="officerimg" alt="Current Officer Image" />
+                                  @else
+                                      <!-- Display a default image -->
+                                      <img src="{{ asset('Images/default.jpg') }}" id="officerimg" name="officerimg" alt="Default Officer Image" />
+                                  @endif
                                   <input type="file" id="imageofficerupload" accept="image/*" name="officerphoto" onchange="previewImage(event)">
                                 </label>
                               </div>
