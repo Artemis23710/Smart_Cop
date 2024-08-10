@@ -31,27 +31,39 @@
            {{-- Department section --}}
            @elseif(request()->route()->getName() == 'departmentdashboard')
            <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
-           <li><a href="#2"><i class="material-icons">business</i> Department Infomation</a></li>
+           <li><a href="#2"><i class="material-icons">groups</i> Units & Personnel</a></li>
 
            @elseif(request()->route()->getName() == 'divisions')
            <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
-           <li><a href="#2"><i class="material-icons">business</i> Department Infomation</a></li>
+           <li><a href="#2"><i class="material-icons">groups</i> Units & Personnel</a></li>
            <li><a href="#3"><i class="material-icons">group</i> Divisions</a></li>
 
            @elseif(request()->route()->getName() == 'stations')
            <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
-           <li><a href="#2"><i class="material-icons">business</i> Department Infomation</a></li>
+           <li><a href="#2"><i class="material-icons">groups</i> Units & Personnel</a></li>
            <li><a href="#3"><i class="material-icons">location_city</i> Stations</a></li>
 
            @elseif(request()->route()->getName() == 'offiers')
            <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
-           <li><a href="#2"><i class="material-icons">business</i> Department Infomation</a></li>
+           <li><a href="#2"><i class="material-icons">groups</i> Units & Personnel</a></li>
            <li><a href="#3"><i class="fas fa-user-tie fasicons" ></i> Officers</a></li>
            @elseif(request()->route()->getName() == 'newoffiers')
            <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
-           <li><a href="#2"><i class="material-icons">business</i> Department Infomation</a></li>
+           <li><a href="#2"><i class="material-icons">groups</i> Units & Personnel</a></li>
            <li><a href="#3"><i class="fas fa-user-tie fasicons" ></i> Officers</a></li>
            <li><a href="#3"><i class="fas fa-plus fasicons" ></i> Add New Officers</a></li>
+
+           @elseif(request()->route()->getName() == 'viewofficer')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">groups</i> Units & Personnel</a></li>
+           <li><a href="#3"><i class="fas fa-user-tie fasicons" ></i> Officers</a></li>
+           <li><a href="#3"><i class="material-icons">visibility</i> View Officers Information</a></li>
+
+           @elseif(request()->route()->getName() == 'offieredit')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">groups</i> Units & Personnel</a></li>
+           <li><a href="#3"><i class="fas fa-user-tie fasicons" ></i> Officers</a></li>
+           <li><a href="#3"><i class="material-icons">edit</i> Edit Officers Information</a></li>
 
           @endif
       </ul>

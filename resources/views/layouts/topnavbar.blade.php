@@ -2,8 +2,8 @@
     <div class="container-fluid" id="topnav_container">
 
       <div class="logo" id="systemlogo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-mini" id="sidebartext"> SC </a>
-    <a href="http://www.creative-tim.com" class="simple-text logo-normal " id="sidebartext">
+        <a href="#" class="simple-text logo-mini" id="sidebartext"><img src="{{ asset('Images/Logo.png') }}" id="systemlogoicon"></a>
+    <a href="#" class="simple-text logo-normal " id="sidebartext">
         Smart Cop
     </a></div>
       <div class="navbar-wrapper">

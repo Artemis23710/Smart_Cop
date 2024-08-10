@@ -36,26 +36,46 @@
 
         <style>
         #loginbody {
-            /* background-image: url('{{ asset('images/background.jpg') }}'); */
-            background-size: cover;
+            background-image: url('{{ asset('Images/benchmark.png') }}'); 
+            background-size: contain; 
             background-repeat: no-repeat;
-            background-position: center center;
-            height: 100%;
-            width: 100%;
+            background-position: center center; 
+            height: 80vh;
+            width: 100vw; 
             margin: 0;
             padding: 0;
+            position: relative;
         }
+
+        #loginbody::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-image: url('{{ asset('Images/benchmark.png') }}');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center center; 
+            width: 100%; 
+            height: 100%;
+            opacity: 0.1;
+            filter: blur(100px); 
+            z-index: 0; 
+            pointer-events: none; 
+        }
+
+       
     </style>
 </head>
 <body id="loginbody">
-    {{-- <img src="{{ asset('Images/background.jpg') }}"> --}}
     <main id="loginsection" >
         <div class="container h-100 background">
             <div class="d-flex justify-content-center h-100 align-items-center">
                 <div class="user_card">
                     <div class="d-flex justify-content-center">
                         <div class="brand_logo_container">
-                            <img src="https://cdn.freebiesupply.com/logos/large/2x/pinterest-circle-logo-png-transparent.png" class="brand_logo" alt="Logo">
+                            <img src="{{ asset('Images/Logo.png') }}" class="brand_logo" alt="Logo">
                         </div>
                     </div>
                     <div class="d-flex justify-content-center form_container">

@@ -51,6 +51,8 @@ Route::get('/userstatus/{id}/{status}', [UsermanageController::class, 'status'])
 
 // Department Controller Routes
 Route::get('/departmentdashboard', [DepartmentController::class, 'index'])->name('departmentdashboard');
+Route::post('/officersearch', [DepartmentController::class, 'search'])->name('officersearch');
+Route::get('/viewofficer/{id}', [DepartmentController::class, 'viewofficer'])->name('viewofficer');
 
 
 // Division Controller Routes

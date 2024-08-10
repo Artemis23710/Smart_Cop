@@ -34,8 +34,8 @@
             @can('Access-Department')
             <li class="list-nav">
                 <a class="nav-link dashbordlink" href="{{ route('departmentdashboard')}}" id="departmentlink">
-                    <i class="material-icons" id="sidebaricons">business</i>
-                    <p id="listtext">Officers</p>
+                    <i class="material-icons"  id="sidebaricons">groups</i>
+                    <p id="listtext">Units & Personnel</p>
                 </a>
             </li>
             @endcan
