@@ -40,13 +40,13 @@
             </li>
             @endcan
             <li class="list-nav">
-                <a class="nav-link dashbordlink" href="../examples/charts.html" id="crimelink">
+                <a class="nav-link dashbordlink" href="{{ route('crimedashboard')}}" id="crimelink">
                     <i class="material-icons " id="sidebaricons">gavel</i>
                     <p id="listtext"> Investigations </p>
                 </a>
             </li>
             <li class="list-nav">
-                <a class="nav-link dashbordlink" href="../examples/charts.html" id="criminallink">
+                <a class="nav-link dashbordlink" href="{{ route('criminaldashboard')}}" id="criminallink">
                     <i class="material-icons" id="sidebaricons">person_outline</i>
                     <p id="listtext"> Criminal </p>
                 </a>

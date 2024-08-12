@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admincontroller;
+use App\Http\Controllers\CrimedashboardController;
+use App\Http\Controllers\CriminaldashboardController;
 use App\Http\Controllers\RolemanageController;
 use App\Http\Controllers\UsermanageController;
 use App\Http\Controllers\DepartmentController;
@@ -79,3 +81,9 @@ Route::get('/offiersstatus/{id}/{status}', [OfficerController::class, 'status'])
 Route::post('/checkidcardavalibility', [OfficerController::class, 'checkIdCard'])->name('checkidcardavalibility');
 Route::post('/checkofficeridavalibility', [OfficerController::class, 'checkOfficerId'])->name('checkofficeridavalibility');
 Route::post('/offierslogincreate', [OfficerController::class, 'createofficerlogin'])->name('offierslogincreate');
+
+// Crime Dashboard Controller Routes
+Route::get('/crimedashboard', [CrimedashboardController::class, 'index'])->name('crimedashboard');
+
+// Criminal Dashboard Controller Routes
+Route::get('/criminaldashboard', [CriminaldashboardController::class, 'index'])->name('criminaldashboard');

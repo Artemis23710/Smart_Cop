@@ -40,7 +40,7 @@
     width: 170px;
     top: -75px;
     border-radius: 50%;
-    background: #5356FF;
+    background: #0509fa;
     padding: 10px;
     text-align: center;
 }
@@ -48,7 +48,7 @@
     height: 150px;
     width: 150px;
     border-radius: 50%;
-    border: 2px solid white;
+    border: 2px solid #0509fa;
 }
 .form_container {
     margin-top: 120px;
