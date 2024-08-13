@@ -66,7 +66,22 @@
            <li><a href="#3"><i class="material-icons">edit</i> Edit Officers Information</a></li>
 
 
-           
+           {{-- Criminal section --}}
+           @elseif(request()->route()->getName() == 'criminaldashboard')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
+
+           @elseif(request()->route()->getName() == 'suspects')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
+           <li><a href="#3"> <i class="material-icons">fingerprint</i> Suspects</a></li>
+
+           @elseif(request()->route()->getName() == 'newsuspects')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
+           <li><a href="#3"> <i class="material-icons">fingerprint</i> Suspects</a></li>
+           <li><a href="#3"><i class="fas fa-plus fasicons" ></i> Add New Suspects</a></li>
+
           @endif
       </ul>
   </div>

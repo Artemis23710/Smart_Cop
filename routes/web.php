@@ -10,6 +10,7 @@ use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\StationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OfficerController;
+use App\Http\Controllers\SuspectController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -87,3 +88,7 @@ Route::get('/crimedashboard', [CrimedashboardController::class, 'index'])->name(
 
 // Criminal Dashboard Controller Routes
 Route::get('/criminaldashboard', [CriminaldashboardController::class, 'index'])->name('criminaldashboard');
+
+// Suspects Controller Routes
+Route::get('/suspects', [SuspectController::class, 'index'])->name('suspects');
+Route::get('/newsuspects', [SuspectController::class, 'newsuspect'])->name('newsuspects');

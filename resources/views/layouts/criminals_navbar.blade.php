@@ -2,7 +2,7 @@
     <ul class="nav nav-pills nav-pills-info" role="tablist">
       @can('Division-List')
         <li class="nav-item">
-          <a class="nav-link navbutton"  href="{{ route('divisions')}}"  id="divisionlink">
+          <a class="nav-link navbutton"  href="{{ route('suspects')}}"  id="suspectslink">
             <i class="material-icons">fingerprint</i> Suspects
           </a>
         </li>
