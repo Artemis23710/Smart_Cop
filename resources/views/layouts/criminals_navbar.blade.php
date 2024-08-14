@@ -1,6 +1,6 @@
 <div class="row nowrap rowsection">
     <ul class="nav nav-pills nav-pills-info" role="tablist">
-      @can('Division-List')
+      @can('Suspect-List')
         <li class="nav-item">
           <a class="nav-link navbutton"  href="{{ route('suspects')}}"  id="suspectslink">
             <i class="material-icons">fingerprint</i> Suspects

@@ -11,7 +11,7 @@
         <div class="card">
             <div class="card-body">
               <div class="col-12">
-                @can('Officer-Create')
+                @can('Suspect-Create')
                 <a href="{{ route('newsuspects') }}"   class="btn btn-info fa-pull-right"><i class="fas fa-plus mr-2"></i>Add New Suspect</a>
                 @endcan
             </div>
@@ -19,17 +19,16 @@
             <br>
             <hr style="width:100%; height:1px; background-color:#000;">
             <br>
-
                 <div class="material-datatables">
                     <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                         <thead>
                             <tr>
-                              <th>Officer Name</th>
-                              <th>Officer ID</th>
-                              <th>Rank</th>
-                              <th>Division</th>
-                              <th>Assigned Station</th>
-                              <th>Contact</th>
+                              <th>Suspect Name</th>
+                              <th>NIC</th>
+                              <th>Crime Category</th>
+                              <th>Crime</th>
+                              <th>Arrested Station</th>
+                              <th>Arrested Date</th>
                               <th class="disabled-sorting text-right">Actions</th>
                             </tr>
                           </thead>
@@ -49,8 +48,6 @@
 $(document).ready(function () {
 
     $("#suspectslink").addClass('active');
-
-
     var table = $('#datatable').DataTable();
     $('#datatables').DataTable({
         "pagingType": "full_numbers",
@@ -65,30 +62,30 @@ $(document).ready(function () {
         },
         processing: true,
         serverSide: true,
-        ajax: "{{ route('showofficers') }}",
+        ajax: "{{ route('showsuspects') }}",
         columns: [{
                 data: 'namewithintial',
                 name: 'namewithintial'
             },
             {
-                data: 'officerid',
-                name: 'officerid'
+                data: 'idcardno',
+                name: 'idcardno'
             },
             {
-                data: 'rank',
-                name: 'rank'
+                data: 'maincategory',
+                name: 'maincategory'
             },
             {
-                data: 'policedivision',
-                name: 'policedivision'
+                data: 'crimecategory',
+                name: 'crimecategory'
             },
             {
                 data: 'station',
                 name: 'station'
             },
             {
-                data: 'contactno',
-                name: 'contactno'
+                data: 'arresteddate',
+                name: 'arresteddate'
             },
             {
                 data: 'action',
@@ -99,14 +96,6 @@ $(document).ready(function () {
             }
         ]
     });
-
-    // set employee id in the model recordid feild
-    $(document).on('click', '.useraccbtn', function () {
-        var id = $(this).attr('id');
-        $('#recordID').val(id);
-        $('#usermodel').modal('show');
-    });
-
 });
 
 
@@ -138,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '{{ url("offiersstatus") }}/' + officerId + '/3';
+                    window.location.href = '{{ url("suspectstatus") }}/' + officerId + '/3';
                 }
             });
         }

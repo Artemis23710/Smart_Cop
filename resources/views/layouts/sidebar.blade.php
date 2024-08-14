@@ -45,13 +45,14 @@
                     <p id="listtext"> Investigations </p>
                 </a>
             </li>
+            @can('Access-Criminal')
             <li class="list-nav">
                 <a class="nav-link dashbordlink" href="{{ route('criminaldashboard')}}" id="criminallink">
                     <i class="material-icons" id="sidebaricons">person_outline</i>
                     <p id="listtext"> Criminal </p>
                 </a>
             </li>
-    
+            @endcan
             @can('Access-Administrator')
             <li class="list-nav">
                 <a class="nav-link dashbordlink" href="{{ route('userdashbord')}}" id="adminlink">

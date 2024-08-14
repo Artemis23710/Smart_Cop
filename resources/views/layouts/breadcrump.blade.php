@@ -82,6 +82,12 @@
            <li><a href="#3"> <i class="material-icons">fingerprint</i> Suspects</a></li>
            <li><a href="#3"><i class="fas fa-plus fasicons" ></i> Add New Suspects</a></li>
 
+           @elseif(request()->route()->getName() == 'suspectsedit')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
+           <li><a href="#3"> <i class="material-icons">fingerprint</i> Suspects</a></li>
+           <li><a href="#3"><i class="material-icons">edit</i> Edit Suspects Information</a></li>
+
           @endif
       </ul>
   </div>

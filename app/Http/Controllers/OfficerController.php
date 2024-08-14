@@ -108,7 +108,6 @@ class OfficerController extends Controller
             if ($result['status'] === 'success') {
                 return redirect()->route('offiers')->with('message', $result['message']);
             }
-
             return redirect()->back()->withErrors($result['errors'])->withInput();
 
     }
@@ -122,7 +121,6 @@ class OfficerController extends Controller
         $officerinfo = Officers::find($officerID);
 
         $officerphoto = Officerprofilephoto::where('officer_id', $officerID)->first();
-
         return view('Department.Officers.editofficer', compact('ranks','policedivisions','stations','officerinfo','officerphoto'));
 
     }

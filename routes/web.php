@@ -92,3 +92,8 @@ Route::get('/criminaldashboard', [CriminaldashboardController::class, 'index'])-
 // Suspects Controller Routes
 Route::get('/suspects', [SuspectController::class, 'index'])->name('suspects');
 Route::get('/newsuspects', [SuspectController::class, 'newsuspect'])->name('newsuspects');
+Route::post('/suspectsstore', [SuspectController::class, 'store'])->name('suspectsstore');
+Route::get('/crimelist/{maincategoryID}', [SuspectController::class, 'getcrime'])->name('crimelist');
+Route::get('/showsuspects', [SuspectController::class, 'showsuspects'])->name('showsuspects');
+Route::get('/suspectsedit/{id}', [SuspectController::class, 'edit'])->name('suspectsedit');
+Route::get('/suspectstatus/{id}/{status}', [SuspectController::class, 'status'])->name('suspectstatus');
