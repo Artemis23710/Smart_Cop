@@ -231,7 +231,9 @@
                                   <div class="col-3 ">
                                     <div class="form-group required">
                                       <select class="selectpicker" data-style="select-with-transition"  title="Choose Crime for Arrest" name="arrestedcrime" id="arrestedcrime" required>
-                                     
+                                        @foreach($crimelists as $crime)
+                                            <option value="{{ $crime->id }}" {{ $crime->id == $suspectinfo->crimeid ? 'selected' : '' }}>{{ $crime->crime}}</option>
+                                        @endforeach
                                       </select>
                                   </div>
                                   </div>
@@ -240,7 +242,7 @@
                                 <div class="form-group required">
                                   <select class="selectpicker" data-style="select-with-transition"  title="Choose Division" name="divisionid" id="divisionid" required>
                                     @foreach($policedivisions as $division)
-                                        <option value="{{ $division->id }}">{{ $division->division_name}}</option>
+                                        <option value="{{ $division->id }}"  {{ $division->id == $divisionID ? 'selected' : '' }}>{{ $division->division_name}}</option>
                                     @endforeach
                                   </select>
                               </div>
@@ -293,33 +295,32 @@ $(document).ready(function(){
     $("#suspectslink").addClass('active');
 
     // validate user enterd id card no with database
-    // $('#idcardno').on('blur', function () {
-    //     var idcardno = $(this).val();
-    //     $.ajax({
-    //         url: '{{ route("checkidcardavalibility") }}',
-    //         method: 'POST',
-    //         data: {
-    //             idcardno: idcardno,
-    //             _token: '{{ csrf_token() }}'
-    //         },
-    //         success: function (response) {
-    //             if (response.exists) {
-    //                 $('#idcardno').addClass('is-invalid');
-    //                 $('#idcardno-feedback').text('ID card number already exists.');
-    //                 $('#btnsubmituser').prop('disabled', true);
-    //             } else {
-    //                 $('#idcardno').removeClass('is-invalid');
-    //                 $('#idcardno').addClass('is-valid');
-    //                 $('#idcardno-feedback').text('ID card number is available.');
-    //                 $('#btnsubmituser').prop('disabled', false);
-    //             }
-    //         }
-    //     });
-    // });
+    $('#idcardno').on('blur', function () {
+        var idcardno = $(this).val();
+        $.ajax({
+            url: '{{ route("suspectcheckidcardavalibility") }}',
+            method: 'POST',
+            data: {
+                idcardno: idcardno,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function (response) {
+                if (response.exists) {
+                    $('#idcardno').addClass('is-invalid');
+                    $('#idcardno-feedback').text('ID card number already exists.');
+                    $('#btnsubmituser').prop('disabled', true);
+                } else {
+                    $('#idcardno').removeClass('is-invalid');
+                    $('#idcardno').addClass('is-valid');
+                    $('#idcardno-feedback').text('ID card number is available.');
+                    $('#btnsubmituser').prop('disabled', false);
+                }
+            }
+        });
+    });
 
-    // validate user entered officerid with database
+   
   
-
     $('#officerForm').on('submit', function (e) {
         if ($('#idcardno').hasClass('is-invalid') || $('#officerid').hasClass('is-invalid')) {
             e.preventDefault();

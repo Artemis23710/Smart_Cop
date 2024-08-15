@@ -156,7 +156,7 @@
                                 <div class="form-group required">
                                   <select class="selectpicker" data-style="select-with-transition"  title="Choose Division" name="divisionid" id="divisionid" >
                                     @foreach($policedivisions as $division)
-                                        <option value="{{ $division->id }}">{{ $division->division_name}}</option>
+                                        <option value="{{ $division->id }}" {{ $division->id == $divisionID ? 'selected' : '' }}>{{ $division->division_name}}</option>
                                     @endforeach
                                   </select>
                               </div>

@@ -6,18 +6,19 @@ use App\Models\Suspect;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
-class ConvictedcriminalController extends Controller
+class CriminalotherController extends Controller
 {
     public function index(){
-        return view('Criminals.Convicted.convictedcriminal');
+        return view('Criminals.Criminal_other.criminalother');
     }
-    public function showconvictedcriminals(Request $request)
+
+    public function showothercriminal(Request $request)
     {
         if ($request->ajax()) {
 
             $data = Suspect::with(['station', 'maincategory','crimecategory'])
                             ->whereIn('suspects.status', [1, 2])
-                            ->where('suspects.convictedstatus', 1)
+                            ->where('suspects.maincategoryid', 3)
                             ->get();
 
             return DataTables::of($data)
@@ -44,6 +45,6 @@ class ConvictedcriminalController extends Controller
                 ->make(true);
         }
 
-        return view('Criminals.Convicted.convictedcriminal');
+        return view('Criminals.Criminal_other.criminalother');
     }
 }

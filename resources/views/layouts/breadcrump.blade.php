@@ -65,7 +65,6 @@
            <li><a href="#3"><i class="fas fa-user-tie fasicons" ></i> Officers</a></li>
            <li><a href="#3"><i class="material-icons">edit</i> Edit Officers Information</a></li>
 
-
            {{-- Criminal section --}}
            @elseif(request()->route()->getName() == 'criminaldashboard')
            <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
@@ -88,6 +87,37 @@
            <li><a href="#3"> <i class="material-icons">fingerprint</i> Suspects</a></li>
            <li><a href="#3"><i class="material-icons">edit</i> Edit Suspects Information</a></li>
 
+
+
+          @elseif(request()->route()->getName() == 'criminalserious')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
+           <li><a href="#3"> <i class="fas fa-exclamation-triangle"></i> Serious Crimes Suspects</a></li>
+
+
+
+           @elseif(request()->route()->getName() == 'criminalproperty')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
+           <li><a href="#3"><i class="material-icons">attach_money</i>Property and Financial Crimes Suspects</a></li>
+
+
+
+           @elseif(request()->route()->getName() == 'criminalviolent')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
+           <li><a href="#3">  <i class="fas fa-flag"></i>&nbsp;Violent and Public Disorder Suspects</a></li>
+
+
+           @elseif(request()->route()->getName() == 'criminalother')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
+           <li><a href="#3"><i class="fas fa-question-circle"></i> Suspects of Other Crime</a></li>
+
+           @elseif(request()->route()->getName() == 'convictedcriminals')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
+           <li><a href="#3"><i class="fas fa-gavel navfasicon"></i> Convicted Criminals</a></li>
           @endif
       </ul>
   </div>

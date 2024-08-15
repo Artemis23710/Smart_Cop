@@ -16,7 +16,6 @@
                             <tr>
                               <th>Suspect Name</th>
                               <th>NIC</th>
-                              <th>Crime Category</th>
                               <th>Crime</th>
                               <th>Arrested Station</th>
                               <th>Arrested Date</th>
@@ -38,8 +37,7 @@
 <script>
 $(document).ready(function () {
 
-    $("#convictedlink").addClass('active');
-
+    $("#propertylink").addClass('active');
     var table = $('#datatable').DataTable();
     $('#datatables').DataTable({
         "pagingType": "full_numbers",
@@ -54,7 +52,7 @@ $(document).ready(function () {
         },
         processing: true,
         serverSide: true,
-        ajax: "{{ route('showconvictedcriminals') }}",
+        ajax: "{{ route('showpropertycriminal') }}",
         columns: [{
                 data: 'namewithintial',
                 name: 'namewithintial'
@@ -62,10 +60,6 @@ $(document).ready(function () {
             {
                 data: 'idcardno',
                 name: 'idcardno'
-            },
-            {
-                data: 'maincategory',
-                name: 'maincategory'
             },
             {
                 data: 'crimecategory',

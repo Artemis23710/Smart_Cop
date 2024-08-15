@@ -104,7 +104,16 @@ class SuspectController extends Controller
         $suspectinfo = Suspect::find($officerID);
         $suspectphoto = Suspectphoto::where('suspect_id', $officerID)->first();
 
-        return view('Criminals.Suspects.editsuspects', compact('maincrimecategory','policedivisions','stations','suspectinfo','suspectphoto'));
+        $stationID = $suspectinfo->stationid;
+        $station = policestations::find($stationID);
+        $divisionID = $station ? $station->division_id : null;
+
+
+        $categoryID = $suspectinfo->maincategoryid;
+        $crimelists = Crimelist::where('category_id', $categoryID)->get();
+        //dd($crimelists);
+
+        return view('Criminals.Suspects.editsuspects', compact('maincrimecategory','policedivisions','stations','suspectinfo','suspectphoto','divisionID','crimelists'));
 
     }
 
@@ -112,6 +121,24 @@ class SuspectController extends Controller
     {
         $message = $this->suspectservice->updateStatus($requestid, $statusid);
         return redirect()->back()->with('message', $message);
+    }
+
+    public function checkIdCard(Request $request)
+    {
+        $nicnumber = $request->idcardno;
+
+        $oldnic = '';
+    
+        if (strlen($nicnumber) == 12) {
+            $str1 = substr($nicnumber, 2, 5);
+            $str2 = substr($nicnumber, 8, 4); 
+            $oldnic = $str1 . $str2 . 'V';
+        } else {
+            $oldnic = $nicnumber;
+        }
+
+        $exists = Suspect::where('idcardno', $oldnic)->exists();
+        return response()->json(['exists' => $exists]);
     }
 
 }

@@ -1,8 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admincontroller;
+use App\Http\Controllers\ConvictedcriminalController;
 use App\Http\Controllers\CrimedashboardController;
 use App\Http\Controllers\CriminaldashboardController;
+use App\Http\Controllers\CriminalotherController;
+use App\Http\Controllers\CriminalpropertyController;
+use App\Http\Controllers\CriminalseriousController;
+use App\Http\Controllers\CriminalviolentController;
 use App\Http\Controllers\RolemanageController;
 use App\Http\Controllers\UsermanageController;
 use App\Http\Controllers\DepartmentController;
@@ -97,3 +102,25 @@ Route::get('/crimelist/{maincategoryID}', [SuspectController::class, 'getcrime']
 Route::get('/showsuspects', [SuspectController::class, 'showsuspects'])->name('showsuspects');
 Route::get('/suspectsedit/{id}', [SuspectController::class, 'edit'])->name('suspectsedit');
 Route::get('/suspectstatus/{id}/{status}', [SuspectController::class, 'status'])->name('suspectstatus');
+Route::post('/suspectcheckidcardavalibility', [SuspectController::class, 'checkIdCard'])->name('suspectcheckidcardavalibility');
+
+
+//Criminalserous Controller Routes
+Route::get('/criminalserious', [CriminalseriousController::class, 'index'])->name('criminalserious');
+Route::get('/showseriouscriminal', [CriminalseriousController::class, 'showseriouscriminal'])->name('showseriouscriminal');
+
+//Criminalproperty Controller Routes
+Route::get('/criminalproperty', [CriminalpropertyController::class, 'index'])->name('criminalproperty');
+Route::get('/showpropertycriminal', [CriminalpropertyController::class, 'showpropertycriminal'])->name('showpropertycriminal');
+
+//Criminalviolent Controller Routes
+Route::get('/criminalviolent', [CriminalviolentController::class, 'index'])->name('criminalviolent');
+Route::get('/showviolentcriminal', [CriminalviolentController::class, 'showviolentcriminal'])->name('showviolentcriminal');
+
+//Criminalother Controller Routes
+Route::get('/criminalother', [CriminalotherController::class, 'index'])->name('criminalother');
+Route::get('/showothercriminal', [CriminalotherController::class, 'showothercriminal'])->name('showothercriminal');
+
+//Convictedcriminal Controller Routes
+Route::get('/convictedcriminals', [ConvictedcriminalController::class, 'index'])->name('convictedcriminals');
+Route::get('/showconvictedcriminals', [ConvictedcriminalController::class, 'showconvictedcriminals'])->name('showconvictedcriminals');

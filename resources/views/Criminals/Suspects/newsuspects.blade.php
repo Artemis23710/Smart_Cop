@@ -281,32 +281,30 @@ $(document).ready(function(){
     $("#suspectslink").addClass('active');
 
     // validate user enterd id card no with database
-    // $('#idcardno').on('blur', function () {
-    //     var idcardno = $(this).val();
-    //     $.ajax({
-    //         url: '{{ route("checkidcardavalibility") }}',
-    //         method: 'POST',
-    //         data: {
-    //             idcardno: idcardno,
-    //             _token: '{{ csrf_token() }}'
-    //         },
-    //         success: function (response) {
-    //             if (response.exists) {
-    //                 $('#idcardno').addClass('is-invalid');
-    //                 $('#idcardno-feedback').text('ID card number already exists.');
-    //                 $('#btnsubmituser').prop('disabled', true);
-    //             } else {
-    //                 $('#idcardno').removeClass('is-invalid');
-    //                 $('#idcardno').addClass('is-valid');
-    //                 $('#idcardno-feedback').text('ID card number is available.');
-    //                 $('#btnsubmituser').prop('disabled', false);
-    //             }
-    //         }
-    //     });
-    // });
+    $('#idcardno').on('blur', function () {
+        var idcardno = $(this).val();
+        $.ajax({
+            url: '{{ route("suspectcheckidcardavalibility") }}',
+            method: 'POST',
+            data: {
+                idcardno: idcardno,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function (response) {
+                if (response.exists) {
+                    $('#idcardno').addClass('is-invalid');
+                    $('#idcardno-feedback').text('ID card number already exists.');
+                    $('#btnsubmituser').prop('disabled', true);
+                } else {
+                    $('#idcardno').removeClass('is-invalid');
+                    $('#idcardno').addClass('is-valid');
+                    $('#idcardno-feedback').text('ID card number is available.');
+                    $('#btnsubmituser').prop('disabled', false);
+                }
+            }
+        });
+    });
 
-    // validate user entered officerid with database
-  
 
     $('#officerForm').on('submit', function (e) {
         if ($('#idcardno').hasClass('is-invalid') || $('#officerid').hasClass('is-invalid')) {

@@ -113,15 +113,21 @@ class OfficerController extends Controller
     }
 
 
-    public function edit($officerID){
+    public function edit($officerID)
+    {
 
         $ranks = OfficerRank::all();
         $policedivisions = PoliceDivision::all();
         $stations = policestations::all();
         $officerinfo = Officers::find($officerID);
-
         $officerphoto = Officerprofilephoto::where('officer_id', $officerID)->first();
-        return view('Department.Officers.editofficer', compact('ranks','policedivisions','stations','officerinfo','officerphoto'));
+
+        $stationID = $officerinfo->stationid;
+
+        $station = policestations::find($stationID);
+        $divisionID = $station ? $station->division_id : null;
+
+        return view('Department.Officers.editofficer', compact('ranks','policedivisions','stations','officerinfo','officerphoto','divisionID'));
 
     }
 
