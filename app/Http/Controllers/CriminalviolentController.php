@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Crimelist;
 use App\Models\Suspect;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -9,6 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 class CriminalviolentController extends Controller
 {
     public function index(){
+       
         return view('Criminals.Criminal_violent.criminalviolent');
     }
 
@@ -35,9 +37,12 @@ class CriminalviolentController extends Controller
 
                 ->addColumn('action', function($row) {
                     $btn = '<td class="text-right">';
-                    
+
+                    $btn .= '<button class="btn btn-success btn-sm mr-1 report-btn" id="' . $row->id . '" title="Crime Details" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">post_add</i></button>';    
                 
-                    $btn .= '</td>';
+                    $btn .= '<a href="' . route('suspectsedit', ['id' => $row->id]) . '"  target="_self" title="View" data-bs-toggle="tooltip" data-bs-placement="top"  class="icon-button btn btn-sm mr-1 editbtn"><i class="material-icons">visibility</i></a>';
+
+                    $btn .= '<button class="btn btn-danger btn-sm mr-1 judment-btn" id="' . $row->id . '" title="Court Decision" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fas fa-gavel navfasicon"></i></button>';    
 
                     return $btn;
                 })

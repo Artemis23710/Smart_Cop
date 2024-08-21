@@ -106,6 +106,11 @@
 
     <script>
 
+        $(document).on('click', '.modelclosebtn', function() {
+            $(this).closest('.modal').modal('hide');
+        });
+
+
           function toggleFullscreen() {
             const fullscreenIcon = document.getElementById('fullscreen-icon');
             const exitFullscreenIcon = document.getElementById('exit-fullscreen-icon');

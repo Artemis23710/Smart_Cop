@@ -31,6 +31,45 @@
         </div>
     </div>
 </div>
+
+{{-- Crime Record details add model --}}
+<div class="modal fade" id="reportmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Add Suspect Crime Details</h3>
+                <button type="button" class="close modelclosebtn" data-dismiss="modal" aria-hidden="true" >
+                    <i class="material-icons">close</i>
+                </button>
+            </div>
+            <hr style="width:100%; height:1px; background-color:#000;">
+            <div class="modal-body">
+                @livewire('violentreport-form')
+            </div>
+        </div>
+    </div>
+</div>
+
+    {{-- curt judgement add model --}}
+<div class="modal fade" id="judgementmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Add Suspect's Court Judgement Details</h3>
+                <button type="button" class="close modelclosebtn" data-dismiss="modal" aria-hidden="true" >
+                    <i class="material-icons">close</i>
+                </button>
+            </div>
+            <hr style="width:100%; height:1px; background-color:#000;">
+            <div class="modal-body">
+                @livewire('violentjudgement-form')
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 @endsection
 @section('script')
 
@@ -82,23 +121,38 @@ $(document).ready(function () {
             }
         ]
     });
+
+
+     $(document).on('click', '.report-btn', function () {
+        var id = $(this).attr('id');
+        $('#recordID').val(id);
+        $('#reportmodel').modal('show');
+    });
+
+    $(document).on('click', '.judment-btn', function () {
+        var id = $(this).attr('id');
+        $('#recordID').val(id);
+        $('#judgementmodel').modal('show');
+    });
+
 });
 
 
 
 document.addEventListener('DOMContentLoaded', function () {
-            @if(session('message'))
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: '{{ session('message') }}',
-                    showConfirmButton: false,
-                    position: "top-end",
-                    timer: 1000
-                });
-            @endif
+    @if(session('message'))
+    Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: '{{ session('
+        message ') }}',
+        showConfirmButton: false,
+        position: "top-end",
+        timer: 1000
+    });
+    @endif
 
-            document.addEventListener('click', function (event) {
+    document.addEventListener('click', function (event) {
         if (event.target.closest('.delete-btn')) {
             var deleteButton = event.target.closest('.delete-btn');
             var officerId = deleteButton.getAttribute('data-id');
@@ -118,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
-        });
+});
 
 </script>
 

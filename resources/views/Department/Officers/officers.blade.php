@@ -50,7 +50,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title" id="myModalLabel"> Create Officer Login</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <button type="button" class="close modelclosebtn" data-dismiss="modal" aria-hidden="true">
                         <i class="material-icons">close</i>
                     </button>
                 </div>

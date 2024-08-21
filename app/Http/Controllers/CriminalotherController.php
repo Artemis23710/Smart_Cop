@@ -18,7 +18,7 @@ class CriminalotherController extends Controller
 
             $data = Suspect::with(['station', 'maincategory','crimecategory'])
                             ->whereIn('suspects.status', [1, 2])
-                            ->where('suspects.maincategoryid', 3)
+                            ->where('suspects.maincategoryid', 4)
                             ->get();
 
             return DataTables::of($data)
