@@ -137,6 +137,25 @@ $(document).ready(function () {
 
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    const penaltySection = document.getElementById("peneltysection");
+    const guiltyRadio = document.getElementById("judconvicted");
+    const notGuiltyRadio = document.getElementById("judnotconvicted");
+
+    function togglePenaltySection() {
+        if (guiltyRadio.checked) {
+            penaltySection.style.display = "block";
+        } else {
+            penaltySection.style.display = "none";
+        }
+    }
+
+    guiltyRadio.addEventListener("change", togglePenaltySection);
+    notGuiltyRadio.addEventListener("change", togglePenaltySection);
+
+    // Initial check
+    togglePenaltySection();
+});
 
 
 document.addEventListener('DOMContentLoaded', function () {
