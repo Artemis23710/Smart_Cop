@@ -12,7 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('court_verdicts', function (Blueprint $table) {
-            $table->id();
+            $table->id(); 
+            $table->integer('suspect_id'); 
+            $table->integer('crimedetails_id'); 
+            $table->integer('investigation_id')->nullable();
+            $table->date('dateofjudgement');
+            $table->string('verdict');
+            $table->string('penelty')->nullable();;
+            $table->longText('judgment_summary')->nullable();
+            $table->integer('status'); 
+            $table->integer('created_by')->nullable();  
+            $table->integer('updated_by')->nullable(); 
             $table->timestamps();
         });
     }

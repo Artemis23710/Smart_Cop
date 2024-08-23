@@ -52,4 +52,6 @@ class CriminalviolentController extends Controller
 
         return view('Criminals.Criminal_violent.criminalviolent');
     }
+
+    
 }
