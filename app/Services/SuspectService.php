@@ -12,6 +12,7 @@ use App\Models\Officerprofilephoto;
 use App\Models\Suspect;
 use App\Models\Suspectphoto;
 
+
 class SuspectService
 {
     

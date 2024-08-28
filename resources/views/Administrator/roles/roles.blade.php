@@ -15,7 +15,7 @@
                         @csrf
                         <div class="form-group">
                           <label class="inputlabel" >Role Name</label>
-                          <input type="text" class="form-control" id="accountname" name="accountname" >
+                          <input type="text" class="form-control" id="accountname" name="accountname"required >
                         </div>
                         @can('Role-Create')
                         <div class="col-12 d-flex align-items-center justify-content-center">

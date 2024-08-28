@@ -123,18 +123,18 @@ $(document).ready(function () {
     });
 
 
-     $(document).on('click', '.report-btn', function () {
-        var id = $(this).attr('id');
-        $('#recordID').val(id);
-        $('#reportmodel').modal('show');
-    });
+    // $(document).on('click', '.report-btn', function () {
+    //     var id = $(this).attr('id');
+    //     window.Livewire.emit('setRecordID', id); // Access Livewire via the window object
+    //     $('#reportmodel').modal('show');
+    // });
+
 
     $(document).on('click', '.judment-btn', function () {
         var id = $(this).attr('id');
         $('#recordID').val(id);
         $('#judgementmodel').modal('show');
     });
-
 });
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -192,7 +192,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
 </script>
 
 @endsection
