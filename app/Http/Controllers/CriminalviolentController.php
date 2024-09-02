@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\CourtVerdicts;
 use App\Models\CrimeDetails;
 use App\Models\Crimelist;
+use App\Models\Maincrimecategory;
+use App\Models\PoliceDivision;
 use App\Models\policestations;
 use App\Models\Suspect;
+use App\Models\Suspectphoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -48,7 +51,7 @@ class CriminalviolentController extends Controller
 
                     $btn .= '<button class="btn btn-success btn-sm mr-1 report-btn" id="' . $row->id . '" title="Crime Details" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">post_add</i></button>';    
                 
-                    $btn .= '<a href="' . route('suspectsedit', ['id' => $row->id]) . '"  target="_self" title="View" data-bs-toggle="tooltip" data-bs-placement="top"  class="icon-button btn btn-sm mr-1 editbtn"><i class="material-icons">visibility</i></a>';
+                    $btn .= '<a href="' . route('criminalviolentview', ['id' => $row->id]) . '"  target="_self" title="View" data-bs-toggle="tooltip" data-bs-placement="top"  class="icon-button btn btn-sm mr-1 editbtn"><i class="material-icons">visibility</i></a>';
 
                     $btn .= '<button class="btn btn-danger btn-sm mr-1 judment-btn" id="' . $row->id . '" title="Court Decision" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fas fa-gavel navfasicon"></i></button>';    
 
@@ -172,5 +175,27 @@ class CriminalviolentController extends Controller
 
     }
    
+    public function View($suspectID)
+    {
+        $policedivisions = PoliceDivision::all();
+        $maincrimecategory = Maincrimecategory::all();
+        $stations = policestations::all();
+        $suspectinfo = Suspect::find($suspectID);
+        $suspectphoto = Suspectphoto::where('suspect_id', $suspectID)->first();
+
+        $stationID = $suspectinfo->stationid;
+        $station = policestations::find($stationID);
+        $divisionID = $station ? $station->division_id : null;
+
+        $categoryID = $suspectinfo->maincategoryid;
+        $crimelists = Crimelist::where('category_id', $categoryID)->get();
+
+        $crimedetails = CrimeDetails::where('suspect_id', $suspectID)->get();
+        $courtjudements = CourtVerdicts::where('suspect_id', $suspectID)->get();
+        
+        return view('Criminals.Criminalprint.criminalprintview', compact('maincrimecategory','policedivisions','stations','suspectinfo',
+                     'suspectphoto','divisionID','crimelists','crimedetails','courtjudements'));
+
+    }
 
 }
