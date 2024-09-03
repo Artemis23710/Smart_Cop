@@ -119,6 +119,13 @@ Route::get('/showviolentcriminal', [CriminalviolentController::class, 'showviole
 Route::post('/criminalviolentstore', [CriminalviolentController::class, 'store'])->name('criminalviolentstore');
 Route::post('/criminalviolentcrimeverdict', [CriminalviolentController::class, 'crimeverdict'])->name('criminalviolentcrimeverdict');
 Route::get('/criminalviolentview/{id}', [CriminalviolentController::class, 'View'])->name('criminalviolentview');
+Route::post('/criminalviolentupdate', [CriminalviolentController::class, 'update'])->name('criminalviolentupdate');
+Route::post('/criminalviolentcrimeverdictupdate', [CriminalviolentController::class, 'updateCrimeVerdict'])->name('criminalviolentcrimeverdictupdate');
+Route::get('/deletecrimedetails/{id}', [CriminalviolentController::class, 'deletecrimedetails'])->name('deletecrimedetails');
+Route::get('/deletejudgementdetails/{id}', [CriminalviolentController::class, 'deletejudgementdetails'])->name('deletejudgementdetails');
+
+Route::get('/getCrimeDetails/{id}', [CriminalviolentController::class, 'getCrimeDetails'])->name('getCrimeDetails');
+Route::get('/getCrimejudgementDetails/{id}', [CriminalviolentController::class, 'getCrimejudgementDetails'])->name('getCrimejudgementDetails');
 
 //Criminalother Controller Routes
 Route::get('/criminalother', [CriminalotherController::class, 'index'])->name('criminalother');

@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             @endif
 
-            document.addEventListener('click', function (event) {
+    document.addEventListener('click', function (event) {
         if (event.target.closest('.delete-btn')) {
             var deleteButton = event.target.closest('.delete-btn');
             var officerId = deleteButton.getAttribute('data-id');

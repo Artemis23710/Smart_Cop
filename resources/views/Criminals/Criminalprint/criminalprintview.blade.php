@@ -251,11 +251,10 @@
                                         <td>{{ $crimedetail->incident_city }}</td>
                                         <td>{{ $crimedetail->dateofincident }}</td>
                                         <td class="text-right">      
-                                                <button class="icon-button btn btn-info btn-sm mr-1 report-btn" title="Edit" id="{{ $crimedetail->id }}" data-bs-toggle="tooltip" 
-                                                    data-bs-placement="top"><i class="material-icons">edit</i></button>  
-
-                                                <a href="{{ route('divisionsstatus', ['id' => $crimedetail->id, 'status' => 3]) }}"
-                                                         onclick="return delete_confirm()" target="_self" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-danger btn-sm mr-1 "> <i class="material-icons">delete</i></a>          
+                                            <button class="icon-button btn btn-info btn-sm mr-1 report-btn" title="Edit" id="{{ $crimedetail->id }}" data-bs-toggle="tooltip" 
+                                                data-bs-placement="top"><i class="material-icons">edit</i></button>  
+                                                
+                                            <button class="btn btn-danger btn-sm mr-1 delete-btn" id="{{ $crimedetail->id }}" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">delete</i></button>  
                                         </td>
                                     </tr>
                                 @endforeach
@@ -285,8 +284,8 @@
                                         <td>{{ $courtjudement->penelty }}</td>
                                         <td class="text-right">      
                                                 <button class="icon-button btn btn-info btn-sm mr-1 judment-btn" title="Edit"id="{{ $courtjudement->id }}" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">edit</i></button>  
-                                                <a href="{{ route('divisionsstatus', ['id' => $courtjudement->id, 'status' => 3]) }}" 
-                                                    onclick="return delete_confirm()" target="_self" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-danger btn-sm mr-1 "> <i class="material-icons">delete</i></a>          
+                                               
+                                                <button class="btn btn-danger btn-sm mr-1 deletejudgement-btn" id="{{ $courtjudement->id }}" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">delete</i></button>  
 
                                             </td>
                                     </tr>
@@ -304,7 +303,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="myModalLabel">Add Suspect Crime Details</h3>
+                <h3 class="modal-title" id="myModalLabel">Edit Suspect Crime Details</h3>
                 <button type="button" class="close modelclosebtn" data-dismiss="modal" aria-hidden="true">
                     <i class="material-icons">close</i>
                 </button>
@@ -312,7 +311,7 @@
             <hr style="width:100%; height:1px; background-color:#000;">
             <div class="modal-body">
                 <div>
-                    <form action="{{ route('criminalviolentstore') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('criminalviolentupdate') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-4 required">
@@ -331,7 +330,7 @@
                         </div>
                         <div class="col-12">
                             <label class="inputlabel">Incident Description</label>
-                            <textarea name="incidentnote" class="form-control" cols="20" rows="5"></textarea>
+                            <textarea name="incidentnote" id="incidentnote" class="form-control" cols="20" rows="5"></textarea>
                         </div>
                         <hr style="width:100%; height:1px; background-color:#000;">
                         <div class="col-12">
@@ -341,7 +340,7 @@
                         <hr style="width:100%; height:1px; background-color:#000;">
                         <div class="col-12">
                             <label class="inputlabel">Incident Follow Up</label>
-                            <textarea name="incidentfalowup" class="form-control" cols="20" rows="5"></textarea>
+                            <textarea name="incidentfalowup" id="incidentfalowup" class="form-control" cols="20" rows="5"></textarea>
                         </div>
                         @if ($errors->any())
                         <div class="alert alert-danger">
@@ -355,7 +354,7 @@
                         <div class="modal-footer justify-content-center">
                             @can('User-Create')
                             <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
-                                <i class="fas fa-save"></i>&nbsp;Save Crime Record
+                                <i class="fas fa-save"></i>&nbsp;Update Crime Record
                             </button>
                             @endcan
 
@@ -379,7 +378,7 @@
             </div>
             <hr style="width:100%; height:1px; background-color:#000;">
             <div class="modal-body">
-                <form action="{{ route('criminalviolentcrimeverdict') }}" method="POST">
+                <form action="{{ route('criminalviolentcrimeverdictupdate') }}" method="POST">
                     @csrf
                     <br>
                     <div class="row">
@@ -417,7 +416,7 @@
                     <br>
                     <div class="col-12">
                         <label class="inputlabel"> Judgment Summary</label>
-                        <textarea name="incidentnote"class="form-control" cols="20" rows="5"></textarea>
+                        <textarea name="judgementnote" id="judgementnote" class="form-control" cols="20" rows="5"></textarea>
                     </div>
                     @if ($errors->any())
                     <div class="alert alert-danger">
@@ -426,8 +425,9 @@
                         @endforeach
                     </div>
                     @endif
-                    <input type="hidden" id="suspectID" name="recordID">
-                    <input type="hidden" id="crimerecordID" name="crimerecordID" value="1">
+                    <input type="hidden" id="judgementID" name="recordID">
+                    <input type="hidden" id="suspectrecordID" name="suspectrecordID">
+
                     <hr style="width:100%; height:1px; background-color:#000000;">
                     <div class="modal-footer justify-content-center">
                         @can('User-Create')
@@ -448,18 +448,54 @@
 <script>
 $(document).ready(function(){
 
-    $("#suspectslink").addClass('active');
 
+    // open crime details edit model
     $(document).on('click', '.report-btn', function () {
         var id = $(this).attr('id');
         $('#recordID').val(id);
-        $('#reportmodel').modal('show');
+
+        $.ajax({
+            url: '/getCrimeDetails/' + id,
+            method: 'GET',
+            success: function (response) {
+                $('#incidentlocation').val(response.incident_location);
+                $('#city').val(response.incident_city);
+                $('#incidentdate').val(response.dateofincident);
+                $('#incidentnote').val(response.incident_note);
+                $('#incidentfalowup').val(response.incident_followup);
+                $('#reportmodel').modal('show');
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
     });
 
+    // open crime Judgement edit model
     $(document).on('click', '.judment-btn', function () {
         var id = $(this).attr('id');
-        $('#suspectID').val(id);
-        $('#judgementmodel').modal('show');
+        $('#judgementID').val(id);
+
+        $.ajax({
+            url: '/getCrimejudgementDetails/' + id,
+            method: 'GET',
+            success: function (response) {
+                $('#datejudgement').val(response.dateofjudgement);
+                $('#penelty').val(response.penelty);
+                $('#judgementnote').val(response.judgment_summary);
+                $('#suspectrecordID').val(response.suspect_id);
+
+                if (response.penelty === 'Not Guilty') {
+                    $('#judnotconvicted').prop('checked', true);
+                } else {
+                    $('#judconvicted').prop('checked', true);
+                }
+                $('#judgementmodel').modal('show');
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
     });
 
 
@@ -521,19 +557,61 @@ $(document).ready(function(){
       });
   });
 
-document.addEventListener('DOMContentLoaded', function () {
-    @if(session('message'))
-    Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: '{{ session('
-        message ') }}',
-        showConfirmButton: false,
-        position: "top-end",
-        timer: 1000
+    document.addEventListener('DOMContentLoaded', function () {
+        @if(session('message'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{{session('message')}}',
+            showConfirmButton: false,
+            position: "top-end",
+            timer: 1000
+        });
+        @endif
     });
-    @endif
-});
+
+    document.addEventListener('click', function (event) {
+        if (event.target.closest('.delete-btn')) {
+            var deleteButton = event.target.closest('.delete-btn');
+            var deleteId = deleteButton.getAttribute('id');
+
+            Swal.fire({
+                title: 'Are you want to Delete this Record?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '{{ url("deletecrimedetails") }}/' + deleteId;
+                }
+            });
+        }
+    });
+
+    document.addEventListener('click', function (event) {
+        if (event.target.closest('.deletejudgement-btn')) {
+            var deleteButton = event.target.closest('.deletejudgement-btn');
+            var officerId = deleteButton.getAttribute('id');
+
+            Swal.fire({
+                title: 'Are you want to Delete this Record?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '{{ url("deletejudgementdetails") }}/' + officerId;
+                }
+            });
+        }
+    });
+    
 </script>
 
 @endsection

@@ -12,6 +12,7 @@ use App\Models\Suspect;
 use App\Models\Suspectphoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -190,12 +191,166 @@ class CriminalviolentController extends Controller
         $categoryID = $suspectinfo->maincategoryid;
         $crimelists = Crimelist::where('category_id', $categoryID)->get();
 
-        $crimedetails = CrimeDetails::where('suspect_id', $suspectID)->get();
-        $courtjudements = CourtVerdicts::where('suspect_id', $suspectID)->get();
+        $crimedetails = CrimeDetails::where('suspect_id', $suspectID)->where('status', 1)->get();
+        $courtjudements = CourtVerdicts::where('suspect_id', $suspectID)->where('status', 1)->get();
         
         return view('Criminals.Criminalprint.criminalprintview', compact('maincrimecategory','policedivisions','stations','suspectinfo',
                      'suspectphoto','divisionID','crimelists','crimedetails','courtjudements'));
 
     }
+
+    public function getCrimeDetails($id)
+    {
+        $crimeDetails = CrimeDetails::find($id);
+    
+        if ($crimeDetails) {
+            return response()->json([
+                'incident_location' => $crimeDetails->incident_location,
+                'incident_city' => $crimeDetails->incident_city,
+                'dateofincident' => $crimeDetails->dateofincident,
+                'incident_note' => $crimeDetails->incident_note,
+                'incident_followup' => $crimeDetails->incident_followup,
+                'investigation_id' => $crimeDetails->investigation_id,
+                'suspect_id' => $crimeDetails->suspect_id,
+                'arrested_date' => $crimeDetails->arrested_date,
+                'arrested_crime_category' => $crimeDetails->arrested_crime_category,
+                'arrested_crime' => $crimeDetails->arrested_crime,
+                'arrested_station' => $crimeDetails->arrested_station
+            ]);
+        } else {
+            return response()->json(['error' => 'Record not found'], 404);
+        }
+    }
+
+    public function getCrimejudgementDetails($id)
+    {
+        $crimeverdict = CourtVerdicts::find($id);
+    
+        if ($crimeverdict) {
+            return response()->json([
+                'dateofjudgement' => $crimeverdict->dateofjudgement,
+                'verdict' => $crimeverdict->verdict,
+                'penelty' => $crimeverdict->penelty,
+                'judgment_summary' => $crimeverdict->judgment_summary,
+                'investigation_id' => $crimeverdict->investigation_id,
+                'crimedetails_id' => $crimeverdict->crimedetails_id,
+                'suspect_id' => $crimeverdict->suspect_id
+            ]);
+        } else {
+            return response()->json(['error' => 'Record not found'], 404);
+        }
+    }
+
+    public function update(Request $request)
+    {
+        // Validate the incoming request
+        $validator = Validator::make($request->all(), [
+            'incidentlocation' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'incidentdate' => 'required|date',
+            'incidentnote' => 'nullable|string|max:1000',
+            'incidentfalowup' => 'nullable|string|max:1000',
+            'incidentevedance' => 'nullable|max:2048', 
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'status' => 'error',
+                'errors' => $validator->errors(),
+            ];
+        }
+
+        $id = $request->recordID;
+
+        $crimeDetails = CrimeDetails::findOrFail($id);
+
+        $keywords = $request->incidentdate . ' ' . $request->incidentlocation . ' ' . $request->city;
+
+        if ($request->hasFile('incidentevedance')) {
+            $file = $request->file('incidentevedance');
+            $currentDate = now()->format('Ymd');
+            $renamedFileName = "{$currentDate}_{$request->recordID}_3_{$request->arretedcrime}." . $file->getClientOriginalExtension();
+            $file->storeAs('Evedances', $renamedFileName, 'public');
+
+            if ($crimeDetails->incident_evidance) {
+                Storage::disk('public')->delete('Evedances/' . $crimeDetails->incident_evidance);
+            }
+            $crimeDetails->incident_evidance = $renamedFileName;
+        }
+
+        $crimeDetails->update([
+            'Keywords' => $keywords,
+            'incident_location' => $request->incidentlocation,
+            'incident_city' => $request->city,
+            'dateofincident' => $request->incidentdate,
+            'incident_note' => $request->incidentnote,
+            'incident_followup' => $request->incidentfalowup,
+            'updated_by' => Auth::id()
+        ]);
+
+        $message = 'Crime Details Updated Successfully.';
+        return redirect()->back()->with('message', $message);
+    }
+
+    public function updateCrimeVerdict(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'datejudgement' => 'required|string|max:255',
+            'judgement' => 'required',
+            'penelty' => 'nullable|string|max:255',
+            'judgementnote' => 'nullable|string|max:1000',
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'status' => 'error',
+                'errors' => $validator->errors(),
+            ];
+        }
+        $judgestatus = $request->judgement === "Not Guilty" ? 2 : 1;
+
+        $id = $request->recordID;
+        $courtVerdict = CourtVerdicts::findOrFail($id);
+
+        $courtVerdict->update([
+            'dateofjudgement' => $request->datejudgement,
+            'verdict' => $request->judgement,
+            'penelty' => $request->penelty,
+            'judgment_summary' => $request->judgementnote,
+            'updated_by' => Auth::id(),
+        ]);
+
+        $suspect = Suspect::findOrFail($request->suspectrecordID);
+        $suspect->convictedstatus = $judgestatus;
+        $suspect->updated_by = Auth::id();
+        $suspect->save();
+
+        $message = 'Suspect Crime Verdict Updated Successfully.';
+        return redirect()->back()->with('message', $message);
+    }
+
+    public function deletecrimedetails($requestid){
+
+            $details = CrimeDetails::findOrFail($requestid);
+            $details->status = 3;
+            $details->updated_by = Auth::id();
+            $details->save();
+
+            $message = 'Crime Details Deleted Successfully';
+        return redirect()->back()->with('message', $message);
+    }
+
+    public function deletejudgementdetails($requestid)
+    {
+
+        $details = CourtVerdicts::findOrFail($requestid);
+        $details->status = 3;
+        $details->updated_by = Auth::id();
+        $details->save();
+
+        $message = 'Suspect Crime Verdict Deleted Successfully';
+        return redirect()->back()->with('message', $message);
+    }
+
 
 }
