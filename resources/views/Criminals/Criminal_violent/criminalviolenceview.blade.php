@@ -455,7 +455,7 @@
 <script>
 $(document).ready(function(){
 
-
+    $("#violentlink").addClass('active');
     // open crime details edit model
     $(document).on('click', '.report-btn', function () {
         var id = $(this).attr('id');

@@ -124,12 +124,14 @@ Route::post('/criminalviolentcrimeverdictupdate', [CriminalviolentController::cl
 Route::get('/deletecrimedetails/{id}', [CriminalviolentController::class, 'deletecrimedetails'])->name('deletecrimedetails');
 Route::get('/deletejudgementdetails/{id}', [CriminalviolentController::class, 'deletejudgementdetails'])->name('deletejudgementdetails');
 
+
 Route::get('/getCrimeDetails/{id}', [CriminalviolentController::class, 'getCrimeDetails'])->name('getCrimeDetails');
 Route::get('/getCrimejudgementDetails/{id}', [CriminalviolentController::class, 'getCrimejudgementDetails'])->name('getCrimejudgementDetails');
 
 //Criminalother Controller Routes
 Route::get('/criminalother', [CriminalotherController::class, 'index'])->name('criminalother');
 Route::get('/showothercriminal', [CriminalotherController::class, 'showothercriminal'])->name('showothercriminal');
+
 
 //Convictedcriminal Controller Routes
 Route::get('/convictedcriminals', [ConvictedcriminalController::class, 'index'])->name('convictedcriminals');

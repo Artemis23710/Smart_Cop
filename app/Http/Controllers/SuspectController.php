@@ -111,7 +111,6 @@ class SuspectController extends Controller
 
         $categoryID = $suspectinfo->maincategoryid;
         $crimelists = Crimelist::where('category_id', $categoryID)->get();
-        //dd($crimelists);
 
         return view('Criminals.Suspects.editsuspects', compact('maincrimecategory','policedivisions','stations','suspectinfo','suspectphoto','divisionID','crimelists'));
 

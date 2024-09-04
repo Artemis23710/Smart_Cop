@@ -110,7 +110,7 @@
                         <input type="hidden" id="recordID" name="recordID">
                         <hr style="width:100%; height:1px; background-color:#000000;">
                         <div class="modal-footer justify-content-center">
-                            @can('User-Create')
+                            @can('Violent-Crime_details-Add')
                             <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
                                 <i class="fas fa-save"></i>&nbsp;Save Crime Record
                             </button>
@@ -209,7 +209,7 @@
                     <input type="hidden" id="crimerecordID" name="crimerecordID" value="1">
                     <hr style="width:100%; height:1px; background-color:#000000;">
                     <div class="modal-footer justify-content-center">
-                        @can('User-Create')
+                        @can('Violent-Crime_Judgement-Add')
                         <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
                             <i class="fas fa-save"></i>&nbsp;Save Verdict Record
                         </button>
@@ -309,7 +309,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Initial check
     togglePenaltySection();
 });
-
 
 document.addEventListener('DOMContentLoaded', function () {
     @if(session('message'))

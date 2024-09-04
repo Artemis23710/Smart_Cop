@@ -49,12 +49,16 @@ class CriminalviolentController extends Controller
 
                 ->addColumn('action', function($row) {
                     $btn = '<td class="text-right">';
+                    if (auth()->user()->can('Violent-Crime_details-Add')) {
+                        $btn .= '<button class="btn btn-success btn-sm mr-1 report-btn" id="' . $row->id . '" title="Crime Details" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">post_add</i></button>';    
+                    }
 
-                    $btn .= '<button class="btn btn-success btn-sm mr-1 report-btn" id="' . $row->id . '" title="Crime Details" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">post_add</i></button>';    
-                
                     $btn .= '<a href="' . route('criminalviolentview', ['id' => $row->id]) . '"  target="_self" title="View" data-bs-toggle="tooltip" data-bs-placement="top"  class="icon-button btn btn-sm mr-1 editbtn"><i class="material-icons">visibility</i></a>';
 
-                    $btn .= '<button class="btn btn-danger btn-sm mr-1 judment-btn" id="' . $row->id . '" title="Court Decision" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fas fa-gavel navfasicon"></i></button>';    
+                    if (auth()->user()->can('Violent-Crime_Judgement-Add')) {
+
+                        $btn .= '<button class="btn btn-danger btn-sm mr-1 judment-btn" id="' . $row->id . '" title="Court Decision" data-bs-toggle="tooltip" data-bs-placement="top"><i class="fas fa-gavel navfasicon"></i></button>';       
+                    }
 
                     return $btn;
                 })
@@ -194,7 +198,7 @@ class CriminalviolentController extends Controller
         $crimedetails = CrimeDetails::where('suspect_id', $suspectID)->where('status', 1)->get();
         $courtjudements = CourtVerdicts::where('suspect_id', $suspectID)->where('status', 1)->get();
         
-        return view('Criminals.Criminalprint.criminalprintview', compact('maincrimecategory','policedivisions','stations','suspectinfo',
+        return view('Criminals.Criminal_violent.criminalviolenceview', compact('maincrimecategory','policedivisions','stations','suspectinfo',
                      'suspectphoto','divisionID','crimelists','crimedetails','courtjudements'));
 
     }
