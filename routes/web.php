@@ -127,6 +127,9 @@ Route::get('/deletejudgementdetails/{id}', [CriminalviolentController::class, 'd
 
 Route::get('/getCrimeDetails/{id}', [CriminalviolentController::class, 'getCrimeDetails'])->name('getCrimeDetails');
 Route::get('/getCrimejudgementDetails/{id}', [CriminalviolentController::class, 'getCrimejudgementDetails'])->name('getCrimejudgementDetails');
+Route::get('/getcrimerecordlist', [CriminalviolentController::class, 'getCrimeRecords'])->name('getcrimerecordlist');
+
+
 
 //Criminalother Controller Routes
 Route::get('/criminalother', [CriminalotherController::class, 'index'])->name('criminalother');

@@ -10,14 +10,25 @@ use App\Models\PoliceDivision;
 use App\Models\policestations;
 use App\Models\Suspect;
 use App\Models\Suspectphoto;
+use App\Services\CriminalViolentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class CriminalviolentController extends Controller
 {
+    protected $criminalViolentService;
+
+    public function __construct(CriminalViolentService $criminalViolentService)
+    {
+        $this->criminalViolentService = $criminalViolentService;
+
+    }
+
+
     public function index(){
        
         $crimelist = Crimelist::where('category_id', 3)->get();
@@ -69,115 +80,17 @@ class CriminalviolentController extends Controller
         return view('Criminals.Criminal_violent.criminalviolent');
     }
 
-    public function store(Request $request)
+    public function store(Request $request,  CriminalViolentService $criminalViolentService)
     {
-
-        $validator = Validator::make($request->all(),[
-            'arretedcrime' => 'required',
-            'arrestedstation' => 'required',
-            'arresteddate' => 'required|date',
-            'incidentlocation' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'incidentdate' => 'required|date',
-            'incidentnote' => 'nullable|string|max:1000',
-            'incidentfalowup' => 'nullable|string|max:1000',
-            'incidentevedance' => 'nullable|max:2048', 
-        ]);
-
-        if ($validator->fails()) {
-            return [
-                'status' => 'error',
-                'errors' => $validator->errors(),
-            ];
-        }
-
-        $keywords = $request->incidentdate . ' ' . $request->incidentlocation . ' ' . $request->city;
-
-        if ($request->hasFile('incidentevedance')) {
-
-            $file = $request->file('incidentevedance');
-             $currentDate = now()->format('Ymd');
-             $renamedFileName = "{$currentDate}_{$request->recordID}_3_{$request->arretedcrime}." . $file->getClientOriginalExtension();
-             $file->storeAs('Evedances', $renamedFileName, 'public');
-        }
         
-          CrimeDetails::create([
-            'Keywords' =>  $keywords,
-            'arrested_crime_category' => 3,
-            'arrested_crime' => $request->arretedcrime,
-            'arrested_station' => $request->arrestedstation,
-            'suspect_id' => $request->recordID,
-            'investigation_id' => null,
-            'arrested_date' => $request->arresteddate,
-            'incident_location' => $request->incidentlocation,
-            'incident_city' => $request->city,
-            'dateofincident' => $request->incidentdate,
-            'incident_note' => $request->incidentnote,
-            'incident_followup' => $request->incidentfalowup,
-            'incident_evidance' => $renamedFileName,
-            'status' => 1,
-            'approve_status' => 0,
-            'created_by' => Auth::id(),
-            'updated_by' => null,
-            'approved_by' => null,
-        ]);
-
-        $message = 'Police Station Created Successfully.';
-
+        $message = $criminalViolentService->store($request);
         return redirect()->back()->with('message', $message);
     }
 
-    public function crimeverdict (Request $request)
+    public function crimeverdict (Request $request,  CriminalViolentService $criminalViolentService)
     {
-        $validator = Validator::make($request->all(),[
-            'arrestedcrime' => 'required',
-            'arrestedpolice' => 'required',
-            'arresteddate' => 'required|date',
-            'datejudgement' => 'required|string|max:255',
-            'judgement' => 'required',
-            'penelty' => 'nullable|string|max:255',
-            'incidentnote' => 'nullable|string|max:1000',
-            'crimerecordID' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return [
-                'status' => 'error',
-                'errors' => $validator->errors(),
-            ];
-        }
-
-        $judgestatus= null;
-
-        if($request->judgement === "Not Guilty"){
-            $judgestatus = 2;
-        }else{
-
-            $judgestatus = 1;
-        }
-
-        CourtVerdicts::create([
-            'suspect_id' => $request->recordID,
-            'crimedetails_id' => $request->crimerecordID,
-            'investigation_id' => null,
-            'dateofjudgement' => $request->datejudgement,
-            'verdict' => $request->judgement,
-            'penelty' => $request->penelty,
-            'judgment_summary' => $request->incidentnote,
-            'status' => 1,
-            'created_by' => Auth::id(),
-            'updated_by' => null,
-        ]);
-
-        $suspect = Suspect::findOrFail($request->recordID);
-        $suspect->convictedstatus = $judgestatus;
-        $suspect->updated_by = Auth::id();
-        $suspect->save();
-
-        $message = 'Suspect Crime Verdict Addedd Successfully.';
-
+        $message = $criminalViolentService->store($request);
         return redirect()->back()->with('message', $message);
-
     }
    
     public function View($suspectID)
@@ -201,6 +114,61 @@ class CriminalviolentController extends Controller
         return view('Criminals.Criminal_violent.criminalviolenceview', compact('maincrimecategory','policedivisions','stations','suspectinfo',
                      'suspectphoto','divisionID','crimelists','crimedetails','courtjudements'));
 
+    }
+
+
+    public function update(Request $request ,  CriminalViolentService $criminalViolentService)
+    {
+        $message = $criminalViolentService->update($request);
+        return redirect()->back()->with('message', $message);
+    }
+
+    public function updateCrimeVerdict(Request $request ,  CriminalViolentService $criminalViolentService)
+    {
+        $message = $criminalViolentService->updateCrimeVerdict($request);
+        return redirect()->back()->with('message', $message);
+    }
+
+
+
+
+    // Commen Functions to all 4 Categories
+
+    public function deletecrimedetails($requestid){
+
+            $details = CrimeDetails::findOrFail($requestid);
+            $details->status = 3;
+            $details->updated_by = Auth::id();
+            $details->save();
+
+            $message = 'Crime Details Deleted Successfully';
+        return redirect()->back()->with('message', $message);
+    }
+
+    public function deletejudgementdetails($requestid)
+    {
+
+        $details = CourtVerdicts::findOrFail($requestid);
+        $details->status = 3;
+        $details->updated_by = Auth::id();
+        $details->save();
+
+        $message = 'Suspect Crime Verdict Deleted Successfully';
+        return redirect()->back()->with('message', $message);
+    }
+
+    public function getCrimeRecords(Request $request)
+    {
+        $suspectId = $request->input('suspect_id');
+        $crimeRecords = DB::table('crime_details')
+            ->leftJoin('court_verdicts', 'crime_details.id', '=', 'court_verdicts.crimedetails_id')
+            ->leftJoin('crimelists', 'crime_details.arrested_crime', '=', 'crimelists.id')
+            ->where('crime_details.suspect_id', $suspectId)
+            ->where('crime_details.status', 1)
+            ->whereNull('court_verdicts.id')
+            ->select('crime_details.id', 'crimelists.crime', 'crime_details.incident_location','crime_details.arrested_date', 'crime_details.arrested_crime')
+            ->get();
+        return response()->json($crimeRecords);
     }
 
     public function getCrimeDetails($id)
@@ -245,116 +213,6 @@ class CriminalviolentController extends Controller
         }
     }
 
-    public function update(Request $request)
-    {
-        // Validate the incoming request
-        $validator = Validator::make($request->all(), [
-            'incidentlocation' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'incidentdate' => 'required|date',
-            'incidentnote' => 'nullable|string|max:1000',
-            'incidentfalowup' => 'nullable|string|max:1000',
-            'incidentevedance' => 'nullable|max:2048', 
-        ]);
-
-        if ($validator->fails()) {
-            return [
-                'status' => 'error',
-                'errors' => $validator->errors(),
-            ];
-        }
-
-        $id = $request->recordID;
-
-        $crimeDetails = CrimeDetails::findOrFail($id);
-
-        $keywords = $request->incidentdate . ' ' . $request->incidentlocation . ' ' . $request->city;
-
-        if ($request->hasFile('incidentevedance')) {
-            $file = $request->file('incidentevedance');
-            $currentDate = now()->format('Ymd');
-            $renamedFileName = "{$currentDate}_{$request->recordID}_3_{$request->arretedcrime}." . $file->getClientOriginalExtension();
-            $file->storeAs('Evedances', $renamedFileName, 'public');
-
-            if ($crimeDetails->incident_evidance) {
-                Storage::disk('public')->delete('Evedances/' . $crimeDetails->incident_evidance);
-            }
-            $crimeDetails->incident_evidance = $renamedFileName;
-        }
-
-        $crimeDetails->update([
-            'Keywords' => $keywords,
-            'incident_location' => $request->incidentlocation,
-            'incident_city' => $request->city,
-            'dateofincident' => $request->incidentdate,
-            'incident_note' => $request->incidentnote,
-            'incident_followup' => $request->incidentfalowup,
-            'updated_by' => Auth::id()
-        ]);
-
-        $message = 'Crime Details Updated Successfully.';
-        return redirect()->back()->with('message', $message);
-    }
-
-    public function updateCrimeVerdict(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'datejudgement' => 'required|string|max:255',
-            'judgement' => 'required',
-            'penelty' => 'nullable|string|max:255',
-            'judgementnote' => 'nullable|string|max:1000',
-        ]);
-
-        if ($validator->fails()) {
-            return [
-                'status' => 'error',
-                'errors' => $validator->errors(),
-            ];
-        }
-        $judgestatus = $request->judgement === "Not Guilty" ? 2 : 1;
-
-        $id = $request->recordID;
-        $courtVerdict = CourtVerdicts::findOrFail($id);
-
-        $courtVerdict->update([
-            'dateofjudgement' => $request->datejudgement,
-            'verdict' => $request->judgement,
-            'penelty' => $request->penelty,
-            'judgment_summary' => $request->judgementnote,
-            'updated_by' => Auth::id(),
-        ]);
-
-        $suspect = Suspect::findOrFail($request->suspectrecordID);
-        $suspect->convictedstatus = $judgestatus;
-        $suspect->updated_by = Auth::id();
-        $suspect->save();
-
-        $message = 'Suspect Crime Verdict Updated Successfully.';
-        return redirect()->back()->with('message', $message);
-    }
-
-    public function deletecrimedetails($requestid){
-
-            $details = CrimeDetails::findOrFail($requestid);
-            $details->status = 3;
-            $details->updated_by = Auth::id();
-            $details->save();
-
-            $message = 'Crime Details Deleted Successfully';
-        return redirect()->back()->with('message', $message);
-    }
-
-    public function deletejudgementdetails($requestid)
-    {
-
-        $details = CourtVerdicts::findOrFail($requestid);
-        $details->status = 3;
-        $details->updated_by = Auth::id();
-        $details->save();
-
-        $message = 'Suspect Crime Verdict Deleted Successfully';
-        return redirect()->back()->with('message', $message);
-    }
 
 
 }
