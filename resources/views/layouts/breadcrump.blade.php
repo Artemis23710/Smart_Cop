@@ -120,6 +120,12 @@
            <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
            <li><a href="#3"><i class="fas fa-question-circle"></i> Suspects of Other Crime</a></li>
 
+           @elseif(request()->route()->getName() == 'criminalotherview')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
+           <li><a href="#3"><i class="fas fa-question-circle"></i> Suspects of Other Crime</a></li>
+           <li><a href="#4"> <i class="fas fa-eye"></i>&nbsp;View Other Crime Suspects</a></li>
+
            @elseif(request()->route()->getName() == 'convictedcriminals')
            <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
            <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>

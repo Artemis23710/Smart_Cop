@@ -121,19 +121,26 @@ Route::post('/criminalviolentcrimeverdict', [CriminalviolentController::class, '
 Route::get('/criminalviolentview/{id}', [CriminalviolentController::class, 'View'])->name('criminalviolentview');
 Route::post('/criminalviolentupdate', [CriminalviolentController::class, 'update'])->name('criminalviolentupdate');
 Route::post('/criminalviolentcrimeverdictupdate', [CriminalviolentController::class, 'updateCrimeVerdict'])->name('criminalviolentcrimeverdictupdate');
-Route::get('/deletecrimedetails/{id}', [CriminalviolentController::class, 'deletecrimedetails'])->name('deletecrimedetails');
-Route::get('/deletejudgementdetails/{id}', [CriminalviolentController::class, 'deletejudgementdetails'])->name('deletejudgementdetails');
 
 
+// commen routes
 Route::get('/getCrimeDetails/{id}', [CriminalviolentController::class, 'getCrimeDetails'])->name('getCrimeDetails');
 Route::get('/getCrimejudgementDetails/{id}', [CriminalviolentController::class, 'getCrimejudgementDetails'])->name('getCrimejudgementDetails');
 Route::get('/getcrimerecordlist', [CriminalviolentController::class, 'getCrimeRecords'])->name('getcrimerecordlist');
-
+Route::get('/deletecrimedetails/{id}', [CriminalviolentController::class, 'deletecrimedetails'])->name('deletecrimedetails');
+Route::get('/deletejudgementdetails/{id}', [CriminalviolentController::class, 'deletejudgementdetails'])->name('deletejudgementdetails');
 
 
 //Criminalother Controller Routes
 Route::get('/criminalother', [CriminalotherController::class, 'index'])->name('criminalother');
 Route::get('/showothercriminal', [CriminalotherController::class, 'showothercriminal'])->name('showothercriminal');
+Route::get('/criminalotherview/{id}', [CriminalotherController::class, 'View'])->name('criminalotherview');
+Route::post('/criminalotherstore', [CriminalotherController::class, 'store'])->name('criminalotherstore');
+Route::post('/criminalothercrimeverdict', [CriminalotherController::class, 'crimeverdict'])->name('criminalothercrimeverdict');
+Route::post('/criminalotherupdate', [CriminalotherController::class, 'update'])->name('criminalotherupdate');
+Route::post('/criminalothercrimeverdictupdate', [CriminalotherController::class, 'updateotherCrimeVerdict'])->name('criminalothercrimeverdictupdate');
+
+
 
 
 //Convictedcriminal Controller Routes

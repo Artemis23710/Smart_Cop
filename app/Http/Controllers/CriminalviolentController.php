@@ -31,7 +31,7 @@ class CriminalviolentController extends Controller
 
     public function index(){
        
-        $crimelist = Crimelist::where('category_id', 3)->get();
+        $crimelist = Crimelist::all();
         $stationlist = policestations::where('status', 1)->get();
         return view('Criminals.Criminal_violent.criminalviolent',compact('crimelist','stationlist'));
     }
@@ -64,7 +64,7 @@ class CriminalviolentController extends Controller
                         $btn .= '<button class="btn btn-success btn-sm mr-1 report-btn" id="' . $row->id . '" title="Crime Details" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">post_add</i></button>';    
                     }
 
-                    $btn .= '<a href="' . route('criminalviolentview', ['id' => $row->id]) . '"  target="_self" title="View" data-bs-toggle="tooltip" data-bs-placement="top"  class="icon-button btn btn-sm mr-1 editbtn"><i class="material-icons">visibility</i></a>';
+                    $btn .= '<a href="' . route('criminalviolentview', ['id' => $row->id]) . '"  target="_self" title="View" data-bs-toggle="tooltip" data-bs-placement="top"  class="icon-button btn btn-sm mr-1 btn-info editbtn"><i class="material-icons">visibility</i></a>';
 
                     if (auth()->user()->can('Violent-Crime_Judgement-Add')) {
 
@@ -89,7 +89,7 @@ class CriminalviolentController extends Controller
 
     public function crimeverdict (Request $request,  CriminalViolentService $criminalViolentService)
     {
-        $message = $criminalViolentService->store($request);
+        $message = $criminalViolentService->crimeverdict($request);
         return redirect()->back()->with('message', $message);
     }
    
