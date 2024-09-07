@@ -166,7 +166,7 @@ class CriminalviolentController extends Controller
             ->where('crime_details.suspect_id', $suspectId)
             ->where('crime_details.status', 1)
             ->whereNull('court_verdicts.id')
-            ->select('crime_details.id', 'crimelists.crime', 'crime_details.incident_location','crime_details.arrested_date', 'crime_details.arrested_crime')
+            ->select('crime_details.id', 'crimelists.crime', 'crime_details.incident_location','crime_details.arrested_date', 'crime_details.investigation_id','crime_details.arrested_crime')
             ->get();
         return response()->json($crimeRecords);
     }

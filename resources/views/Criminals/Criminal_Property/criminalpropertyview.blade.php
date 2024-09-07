@@ -251,11 +251,11 @@
                                         <td>{{ $crimedetail->incident_city }}</td>
                                         <td>{{ $crimedetail->dateofincident }}</td>
                                         <td class="text-right">      
-                                            @can('Violent-Crime_details-Edit')
+                                            @can('Financial-Crime_details-Edit')
                                             <button class="icon-button btn btn-info btn-sm mr-1 report-btn" title="Edit" id="{{ $crimedetail->id }}" data-bs-toggle="tooltip" 
                                                 data-bs-placement="top"><i class="material-icons">edit</i></button>  
                                             @endcan
-                                            @can('Violent-Crime_details-Delete')  
+                                            @can('Financial-Crime_details-Delete')  
                                             <button class="btn btn-danger btn-sm mr-1 delete-btn" id="{{ $crimedetail->id }}" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">delete</i></button>  
                                             @endcan
                                         </td>
@@ -286,10 +286,10 @@
                                         <td>{{ $courtjudement->verdict }}</td>
                                         <td>{{ $courtjudement->penelty }}</td>
                                         <td class="text-right">      
-                                            @can('Violent-Crime_Judgement-Edit')
+                                            @can('Financial-Crime_Judgement-Edit')
                                                 <button class="icon-button btn btn-info btn-sm mr-1 judment-btn" title="Edit"id="{{ $courtjudement->id }}" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">edit</i></button>  
                                             @endcan
-                                            @can('Violent-Crime_Judgement-Delete')
+                                            @can('Financial-Crime_Judgement-Delete')
                                                 <button class="btn btn-danger btn-sm mr-1 deletejudgement-btn" id="{{ $courtjudement->id }}" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">delete</i></button>  
                                             @endcan
                                             </td>
@@ -316,8 +316,30 @@
             <hr style="width:100%; height:1px; background-color:#000;">
             <div class="modal-body">
                 <div>
-                    <form action="{{ route('criminalviolentupdate') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('criminalpropertyupdate') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        <div class="row">
+                            <div class="col-4 required">
+                                <label class="inputlabel">Related Investigation</label>
+                                <select class="selectpicker" data-style="select-with-transition"  style="width:200px;" title="Select Investigation" name="reletedinvestigation" id="reletedinvestigation" required>
+                                    <option value="1">Investigation 1</option>
+                                    <option value="2">Investigation 2</option>
+                                </select>
+                            </div>
+                            {{-- <div class="col-4 required">
+                                <label class="inputlabel">Arrested Date</label>
+                                <input type="date" class="form-control" id="arresteddate" name="arresteddate">
+                            </div>
+                            <div class="col-4 required">
+                                <label class="inputlabel">Arrested Station</label>
+                                <select class="selectpicker" data-style="select-with-transition"
+                                    title="Arrested Station" name="arrestedstation" id="arrestedstation" readonly>
+                                    @foreach($stationlist as $station)
+                                    <option value="{{ $station->id }}">{{$station->station_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div> --}}
+                        </div>
                         <div class="row">
                             <div class="col-4 required">
                                 <label class="inputlabel">Incident Location</label>
@@ -357,7 +379,7 @@
                         <input type="hidden" id="recordID" name="recordID">
                         <hr style="width:100%; height:1px; background-color:#000000;">
                         <div class="modal-footer justify-content-center">
-                            @can('Violent-Crime_details-Edit')
+                            @can('Financial-Crime_details-Edit')
                             <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
                                 <i class="fas fa-save"></i>&nbsp;Update Crime Record
                             </button>
@@ -383,7 +405,7 @@
             </div>
             <hr style="width:100%; height:1px; background-color:#000;">
             <div class="modal-body">
-                <form action="{{ route('criminalviolentcrimeverdictupdate') }}" method="POST">
+                <form action="{{ route('criminalpropertycrimeverdictupdate') }}" method="POST">
                     @csrf
                     <br>
                     <div class="row">
@@ -432,10 +454,11 @@
                     @endif
                     <input type="hidden" id="judgementID" name="recordID">
                     <input type="hidden" id="suspectrecordID" name="suspectrecordID">
+                    <input type="hidden" id="investigtionID" name="investigtionID">
 
                     <hr style="width:100%; height:1px; background-color:#000000;">
                     <div class="modal-footer justify-content-center">
-                        @can('Violent-Crime_Judgement-Edit')
+                        @can('Financial-Crime_Judgement-Edit')
                         <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
                             <i class="fas fa-save"></i>&nbsp;Save Verdict Record
                         </button>
@@ -455,7 +478,7 @@
 <script>
 $(document).ready(function(){
 
-    $("#violentlink").addClass('active');
+    $("#propertylink").addClass('active');
     // open crime details edit model
     $(document).on('click', '.report-btn', function () {
         var id = $(this).attr('id');
@@ -470,6 +493,8 @@ $(document).ready(function(){
                 $('#incidentdate').val(response.dateofincident);
                 $('#incidentnote').val(response.incident_note);
                 $('#incidentfalowup').val(response.incident_followup);
+                $('#reletedinvestigation').val(response.investigation_id);
+                $('#reletedinvestigation').selectpicker('refresh');
                 $('#reportmodel').modal('show');
             },
             error: function (xhr) {
@@ -491,7 +516,7 @@ $(document).ready(function(){
                 $('#penelty').val(response.penelty);
                 $('#judgementnote').val(response.judgment_summary);
                 $('#suspectrecordID').val(response.suspect_id);
-
+                $('#investigtionID').val(response.investigation_id);
                 if (response.penelty === 'Not Guilty') {
                     $('#judnotconvicted').prop('checked', true);
                 } else {

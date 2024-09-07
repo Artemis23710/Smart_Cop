@@ -94,6 +94,12 @@
            <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
            <li><a href="#3"> <i class="fas fa-exclamation-triangle"></i> Serious Crimes Suspects</a></li>
 
+           @elseif(request()->route()->getName() == 'criminalseriousview')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
+           <li><a href="#3"> <i class="fas fa-exclamation-triangle"></i> Serious Crimes Suspects</a></li>
+           <li><a href="#4"> <i class="fas fa-eye"></i>&nbsp;View Serious Crimes Suspects</a></li>
+
 
 
            @elseif(request()->route()->getName() == 'criminalproperty')
@@ -101,6 +107,11 @@
            <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
            <li><a href="#3"><i class="material-icons">attach_money</i>Property and Financial Crimes Suspects</a></li>
 
+           @elseif(request()->route()->getName() == 'criminalpropertyview')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
+           <li><a href="#3"><i class="material-icons">attach_money</i>Property and Financial Crimes Suspects</a></li>
+           <li><a href="#4"> <i class="fas fa-eye"></i>&nbsp;View Property and Financial Crimes Suspects</a></li>
 
 
            @elseif(request()->route()->getName() == 'criminalviolent')
