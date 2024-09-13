@@ -3,7 +3,7 @@
 @section('content')
 <div class="card" style="margin-top:50px; border-radius: 0;">
     <div class="card-body">
-        @include('layouts.department_navbar')
+        @include('layouts.investigation_navbar')
     </div>
 </div>
 <style>

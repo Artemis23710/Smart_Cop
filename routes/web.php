@@ -14,6 +14,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\StationController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvestigationController;
 use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\SuspectController;
 use Illuminate\Support\Facades\Auth;
@@ -137,9 +138,6 @@ Route::get('/criminalviolentview/{id}', [CriminalviolentController::class, 'View
 Route::post('/criminalviolentupdate', [CriminalviolentController::class, 'update'])->name('criminalviolentupdate');
 Route::post('/criminalviolentcrimeverdictupdate', [CriminalviolentController::class, 'updateCrimeVerdict'])->name('criminalviolentcrimeverdictupdate');
 
-
-
-
 // commen routes
 Route::get('/getCrimeDetails/{id}', [CriminalviolentController::class, 'getCrimeDetails'])->name('getCrimeDetails');
 Route::get('/getCrimejudgementDetails/{id}', [CriminalviolentController::class, 'getCrimejudgementDetails'])->name('getCrimejudgementDetails');
@@ -158,8 +156,12 @@ Route::post('/criminalotherupdate', [CriminalotherController::class, 'update'])-
 Route::post('/criminalothercrimeverdictupdate', [CriminalotherController::class, 'updateotherCrimeVerdict'])->name('criminalothercrimeverdictupdate');
 
 
-
-
 //Convictedcriminal Controller Routes
 Route::get('/convictedcriminals', [ConvictedcriminalController::class, 'index'])->name('convictedcriminals');
 Route::get('/showconvictedcriminals', [ConvictedcriminalController::class, 'showconvictedcriminals'])->name('showconvictedcriminals');
+
+
+
+// investigation Contontroller Routes
+Route::get('/investigations', [InvestigationController::class, 'index'])->name('investigations');
+Route::get('/newinvestigation', [InvestigationController::class, 'newinvestigation'])->name('newinvestigation');
