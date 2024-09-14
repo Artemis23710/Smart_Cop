@@ -165,3 +165,4 @@ Route::get('/showconvictedcriminals', [ConvictedcriminalController::class, 'show
 // investigation Contontroller Routes
 Route::get('/investigations', [InvestigationController::class, 'index'])->name('investigations');
 Route::get('/newinvestigation', [InvestigationController::class, 'newinvestigation'])->name('newinvestigation');
+Route::post('/investigationstore', [InvestigationController::class, 'store'])->name('investigationstore');

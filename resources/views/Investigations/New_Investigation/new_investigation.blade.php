@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('suspectsstore') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('investigationstore') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-12">
@@ -20,8 +20,7 @@
                                         <div class="col-3">
                                             <div class="form-group required">
                                                 <label class="inputlabel">Case No.</label>
-                                                <input type="text" class="form-control" id="caseno" name="caseno"
-                                                    required>
+                                                <input type="text" class="form-control" id="caseno" name="caseno" value="{{ $caseNo }}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-3">
@@ -55,6 +54,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row">
                                         <div class="col-3">
                                             <div class="form-group required">
@@ -114,13 +114,16 @@
                                                 <label class="inputlabel">Investigating Officer</label><br>
                                                 <select class="selectpicker" data-style="select-with-transition"
                                                     title="Choose officer" name="officerid" id="officerid" required>
+                                                    @foreach($officers as $officer)
+                                                    <option value="{{ $officer->id }}">{{ $officer->officerid}} - {{ $officer->namewithintial}} </option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-3">
                                             <div class="form-group required">
                                                 <label class="inputlabel">Assign Date</label>
-                                                <input type="text" class="form-control" id="officerassigndate"
+                                                <input type="date" class="form-control" id="officerassigndate"
                                                     name="officerassigndate" required>
                                             </div>
                                         </div>
@@ -142,32 +145,29 @@
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label class="inputlabel">Victim Name</label>
-                                            <input type="text" class="form-control" id="victimname" name="victimname">
+                                            <input type="text" class="form-control" id="victimname" name="victimname[]">
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label class="inputlabel">Gender</label><br>
-                                            <select class="selectpicker" data-style="select-with-transition"
-                                                title="Choose  Gender" name="victimgender" id="victimgender">
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                            </select>
+                                            <input type="text" class="form-control" id="victimgender" name="victimgender[]">
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="form-group">
                                             <label class="inputlabel">Victim Age</label>
-                                            <input type="text" class="form-control" id="victimname" name="victimname">
+                                            <input type="text" class="form-control" id="victimage" name="victimage[]">
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <br>
-                                        <button type="button" onclick="productDelete(this);"
-                                            class="deletebtn btn btn-danger btn-sm " disabled><i
-                                                class="fas fa-trash-alt"></i></button>
-                                        <button class="addRowBtn btn btn-success btn-sm "><i
-                                                class="fas fa-plus"></i></button>
+                                        <button type="button" onclick="productDelete(this);" class="deletebtn btn btn-danger btn-sm " disabled>
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button class="addRowBtn btn btn-success btn-sm ">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
                                     </div>
                                 </div>
                         </div>
@@ -205,7 +205,6 @@ $(document).ready(function(){
             e.preventDefault();
             var clonedRow = $(this).closest('.victim-row').clone(); 
             clonedRow.find('input').val('');
-            clonedRow.find('select').val('');
             clonedRow.find('.deletebtn').prop('disabled', false);
             $(this).closest('.victim-row').after(clonedRow);
         });
