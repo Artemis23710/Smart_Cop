@@ -25,6 +25,7 @@ class investigation_details extends Model
         'incident_description',
         'status',
         'approve_status',
+        'investigation_status',
         'created_by',
         'updated_by',
         'approved_by'

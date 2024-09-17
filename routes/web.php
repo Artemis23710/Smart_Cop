@@ -166,3 +166,6 @@ Route::get('/showconvictedcriminals', [ConvictedcriminalController::class, 'show
 Route::get('/investigations', [InvestigationController::class, 'index'])->name('investigations');
 Route::get('/newinvestigation', [InvestigationController::class, 'newinvestigation'])->name('newinvestigation');
 Route::post('/investigationstore', [InvestigationController::class, 'store'])->name('investigationstore');
+Route::get('/showinvestigations', [InvestigationController::class, 'showinvestigations'])->name('showinvestigations');
+Route::get('/investigationstatus/{id}/{status}', [InvestigationController::class, 'status'])->name('investigationstatus');
+Route::get('/investigationsedit/{id}', [InvestigationController::class, 'edit'])->name('investigationsedit');

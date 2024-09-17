@@ -59,6 +59,7 @@ class InvestigationService
             'incident_description' => $request->incidentdescription,
             'status' => 1,
             'approve_status' => 0,
+            'investigation_status' => 0,
             'created_by' => Auth::id(),
             'updated_by' => null,
             'approved_by' => null,
@@ -92,5 +93,32 @@ class InvestigationService
         return  $message;
     }
 
-    
+    public function updateStatus($requestid, $statusid)
+    {
+     
+        $suspect = investigation_details::findOrFail($requestid);
+        
+        switch ($statusid) {
+            case 1:
+                $suspect->status = 1;
+                $message = 'Investigation Activated Successfully.';
+                break;
+                
+            case 2:
+                $suspect->status = 2;
+                $message = 'Investigation Deactivated Successfully.';
+                break;
+                
+            default:
+                $suspect->status = 3;
+                $message = 'Investigation Deleted Successfully.';
+                break;
+        }
+        
+        $suspect->updated_by = Auth::id();
+        $suspect->save();
+
+        return $message;
+    }
+
 }

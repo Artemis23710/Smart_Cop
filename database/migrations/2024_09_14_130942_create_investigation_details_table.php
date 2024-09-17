@@ -28,6 +28,7 @@ return new class extends Migration
             $table->longText('incident_description')->nullable();
             $table->integer('status'); 
             $table->integer('approve_status'); 
+            $table->integer('investigation_status'); 
             $table->integer('created_by')->nullable();  
             $table->integer('updated_by')->nullable(); 
             $table->integer('approved_by')->nullable(); 

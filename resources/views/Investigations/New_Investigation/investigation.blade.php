@@ -24,12 +24,13 @@
                     <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                         <thead>
                             <tr>
-                              <th>Suspect Name</th>
-                              <th>NIC</th>
+                              <th>Case No</th>
                               <th>Crime Category</th>
                               <th>Crime</th>
-                              <th>Arrested Station</th>
-                              <th>Arrested Date</th>
+                              <th>Title Incident</th>
+                              <th>Incident Date</th>
+                              <th>Incident Location</th>
+                              <th>Incident Area</th>
                               <th class="disabled-sorting text-right">Actions</th>
                             </tr>
                           </thead>
@@ -49,9 +50,61 @@
 $(document).ready(function () {
 
     $("#investigationlink").addClass('active');
+
+    $('#datatable').DataTable();
+    $('#datatables').DataTable({
+        "pagingType": "full_numbers",
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"]
+        ],
+        responsive: true,
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search records",
+        },
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('showinvestigations') }}",
+        columns: [{
+                data: 'case_no',
+                name: 'case_no'
+            },
+            {
+                data: 'crimemain',
+                name: 'crimemain'
+            },
+            {
+                data: 'crime',
+                name: 'crime'
+            },
+            {
+                data: 'title_incident',
+                name: 'title_incident'
+            },
+            {
+                data: 'incident_date',
+                name: 'incident_date'
+            },
+            {
+                data: 'incident_location',
+                name: 'incident_location'
+            },
+            {
+                data: 'incident_area',
+                name: 'incident_area'
+            },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false,
+                searchable: false,
+                className: 'text-right'
+            }
+        ]
+    });
+
 });
-
-
 
 document.addEventListener('DOMContentLoaded', function () {
             @if(session('message'))
@@ -80,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '{{ url("suspectstatus") }}/' + officerId + '/3';
+                    window.location.href = '{{ url("investigationstatus") }}/' + officerId + '/3';
                 }
             });
         }
