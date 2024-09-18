@@ -169,3 +169,4 @@ Route::post('/investigationstore', [InvestigationController::class, 'store'])->n
 Route::get('/showinvestigations', [InvestigationController::class, 'showinvestigations'])->name('showinvestigations');
 Route::get('/investigationstatus/{id}/{status}', [InvestigationController::class, 'status'])->name('investigationstatus');
 Route::get('/investigationsedit/{id}', [InvestigationController::class, 'edit'])->name('investigationsedit');
+Route::get('/investigationsvictimdelete/{id}', [InvestigationController::class, 'victimdelete'])->name('investigationsvictimdelete');

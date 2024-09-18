@@ -120,5 +120,14 @@ class InvestigationController extends Controller
 
     }
 
+    public function victimdelete($requestid){
+
+        $victims = investigation_vicims::findOrFail($requestid);
+        $victims->status = 3;
+        $victims->save();
+
+        $message = 'Investigation Victim Deleted Successfully.';
+        return redirect()->back()->with('message', $message);
+    }
 
 }

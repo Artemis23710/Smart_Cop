@@ -129,7 +129,7 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <label class="inputlabel">Incident Description</label>
-                                            <textarea name="incidentdescription" class="form-control" cols="20"  rows="5" value="{{$investigationinfo->incident_description}}"></textarea>
+                                            <textarea name="incidentdescription" class="form-control" cols="20"  rows="5">{{$investigationinfo->incident_description}}</textarea>
                                         </div>
                                     </div>
                             </div>
@@ -137,6 +137,35 @@
                          <br><br>
                         <div class="col-12">
                             <h3 class="title-style"><span>Victims Information</span></h6>
+
+                                @foreach($victims as $victim)
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="inputlabel">Victim Name</label>
+                                            <input type="text" class="form-control" id="victimname" name="victimname[]" value="{{ $victim->victim_name}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label class="inputlabel">Gender</label><br>
+                                            <input type="text" class="form-control" id="victimgender" name="victimgender[]" value="{{ $victim->victim_gender}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label class="inputlabel">Victim Age</label>
+                                            <input type="text" class="form-control" id="victimage" name="victimage[]" value="{{ $victim->victim_age}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <br>
+                                        <input type="hidden" class="form-control" id="victimod" name="victimod[]" value="{{ $victim->id}}">
+                                        <button type="button" class="delete-btn btn btn-danger btn-sm " data-id="{{ $victim->id}}"><i class="fas fa-trash-alt"></i></button>
+                                    </div>
+                                </div>
+                                @endforeach
+
                                 <div class="row victim-row">
                                     <div class="col-4">
                                         <div class="form-group">
@@ -158,6 +187,7 @@
                                     </div>
                                     <div class="col-2">
                                         <br>
+                                        <input type="text" class="hiddenval form-control" id="victimod" name="victimod[]" value="0">
                                         <button type="button" onclick="productDelete(this);" class="deletebtn btn btn-danger btn-sm " disabled>
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
@@ -201,6 +231,7 @@ $(document).ready(function(){
             e.preventDefault();
             var clonedRow = $(this).closest('.victim-row').clone(); 
             clonedRow.find('input').val('');
+            clonedRow.find('.hiddenval').val(0);
             clonedRow.find('.deletebtn').prop('disabled', false);
             $(this).closest('.victim-row').after(clonedRow);
         });
@@ -283,6 +314,28 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     @endif
 }); 
+
+document.addEventListener('click', function (event) {
+        if (event.target.closest('.delete-btn')) {
+            var deleteButton = event.target.closest('.delete-btn');
+            var officerId = deleteButton.getAttribute('data-id');
+
+            Swal.fire({
+                title: 'Are you want to Delete this Record?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '{{ url("investigationsvictimdelete") }}/' + officerId ;
+                }
+            });
+        }
+    });
+
 </script>
 
 @endsection
