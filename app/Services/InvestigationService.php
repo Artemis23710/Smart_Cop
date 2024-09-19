@@ -17,7 +17,8 @@ use Illuminate\Http\Request;
 class InvestigationService
 {
     
-    public function store($request){
+    public function store($request)
+    {
 
         $validator = Validator::make($request->all(),[
             'caseno' => 'required',
@@ -43,53 +44,106 @@ class InvestigationService
 
         $keywords = $request->caseno . ' ' . $request->incidenttitle . ' ' . $request->incidentlocation. ' ' . $request->incidentarea. ' ' . $request->incidentdate; 
 
-       $investigatation =  investigation_details::create([
-            'Keywords' =>  $keywords,
-            'case_no' => $request->caseno,
-            'report_date' => $request->reportdate,
-            'arrested_crime_category' => $request->crimecategory,
-            'arrested_crime' => $request->arrestedcrime,
-            'title_incident' => $request->incidenttitle,
-            'incident_date' => $request->incidentdate,
-            'incident_location' => $request->incidentlocation,
-            'incident_area' => $request->incidentarea,
-            'arrested_station' => $request->arreststationid,
-            'investigating_officer' => $request->officerid,
-            'assigndate' => $request->officerassigndate,
-            'incident_description' => $request->incidentdescription,
-            'status' => 1,
-            'approve_status' => 0,
-            'investigation_status' => 0,
-            'created_by' => Auth::id(),
-            'updated_by' => null,
-            'approved_by' => null,
-        ]);
+     if($request->hiddenid == 1){
 
-        $savedinvestigationId = $investigatation->id;
+            $investigatation =  investigation_details::create([
+                'Keywords' =>  $keywords,
+                'case_no' => $request->caseno,
+                'report_date' => $request->reportdate,
+                'arrested_crime_category' => $request->crimecategory,
+                'arrested_crime' => $request->arrestedcrime,
+                'title_incident' => $request->incidenttitle,
+                'incident_date' => $request->incidentdate,
+                'incident_location' => $request->incidentlocation,
+                'incident_area' => $request->incidentarea,
+                'arrested_station' => $request->arreststationid,
+                'investigating_officer' => $request->officerid,
+                'assigndate' => $request->officerassigndate,
+                'incident_description' => $request->incidentdescription,
+                'status' => 1, 
+                'approve_status' => 0,
+                'investigation_status' => 0,
+                'created_by' => Auth::id(),
+                'updated_by' => null,
+                'approved_by' => null,
+            ]);
+
+            $savedinvestigationId = $investigatation->id;
+            
+            $victimNames = $request->input('victimname', []);
+            $victimGenders = $request->input('victimgender', []);
+            $victimAges = $request->input('victimage', []);
         
-        $victimNames = $request->input('victimname', []);
-        $victimGenders = $request->input('victimgender', []);
-        $victimAges = $request->input('victimage', []);
-    
-        // Ensure all arrays are of the same length
-        $victimDataCount = min(count($victimNames), count($victimGenders), count($victimAges));
-    
-        // Insert victim details
-        for ($index = 0; $index < $victimDataCount; $index++) {
-            // Ensure data is valid before inserting (skip if necessary data is missing)
-            if (!empty($victimNames[$index]) && !empty($victimGenders[$index]) && !empty($victimAges[$index])) {
-                investigation_vicims::create([
-                    'investigation_id' => $savedinvestigationId,
-                    'victim_name' => $victimNames[$index],
-                    'victim_gender' => $victimGenders[$index],
-                    'victim_age' => $victimAges[$index],
-                    'status' => 1,
-                ]);
+            // Ensure all arrays are of the same length
+            $victimDataCount = min(count($victimNames), count($victimGenders), count($victimAges));
+            // Insert victim details
+            for ($index = 0; $index < $victimDataCount; $index++) {
+                // Ensure data is valid before inserting (skip if necessary data is missing)
+                if (!empty($victimNames[$index]) && !empty($victimGenders[$index]) && !empty($victimAges[$index])) {
+                    investigation_vicims::create([
+                        'investigation_id' => $savedinvestigationId,
+                        'victim_name' => $victimNames[$index],
+                        'victim_gender' => $victimGenders[$index],
+                        'victim_age' => $victimAges[$index],
+                        'status' => 1,
+                    ]);
+                }
             }
+            $message = 'Investigation Details Created Successfully.';
+     }else{
+
+        $investigatation =  investigation_details::find($request->recordID);
+        if ($investigatation) {
+
+            $investigatation->update([
+                'Keywords' =>  $keywords,
+                'report_date' => $request->reportdate,
+                'arrested_crime_category' => $request->crimecategory,
+                'arrested_crime' => $request->arrestedcrime,
+                'title_incident' => $request->incidenttitle,
+                'incident_date' => $request->incidentdate,
+                'incident_location' => $request->incidentlocation,
+                'incident_area' => $request->incidentarea,
+                'arrested_station' => $request->arreststationid,
+                'investigating_officer' => $request->officerid,
+                'assigndate' => $request->officerassigndate,
+                'incident_description' => $request->incidentdescription,
+                'updated_by' => Auth::id(),
+            ]);
+
+            $victimNames = $request->input('victimname', []);
+            $victimGenders = $request->input('victimgender', []);
+            $victimAges = $request->input('victimage', []);
+            $victimod = $request->input('victimod', []);
+
+            $victimDataCount = min(count($victimNames), count($victimGenders), count($victimAges),count($victimod));
+
+            for ($index = 0; $index < $victimDataCount; $index++) {
+                if($victimod[$index] == 0){
+                    if (!empty($victimNames[$index]) && !empty($victimGenders[$index]) && !empty($victimAges[$index])) {
+                        investigation_vicims::create([
+                            'investigation_id' => $request->recordID,
+                            'victim_name' => $victimNames[$index],
+                            'victim_gender' => $victimGenders[$index],
+                            'victim_age' => $victimAges[$index],
+                            'status' => 1,
+                        ]);
+                    }
+                }else{
+                    $investigatationvictims =  investigation_vicims::find($victimod[$index],);
+                    $investigatationvictims ->update([
+                        'investigation_id' => $request->recordID,
+                        'victim_name' => $victimNames[$index],
+                        'victim_gender' => $victimGenders[$index],
+                        'victim_age' => $victimAges[$index],
+                    ]);
+                }
+            }
+            $message = 'Investigation Details Created Successfully.';
         }
-
-
-        $message = 'Investigation Details Created Successfully.';
+     }
+        
+       
         return  $message;
     }
 
@@ -121,4 +175,5 @@ class InvestigationService
         return $message;
     }
 
+    
 }

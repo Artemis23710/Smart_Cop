@@ -142,6 +142,12 @@
            <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
            <li><a href="#3"><i class="fas fa-gavel navfasicon"></i> Convicted Criminals</a></li>
 
+           
+           {{-- Investigation section --}}
+           @elseif(request()->route()->getName() == 'crimedashboard')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">search_off</i> Investigation</a></li>
+
            @elseif(request()->route()->getName() == 'investigations')
            <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
            <li><a href="#2"><i class="material-icons">gavel</i> Investigations</a></li>
@@ -152,6 +158,12 @@
            <li><a href="#2"><i class="material-icons">gavel</i> Investigations</a></li>
            <li><a href="#3"><i class="material-icons">search_off</i> Investigation</a></li>
            <li><a href="#3"><i class="fas fa-plus fasicons" ></i> New Investigation</a></li>
+
+           @elseif(request()->route()->getName() == 'investigationsedit')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">gavel</i> Investigations</a></li>
+           <li><a href="#3"><i class="material-icons">search_off</i> Investigation</a></li>
+           <li><a href="#3"><i class="material-icons">edit</i> Edit Investigation</a></li>
 
 
           @endif

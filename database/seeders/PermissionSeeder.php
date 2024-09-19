@@ -80,6 +80,14 @@ class PermissionSeeder extends Seeder
             // ['name' => 'Serious-Crime_Judgement-Edit', 'module_name' => 'Serious Crime'],
             // ['name' => 'Serious-Crime_Judgement-Delete', 'module_name' => 'Serious Crime'],
             // ['name' => 'Convicted-Criminals-List', 'module_name' => 'Convicted Criminals'],
+            // ['name' => 'Investigation-List', 'module_name' => 'Investigation'],
+            // ['name' => 'Investigation-Create', 'module_name' => 'Investigation'],
+            // ['name' => 'Investigation-Edit', 'module_name' => 'Investigation'],
+            // ['name' => 'Investigation-Delete', 'module_name' => 'Investigation'],
+            // ['name' => 'Investigation-Status', 'module_name' => 'Investigation'],
+            // ['name' => 'Ongoing-Investigation-List', 'module_name' => 'Ongoing-Investigation'],
+            // ['name' => 'Closed-Investigation-List', 'module_name' => 'Closed-Investigation'],
+          
         ];
 
         foreach ($permissions as $permission) {

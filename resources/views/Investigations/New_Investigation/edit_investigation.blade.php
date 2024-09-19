@@ -187,7 +187,7 @@
                                     </div>
                                     <div class="col-2">
                                         <br>
-                                        <input type="text" class="hiddenval form-control" id="victimod" name="victimod[]" value="0">
+                                        <input type="hidden" class="hiddenval form-control" id="victimod" name="victimod[]" value="0">
                                         <button type="button" onclick="productDelete(this);" class="deletebtn btn btn-danger btn-sm " disabled>
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
@@ -197,8 +197,8 @@
                                     </div>
                                 </div>
                         </div>
-<br><br>
-                        @can('Suspect-Create')
+                        <br><br>
+                        @can('Investigation-Edit')
                             <div class="col-12 d-flex align-items-center justify-content-center">
                               <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
                               <i class="fas fa-save"></i>&nbsp;Save Suspect Information</button>

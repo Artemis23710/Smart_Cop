@@ -71,17 +71,17 @@ class InvestigationController extends Controller
 
                 ->addColumn('action', function($row) {
                     $btn = '<td class="text-right">';
-                    if (auth()->user()->can('Suspect-Edit')) {
+                    if (auth()->user()->can('Investigation-Edit')) {
                         $btn .= '<a href="' . route('investigationsedit', ['id' => $row->id]) . '"  target="_self" title="Edit" data-bs-toggle="tooltip" data-bs-placement="top"  class="icon-button btn btn-info btn-sm mr-1 editbtn"><i class="material-icons">edit</i></a>';
                     }
-                    if (auth()->user()->can('Suspect-Status')) {
+                    if (auth()->user()->can('Investigation-Status')) {
                         if ($row->status == 1) {
                             $btn .= '<a href="' . route('investigationstatus', ['id' => $row->id, 'status' => 2]) . '" onclick="return deactive_confirm()" target="_self" title="Deactivate" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-success btn-sm mr-1"><i class="fas fa-check"></i></a>';
                         } else {
                             $btn .= '<a href="' . route('investigationstatus', ['id' => $row->id, 'status' => 1]) . '" onclick="return active_confirm()" target="_self" title="Activate" data-bs-toggle="tooltip" data-bs-placement="top" class="btn btn-warning btn-sm mr-1"><i class="fas fa-times"></i></a>';
                         }
                     }
-                    if (auth()->user()->can('Suspect-Delete')) {
+                    if (auth()->user()->can('Investigation-Delete')) {
                         $btn .= '<button class="btn btn-danger btn-sm mr-1 delete-btn" data-id="' . $row->id . '" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">delete</i></button>';
                     }
                     return $btn;
@@ -90,7 +90,6 @@ class InvestigationController extends Controller
                 ->make(true);
         }
     }
-
 
     public function status($requestid, $statusid)
     {
