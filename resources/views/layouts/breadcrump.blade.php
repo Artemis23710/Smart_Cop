@@ -165,6 +165,15 @@
            <li><a href="#3"><i class="material-icons">search_off</i> Investigation</a></li>
            <li><a href="#3"><i class="material-icons">edit</i> Edit Investigation</a></li>
 
+           @elseif(request()->route()->getName() == 'ongoinginvestigations')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">gavel</i> Investigations</a></li>
+           <li><a href="#3"><i class="material-icons">hourglass_top</i> Ongoing Investigations</a></li>
+
+           @elseif(request()->route()->getName() == 'closedinvestigations')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">gavel</i> Investigations</a></li>
+           <li><a href="#3"><i class="material-icons">check_circle</i> Closed Investigations</a></li>
 
           @endif
       </ul>

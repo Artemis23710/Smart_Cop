@@ -7,16 +7,18 @@
           </a>
         </li>
         @endcan
+        
         @can('Ongoing-Investigation-List')
         <li class="nav-item">
-          <a class="nav-link navbutton"  href="{{ route('stations')}}" id="ongoinginvetigationlink" ><i class="material-icons">hourglass_top</i>  
+          <a class="nav-link navbutton"  href="{{ route('ongoinginvestigations')}}" id="ongoinginvetigationlink" ><i class="material-icons">hourglass_top</i>  
             Ongoing Investigations
           </a>
         </li>
         @endcan
+
         @can('Closed-Investigation-List')
         <li class="nav-item">
-          <a class="nav-link navbutton"  href="{{ route('offiers')}}" id="closedinvestigationlink" ><i class="material-icons">check_circle  </i>  
+          <a class="nav-link navbutton"  href="{{ route('closedinvestigations')}}" id="closedinvestigationlink" ><i class="material-icons">check_circle  </i>  
             Closed Investigations
           </a>
         </li>

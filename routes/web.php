@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admincontroller;
+use App\Http\Controllers\ClosedinvestigationController;
 use App\Http\Controllers\ConvictedcriminalController;
 use App\Http\Controllers\CrimedashboardController;
 use App\Http\Controllers\CriminaldashboardController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\StationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvestigationController;
 use App\Http\Controllers\OfficerController;
+use App\Http\Controllers\OngoinginvestigationController;
 use App\Http\Controllers\SuspectController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -170,3 +172,16 @@ Route::get('/showinvestigations', [InvestigationController::class, 'showinvestig
 Route::get('/investigationstatus/{id}/{status}', [InvestigationController::class, 'status'])->name('investigationstatus');
 Route::get('/investigationsedit/{id}', [InvestigationController::class, 'edit'])->name('investigationsedit');
 Route::get('/investigationsvictimdelete/{id}', [InvestigationController::class, 'victimdelete'])->name('investigationsvictimdelete');
+
+
+
+// ongoing investigation controller routes
+Route::get('/ongoinginvestigations', [OngoinginvestigationController::class, 'index'])->name('ongoinginvestigations');
+Route::get('/showongoinginvestigations', [OngoinginvestigationController::class, 'showongoinginvestigations'])->name('showongoinginvestigations');
+
+
+// colsed investigation controller routes
+Route::get('/closedinvestigations', [ClosedinvestigationController::class, 'index'])->name('closedinvestigations');
+Route::get('/showclosedinvestigations', [ClosedinvestigationController::class, 'showclosedinvestigations'])->name('showclosedinvestigations');
+
+
