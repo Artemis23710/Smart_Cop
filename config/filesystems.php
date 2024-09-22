@@ -72,6 +72,13 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'Evidances' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/Investigation_Evidance'),
+            'url' => env('APP_URL').'/storage/Investigation_Evidance',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
 
         's3' => [
             'driver' => 's3',

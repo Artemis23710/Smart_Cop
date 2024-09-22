@@ -10,17 +10,12 @@ class investigation_evidences extends Model
     use HasFactory;
 
     protected $fillable = [
-        'investigation_id',
+        'investigation_note_id',
         'evidence',
         'evidence_title',
         'evidence_desription',
         'status',
         
     ];
-
-    public function investigationdetails()
-    {
-        return $this->belongsTo(investigation_details::class, 'investigation_id');
-    }
 
 }

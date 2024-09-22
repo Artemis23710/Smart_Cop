@@ -178,6 +178,9 @@ Route::get('/investigationsvictimdelete/{id}', [InvestigationController::class, 
 // ongoing investigation controller routes
 Route::get('/ongoinginvestigations', [OngoinginvestigationController::class, 'index'])->name('ongoinginvestigations');
 Route::get('/showongoinginvestigations', [OngoinginvestigationController::class, 'showongoinginvestigations'])->name('showongoinginvestigations');
+Route::post('/saveinvestigationnote', [OngoinginvestigationController::class, 'saveinvestigationnote'])->name('saveinvestigationnote');
+Route::post('/saveinvestigationclose', [OngoinginvestigationController::class, 'saveinvestigationclose'])->name('saveinvestigationclose');
+Route::get('/ongoinginvestigationview/{id}', [OngoinginvestigationController::class, 'view'])->name('ongoinginvestigationview');
 
 
 // colsed investigation controller routes

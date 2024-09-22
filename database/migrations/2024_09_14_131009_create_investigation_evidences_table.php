@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('investigation_evidences', function (Blueprint $table) {
             $table->id();
-            $table->integer('investigation_id');
+            $table->integer('investigation_note_id');
             $table->string('evidence')->nullable();
             $table->string('evidence_title')->nullable();
             $table->string('evidence_desription')->nullable();

@@ -2,8 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Crime_investigation_closing;
+use App\Models\Crime_investigation_note;
 use App\Models\Crimelist;
 use App\Models\investigation_details;
+use App\Models\investigation_evidences;
 use App\Models\investigation_vicims;
 use App\Models\policestations;
 use Illuminate\Support\Facades\Validator;
@@ -175,5 +178,85 @@ class InvestigationService
         return $message;
     }
 
-    
+    public function saveinvestigationnote($request)
+    {
+
+        $validator = Validator::make($request->all(),[
+            'notetitle' => 'required',
+            'notedate' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'status' => 'error',
+                'errors' => $validator->errors(),
+            ];
+        }
+
+        $investigationnote = Crime_investigation_note::create([
+                'investigation_id' => $request->recordID,
+                'investigation_title' => $request->notetitle,
+                'day_investigation_note' => $request->notedate,
+                'related_location' => $request->relatedlocation,
+                'description' => $request->investigtionnote,
+                'status' => 1, 
+                'created_by' => Auth::id(),
+                'updated_by' => null
+        ]);
+
+        $savedinvestigationId = $investigationnote->id;
+
+        if ($request->hasFile('incidentevidance')) {
+            foreach ($request->file('incidentevidance') as $index => $file) {
+                $newFilename = $request->recordID . '_' . $savedinvestigationId . '_' . str_replace(' ', '_', $request->notetitle) . '_' . ($index + 1) . '.' . $file->getClientOriginalExtension();
+                $filePath = $file->storeAs('Evidances', $newFilename, 'Evidances');
+
+                investigation_evidences::create([
+                    'investigation_note_id' => $savedinvestigationId,
+                    'evidence' => $newFilename,
+                    'evidence_title' => $request->evidancetitle[$index],
+                    'evidence_desription' => $request->evidancediscrption[$index],
+                    'status' => 1,
+                ]);
+            }
+        }
+
+        $message = 'Investigation Crime Note Saved Successfully.';
+        return  $message;
+    }
+
+    public function saveinvestigationclose($request)
+    {
+        $validator = Validator::make($request->all(),[
+            'dateclosing' => 'required',
+            'reason' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'status' => 'error',
+                'errors' => $validator->errors(),
+            ];
+        }
+
+             Crime_investigation_closing::create([
+            'investigation_id' => $request->investigtionID,
+            'dayofclosing' => $request->dateclosing,
+            'reason_closing' => $request->reason,
+            'closing_summary' => $request->closingnote,
+            'status' => 1, 
+            'approved_status' => 0, 
+            'created_by' => Auth::id(),
+            'updated_by' => null,
+            'approved_by' => null
+             ]);
+
+             $investigationdetails = investigation_details::findOrFail($request->investigtionID);
+             $investigationdetails->investigation_status = 1;
+             $investigationdetails->updated_by = Auth::id();
+             $investigationdetails->save();
+
+             $message = 'Investigation Closing Note Saved Successfully.';
+             return  $message;
+    }
 }

@@ -2,12 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Crime_investigation_note;
+use App\Models\CrimeDetails;
+use App\Models\Crimelist;
+use App\Models\investigation_vicims;
+use App\Models\Maincrimecategory;
 use App\Models\investigation_details;
+use App\Models\PoliceDivision;
+use App\Models\policestations;
+use App\Models\Officers;
+use App\Services\InvestigationService;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class OngoinginvestigationController extends Controller
 {
+
+    protected $investigationservice;
+
+    public function __construct(InvestigationService $investigationservice)
+    {
+        $this->investigationservice = $investigationservice;
+
+    }
+
     public function index(){
         return view('Investigations.Ongoing_investigations.ongoinginvestigation');
     }
@@ -34,14 +52,14 @@ class OngoinginvestigationController extends Controller
                     $btn = '<td class="text-right">';
 
                     if (auth()->user()->can('Investigation-Edit')) {
-                        $btn .= '<button class="btn btn-success btn-sm mr-1 report-btn" id="' . $row->id . '" title="Investigation Note" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">post_add</i></button>';    
+                        $btn .= '<button class="btn btn-success btn-sm mr-1 incident-btn" id="' . $row->id . '" title="Investigation Note" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">post_add</i></button>';    
                     }
                    
 
-                    $btn .= '<a href="' . route('criminalseriousview', ['id' => $row->id]) . '"  target="_self" title="View Investigation" data-bs-toggle="tooltip" data-bs-placement="top"  class="icon-button btn btn-sm mr-1 btn-info editbtn"><i class="material-icons">visibility</i></a>';
+                    $btn .= '<a href="' . route('ongoinginvestigationview', ['id' => $row->id]) . '"  target="_self" title="View OngoingInvestigation" data-bs-toggle="tooltip" data-bs-placement="top"  class="icon-button btn btn-sm mr-1 btn-info editbtn"><i class="material-icons">visibility</i></a>';
 
                     if (auth()->user()->can('Investigation-Delete')) {
-                       $btn .= '<button class="btn btn-danger btn-sm mr-1 judment-btn" id="' . $row->id . '" title="Court Decision" data-bs-toggle="tooltip" data-bs-placement="top">
+                       $btn .= '<button class="btn btn-danger btn-sm mr-1 closeinvestigation-btn" id="' . $row->id . '" title="Court Decision" data-bs-toggle="tooltip" data-bs-placement="top">
                        <i class="material-icons">folder_off</i></button>';       
                     }
                     return $btn;
@@ -51,5 +69,42 @@ class OngoinginvestigationController extends Controller
         }
     }
 
-    
+    public function saveinvestigationnote(Request $request,  InvestigationService $investigationservice)
+    {
+        $message = $investigationservice->saveinvestigationnote($request);
+        return redirect()->route('ongoinginvestigations')->with('message', $message);
+    }
+
+    public function saveinvestigationclose(Request $request,  InvestigationService $investigationservice)
+    {
+        $message = $investigationservice->saveinvestigationclose($request);
+        return redirect()->route('ongoinginvestigations')->with('message', $message);
+    }
+
+    public function view($investigationID)
+    {
+
+        $policedivisions = PoliceDivision::all();
+        $maincrimecategory = Maincrimecategory::all();
+        $officers = Officers::where('status',1)->get();
+        $stations = policestations::all();
+        $investigationinfo = investigation_details::find($investigationID);
+        $victims = investigation_vicims::where('investigation_id', $investigationID)->where('status', 1)->get();
+        $stationID = $investigationinfo->arrested_station;
+        $station = policestations::find($stationID);
+        $divisionID = $station ? $station->division_id : null;
+        
+        $categoryID = $investigationinfo->arrested_crime_category;
+        $crimelists = Crimelist::where('category_id', $categoryID)->get();
+        $crimenotes = Crime_investigation_note::where('investigation_id', $investigationID)->where('status', 1)->get();
+        $suspects = CrimeDetails::where('investigation_id', $investigationID)->where('status', 1)
+        ->with(['suspect' => function ($query) {
+                              $query->select('id', 'idcardno', 'fullname'); }])->get();
+
+
+        return view('Investigations.Ongoing_investigations.edit_ongoinginvestigation', compact('policedivisions','maincrimecategory','officers',
+        'stations','investigationinfo','victims','divisionID','crimelists','crimenotes','suspects')); 
+
+    }
+
 }

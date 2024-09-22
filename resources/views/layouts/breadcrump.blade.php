@@ -170,6 +170,12 @@
            <li><a href="#2"><i class="material-icons">gavel</i> Investigations</a></li>
            <li><a href="#3"><i class="material-icons">hourglass_top</i> Ongoing Investigations</a></li>
 
+           @elseif(request()->route()->getName() == 'ongoinginvestigationview')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">gavel</i> Investigations</a></li>
+           <li><a href="#3"><i class="material-icons">hourglass_top</i> Ongoing Investigations</a></li>
+           <li><a href="#3"><i class="fas fa-eye"></i>&nbsp; View Ongoing Investigation</a></li>
+
            @elseif(request()->route()->getName() == 'closedinvestigations')
            <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
            <li><a href="#2"><i class="material-icons">gavel</i> Investigations</a></li>

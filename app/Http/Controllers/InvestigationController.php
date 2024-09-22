@@ -97,8 +97,8 @@ class InvestigationController extends Controller
         return redirect()->back()->with('message', $message);
     }
 
-    public function edit($investigationID){
-
+    public function edit($investigationID)
+    {
         $policedivisions = PoliceDivision::all();
         $maincrimecategory = Maincrimecategory::all();
         $officers = Officers::where('status',1)->get();
@@ -115,8 +115,6 @@ class InvestigationController extends Controller
         $crimelists = Crimelist::where('category_id', $categoryID)->get();
 
         return view('Investigations.New_Investigation.edit_investigation', compact('policedivisions','maincrimecategory','officers','stations','investigationinfo','victims','divisionID','crimelists')); 
-
-
     }
 
     public function victimdelete($requestid){
