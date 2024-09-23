@@ -259,4 +259,35 @@ class InvestigationService
              $message = 'Investigation Closing Note Saved Successfully.';
              return  $message;
     }
+
+    public function updateinvestigationnote($request)
+    {
+
+        $validator = Validator::make($request->all(),[
+            'notetitle' => 'required',
+            'notedate' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'status' => 'error',
+                'errors' => $validator->errors(),
+            ];
+        }
+
+        $id = $request->recordID;
+
+        $investigationnote = Crime_investigation_note::findOrFail($id);
+
+        $investigationnote->update([
+            'investigation_title' => $request->notetitle,
+            'day_investigation_note' => $request->notedate,
+            'related_location' => $request->relatedlocation,
+            'description' => $request->investigtionnote,
+            'updated_by' => Auth::id()
+        ]);
+
+        $message = 'Investigation Crime Note Updated Successfully.';
+        return  $message;
+    }
 }

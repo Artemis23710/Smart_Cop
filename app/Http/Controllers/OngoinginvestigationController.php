@@ -13,6 +13,7 @@ use App\Models\policestations;
 use App\Models\Officers;
 use App\Services\InvestigationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class OngoinginvestigationController extends Controller
@@ -51,14 +52,14 @@ class OngoinginvestigationController extends Controller
                 ->addColumn('action', function($row) {
                     $btn = '<td class="text-right">';
 
-                    if (auth()->user()->can('Investigation-Edit')) {
+                    if (auth()->user()->can('Investigation-Crime-Note-Add')) {
                         $btn .= '<button class="btn btn-success btn-sm mr-1 incident-btn" id="' . $row->id . '" title="Investigation Note" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">post_add</i></button>';    
                     }
                    
 
                     $btn .= '<a href="' . route('ongoinginvestigationview', ['id' => $row->id]) . '"  target="_self" title="View OngoingInvestigation" data-bs-toggle="tooltip" data-bs-placement="top"  class="icon-button btn btn-sm mr-1 btn-info editbtn"><i class="material-icons">visibility</i></a>';
 
-                    if (auth()->user()->can('Investigation-Delete')) {
+                    if (auth()->user()->can('Investigation-Closing-Add')) {
                        $btn .= '<button class="btn btn-danger btn-sm mr-1 closeinvestigation-btn" id="' . $row->id . '" title="Court Decision" data-bs-toggle="tooltip" data-bs-placement="top">
                        <i class="material-icons">folder_off</i></button>';       
                     }
@@ -105,6 +106,39 @@ class OngoinginvestigationController extends Controller
         return view('Investigations.Ongoing_investigations.edit_ongoinginvestigation', compact('policedivisions','maincrimecategory','officers',
         'stations','investigationinfo','victims','divisionID','crimelists','crimenotes','suspects')); 
 
+    }
+
+    public function getCrimeNoteDetails($id)
+    {
+        $crimeDetails = Crime_investigation_note::find($id);
+    
+        if ($crimeDetails) {
+            return response()->json([
+                'investigation_id' => $crimeDetails->investigation_id,
+                'investigation_title' => $crimeDetails->investigation_title,
+                'day_investigation_note' => $crimeDetails->day_investigation_note,
+                'related_location' => $crimeDetails->related_location,
+                'description' => $crimeDetails->description
+            ]);
+        } else {
+            return response()->json(['error' => 'Record not found'], 404);
+        }
+    }
+
+    public function updateinvestigationnote(Request $request,  InvestigationService $investigationservice)
+    {
+        $message = $investigationservice->updateinvestigationnote($request);
+        return redirect()->back()->with('message', $message);
+    }
+
+    public function deleteinvestigationnote($requestid)
+    {
+        $details = Crime_investigation_note::findOrFail($requestid);
+        $details->status = 3;
+        $details->updated_by = Auth::id();
+        $details->save();
+        $message = 'Investigation Crime Note Deleted Successfully';
+        return redirect()->back()->with('message', $message);
     }
 
 }

@@ -33,7 +33,7 @@ class ClosedinvestigationController extends Controller
                 ->addColumn('action', function($row) {
                     $btn = '<td class="text-right">';
                     if (auth()->user()->can('Investigation-Edit')) {
-                        $btn .= '<a href="' . route('investigationsedit', ['id' => $row->id]) . '"  target="_self" title="Edit" data-bs-toggle="tooltip" data-bs-placement="top"  class="icon-button btn btn-info btn-sm mr-1 editbtn"><i class="material-icons">edit</i></a>';
+                        $btn .= '<a href="' . route('investigationsedit', ['id' => $row->id]) . '"  target="_self" title="Approve" data-bs-toggle="tooltip" data-bs-placement="top"  class="icon-button btn btn-info btn-sm mr-1 editbtn"><i class="material-icons">edit</i></a>';
                     }
                    
                     if (auth()->user()->can('Investigation-Delete')) {

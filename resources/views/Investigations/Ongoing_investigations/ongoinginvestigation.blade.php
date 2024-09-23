@@ -112,7 +112,7 @@
 
                         <div class="modal-footer justify-content-center">
 
-                            @can('Serious-Crime_details-Edit')
+                            @can('Investigation-Crime-Note-Add')
                             <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
                                 <i class="fas fa-save"></i>&nbsp;Save Investigation Note
                             </button>
@@ -173,7 +173,7 @@
 
                     <hr style="width:100%; height:1px; background-color:#000000;">
                     <div class="modal-footer justify-content-center">
-                        @can('Serious-Crime_Judgement-Edit')
+                        @can('Investigation-Closing-Add')
                         <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
                             <i class="fas fa-save"></i>&nbsp;Save Verdict Record
                         </button>

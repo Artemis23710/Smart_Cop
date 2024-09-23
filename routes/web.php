@@ -180,7 +180,10 @@ Route::get('/ongoinginvestigations', [OngoinginvestigationController::class, 'in
 Route::get('/showongoinginvestigations', [OngoinginvestigationController::class, 'showongoinginvestigations'])->name('showongoinginvestigations');
 Route::post('/saveinvestigationnote', [OngoinginvestigationController::class, 'saveinvestigationnote'])->name('saveinvestigationnote');
 Route::post('/saveinvestigationclose', [OngoinginvestigationController::class, 'saveinvestigationclose'])->name('saveinvestigationclose');
-Route::get('/ongoinginvestigationview/{id}', [OngoinginvestigationController::class, 'view'])->name('ongoinginvestigationview');
+Route::get('/ongoinginvestigationviewgetCrimeDetails/{id}', [OngoinginvestigationController::class, 'view'])->name('ongoinginvestigationview');
+Route::get('/getCrimeNoteDetails/{id}', [OngoinginvestigationController::class, 'getCrimeNoteDetails'])->name('getCrimeNoteDetails');
+Route::post('/updateinvestigationnote', [OngoinginvestigationController::class, 'updateinvestigationnote'])->name('updateinvestigationnote');
+Route::get('/deleteinvestigationnote/{id}', [OngoinginvestigationController::class, 'deleteinvestigationnote'])->name('deleteinvestigationnote');
 
 
 // colsed investigation controller routes
