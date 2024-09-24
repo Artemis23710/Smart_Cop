@@ -189,5 +189,8 @@ Route::get('/deleteinvestigationnote/{id}', [OngoinginvestigationController::cla
 // colsed investigation controller routes
 Route::get('/closedinvestigations', [ClosedinvestigationController::class, 'index'])->name('closedinvestigations');
 Route::get('/showclosedinvestigations', [ClosedinvestigationController::class, 'showclosedinvestigations'])->name('showclosedinvestigations');
+Route::get('/closedinvestigationsviewapprove/{id}', [ClosedinvestigationController::class, 'viewforapprove'])->name('closedinvestigationsviewapprove');
+Route::get('/closedinvestigationapprove/{id}', [ClosedinvestigationController::class, 'approveclosing'])->name('closedinvestigationapprove');
+
 
 

@@ -11,15 +11,6 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-              <div class="col-12">
-                @can('Investigation-Create')
-                <a href="{{ route('newinvestigation') }}"   class="btn btn-info fa-pull-right"><i class="fas fa-plus mr-2"></i>Add New Investigation Details</a>
-                @endcan
-            </div>
-            <br>
-            <br>
-            <hr style="width:100%; height:1px; background-color:#000;">
-            <br>
                 <div class="material-datatables">
                     <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                         <thead>
@@ -31,6 +22,7 @@
                               <th>Incident Date</th>
                               <th>Incident Location</th>
                               <th>Incident Area</th>
+                              <th>Approve Status</th>
                               <th class="disabled-sorting text-right">Actions</th>
                             </tr>
                           </thead>
@@ -38,7 +30,6 @@
                           </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>
@@ -93,6 +84,10 @@ $(document).ready(function () {
             {
                 data: 'incident_area',
                 name: 'incident_area'
+            },
+            {
+                data: 'approve_status',
+                name: 'approve_status'
             },
             {
                 data: 'action',

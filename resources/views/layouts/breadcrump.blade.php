@@ -181,6 +181,12 @@
            <li><a href="#2"><i class="material-icons">gavel</i> Investigations</a></li>
            <li><a href="#3"><i class="material-icons">check_circle</i> Closed Investigations</a></li>
 
+           @elseif(request()->route()->getName() == 'closedinvestigationsviewapprove')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">gavel</i> Investigations</a></li>
+           <li><a href="#3"><i class="material-icons">check_circle</i> Closed Investigations</a></li>
+           <li><a href="#3"><i class="fas fa-eye"></i>&nbsp; View Approve Investigation</a></li>
+
           @endif
       </ul>
   </div>
