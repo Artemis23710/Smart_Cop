@@ -60,25 +60,25 @@
 
                             <div class="row">
                                 <div class="col-3">
-                                    <div class="form-group required">
+                                    <div class="form-group">
                                         <label class="inputlabel">Tilte for Incident</label>
                                         <input type="text" class="form-control" id="incidenttitle" name="incidenttitle"
-                                            value="{{ $investigationinfo->title_incident}}" required>
+                                            value="{{ $investigationinfo->title_incident}}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-3">
-                                    <div class="form-group required">
+                                    <div class="form-group">
                                         <label class="inputlabel">Date Of Incident</label>
                                         <input type="date" class="form-control datepicker" id="incidentdate"
-                                            name="incidentdate" value="{{ $investigationinfo->incident_date}}" required>
+                                            name="incidentdate" value="{{ $investigationinfo->incident_date}}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-3">
-                                    <div class="form-group required">
+                                    <div class="form-group">
                                         <label class="inputlabel">Incident Location</label>
                                         <input type="text" class="form-control" id="incidentlocation"
                                             name="incidentlocation" value="{{ $investigationinfo->incident_location}}"
-                                            required>
+                                            disabled>
                                     </div>
                                 </div>
                                 <div class="col-3">
@@ -181,29 +181,6 @@
                         </div>
                         @endforeach
                 </div><br><br>
-                <div class="col-12">
-                    <h3 class="title-style"><span>Investigation Notes</span></h6>
-                        <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0"
-                            width="100%" style="width:100%">
-                            <thead>
-                                <th>Title</th>
-                                <th>Date of Investigation Note</th>
-                                <th>Related Location</th>
-                                <th>Discription</th>
-                            </thead>
-                            <tbody>
-                                @foreach($crimenotes as $crimenote)
-                                <tr>
-                                    <td>{{ $crimenote->investigation_title}}</td>
-                                    <td>{{ $crimenote->day_investigation_note }}</td>
-                                    <td>{{ $crimenote->related_location }}</td>
-                                    <td>{{ $crimenote->description }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                </div><br><br>
-
 
                 <div class="col-12">
                     <h3 class="title-style"><span>Suspects Information Related to the Investigation</span></h6>
@@ -247,11 +224,84 @@
                             </div>
                         </div>
                 </div><br><br>
-                <div class="col-12 d-flex justify-content-center">
-                    @can('Closed-Investigation-Approve')
-                    <a href="{{ route('closedinvestigationapprove', ['id' => $investigationinfo->id]) }}"   class="btn btn-success" ><i class="fas fa-check"></i>&nbsp;&nbsp;Approve Investigation Closing</a>
-                    @endcan
-                </div>
+                <div class="col-12">
+                    <h3 class="title-style"><span>Investigation Notes</span></h6>
+                        <div class="col-12">
+                            <ul class="nav nav-pills nav-pills-info" role="tablist">
+                                @foreach($crimenotes as $index => $noteGroup)
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $index === 1 ? 'active' : '' }}" data-toggle="tab" href="#tab{{ $index }}"
+                                        role="tablist">
+                                        {{ $noteGroup->first()->investigation_title }}
+                                    </a>
+                                </li>
+                                @endforeach
+                            </ul>
+                            <div class="tab-content tab-space">
+                                @foreach($crimenotes as $index => $noteGroup)
+                                <div class="tab-pane {{ $index === 1 ? 'active' : '' }}" id="tab{{ $index }}">
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <label class="inputlabel">Investigation Note Tilte</label>
+                                            <input type="text" class="form-control" id="notetitle" name="notetitle" value="{{ $noteGroup->first()->investigation_title }}" disabled>
+                                        </div>
+                                        <div class="col-4">
+                                            <label class="inputlabel">Date Of Investigation Note</label>
+                                            <input type="date" class="form-control" id="notedate" name="notedate" value="{{ $noteGroup->first()->day_investigation_note }}"  required>
+                                        </div>
+                                        <div class="col-4">
+                                            <label class="inputlabel">Related Location</label>
+                                            <input type="text" class="form-control" id="relatedlocation" value="{{ $noteGroup->first()->related_location }}" name="relatedlocation">
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label class="inputlabel">Investigation Description</label>
+                                            <textarea name="investigtionnote" id="investigtionnote" class="form-control" cols="20" rows="5">{{ $noteGroup->first()->description }}</textarea>
+                                        </div>
+                                    </div>
+                                    @php
+                                    $evidenceExists = false;
+                                    @endphp
+
+                                    <h3>Evidences For Crime Note :</h3>
+                                    <ul>
+                                        @foreach($noteGroup as $evidence)
+                                        @if($evidence->evidence_id)
+                                        @php
+                                        $evidenceExists = true;
+                                        @endphp
+                                        <li>
+                                           <div class="row">
+                                                @if(!empty($evidence->evidence))
+                                                <img src="{{ asset('storage/Investigation_Evidance/Evidances/' . $evidence->evidence) }}" class="evidanceviewimage"  alt="Evidence Image" />
+                                                @else
+                                                    <p>No image available</p>
+                                                @endif
+
+                                                <div class="col-4">
+                                                    <label class="inputlabel">Evidences Title</label>
+                                                    <input class="form-control" type="text" value="{{ $evidence->evidence_title }}" disabled>
+                                                </div>
+                                                <div class="col-4">
+                                                    <label class="inputlabel">Evidences Description</label>
+                                                    <input class="form-control" type="text" value="{{ $evidence->evidence_desription }}" disabled>
+                                                </div>
+                                           </div>
+                                        </li>
+                                        @endif
+                                        @endforeach
+                                        @if(!$evidenceExists)
+                                        <p>No evidence available for this Investigation note.</p>
+                                        @endif
+                                    </ul>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                </div><br><br>
+
             </div>
         </div>
     </div>
@@ -259,47 +309,5 @@
 
 @endsection
 @section('script')
-
-<script>
-$(document).ready(function(){
-
-    $("#closedinvestigationlink").addClass('active');
-
-});
-   document.addEventListener('DOMContentLoaded', function () {
-    @if(session('message'))
-    Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: '{{ session('message') }}',
-        showConfirmButton: false,
-        position: "top-end",
-        timer: 1000
-    });
-    @endif
-   }); 
-
-   document.addEventListener('click', function (event) {
-        if (event.target.closest('.delete-btn')) {
-            var deleteButton = event.target.closest('.delete-btn');
-            var deleteId = deleteButton.getAttribute('id');
-
-            Swal.fire({
-                title: 'Are you want to Delete this Record?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '{{ url("deleteinvestigationnote") }}/' + deleteId;
-                }
-            });
-        }
-    });
-
-</script>
 
 @endsection

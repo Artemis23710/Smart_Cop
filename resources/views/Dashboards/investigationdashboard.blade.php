@@ -93,7 +93,7 @@
                     <div class="search-container">
                         <img src="{{ asset('Images/Logo.png') }}" alt="Logo" class="search-logo">
                         <div class="search-bar">
-                            <input type="text" id="search-field" class="search-input" placeholder="Search A officer by keyword...">
+                            <input type="text" id="search-field" class="search-input" placeholder="Search A Investigation Or Crime Case by keyword...">
                             <button id="search-button" class="search-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zm-5.44 1.528a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/>
@@ -101,22 +101,22 @@
                             </button>
                         </div>
                     </div>
-                
+
                     <br><br><hr>
                     <div id="results-container" style="display: none;">
                         <div class="material-datatables" >
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%" >
                                 <thead>
                                     <tr>
-                                      <th>Officer Name</th>
-                                      <th>Officer ID</th>
-                                      <th>Gender</th>
-                                      <th>Rank</th>
-                                      <th>Division</th>
-                                      <th>Assigned Station</th>
-                                      <th>Contact</th>
-                                      <th class="disabled-sorting text-right">Actions</th>
-                                    </tr>
+                                        <th>Case No</th>
+                                        <th>Crime Category</th>
+                                        <th>Crime</th>
+                                        <th>Title Incident</th>
+                                        <th>Incident Date</th>
+                                        <th>Incident Location</th>
+                                        <th>Incident Area</th>
+                                        <th>Investigation Status</th>
+                                        <th class="disabled-sorting text-right">Actions</th>
                                   </thead>
                                   <tbody id="results-body">
                                   </tbody>
@@ -151,35 +151,36 @@ $(document).ready(function() {
         }
     });
 
-    // $('#search-button').on('click', function() {
-    //     let keyword = $('#search-field').val();
 
-    //     $.ajax({
-    //         url: '{{ route("officersearch") }}',
-    //         method: 'POST',
-    //         data: {
-    //             _token: '{{ csrf_token() }}',
-    //             keyword: keyword
-    //         },
-    //         success: function(response) {
-    //             let resultsContainer = $('#results-container');
-    //             let resultsBody = $('#results-body');
+        $('#search-button').on('click', function() {
+            let keyword = $('#search-field').val();
+            $.ajax({
+                url: '{{ route("crimesearch") }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    keyword: keyword
+                },
+                success: function(response) {
+                    let resultsContainer = $('#results-container');
+                    let resultsBody = $('#results-body');
 
-    //             resultsBody.html(response.html); 
-    //             if (response.html) {
-    //                 resultsContainer.show();
-    //             } else {
-    //                 resultsContainer.hide();
-    //                 Swal.fire({
-    //                     icon: 'info',
-    //                     title: 'No Record Found',
-    //                     text: 'There is No Record Matching Your Search.',
-    //                 });
-    //             }
-    //         }
-    //     });
-    // });
-});
+                    resultsBody.html(response.html); 
+                    if (response.html) {
+                        resultsContainer.show();
+                    } else {
+                        resultsContainer.hide();
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'No Record Found',
+                            text: 'There is No Record Matching Your Search.',
+                        });
+                    }
+                }
+            });
+        });
+
+    });
 
 </script>
 

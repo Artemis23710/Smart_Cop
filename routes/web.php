@@ -91,9 +91,6 @@ Route::post('/checkidcardavalibility', [OfficerController::class, 'checkIdCard']
 Route::post('/checkofficeridavalibility', [OfficerController::class, 'checkOfficerId'])->name('checkofficeridavalibility');
 Route::post('/offierslogincreate', [OfficerController::class, 'createofficerlogin'])->name('offierslogincreate');
 
-// Crime Dashboard Controller Routes
-Route::get('/crimedashboard', [CrimedashboardController::class, 'index'])->name('crimedashboard');
-
 // Criminal Dashboard Controller Routes
 Route::get('/criminaldashboard', [CriminaldashboardController::class, 'index'])->name('criminaldashboard');
 
@@ -118,8 +115,6 @@ Route::post('/criminalseriousupdate', [CriminalseriousController::class, 'update
 Route::post('/criminalseriouscrimeverdictupdate', [CriminalseriousController::class, 'updateotherCrimeVerdict'])->name('criminalseriouscrimeverdictupdate');
 
 
-
-
 //Criminalproperty Controller Routes
 Route::get('/criminalproperty', [CriminalpropertyController::class, 'index'])->name('criminalproperty');
 Route::get('/showpropertycriminal', [CriminalpropertyController::class, 'showpropertycriminal'])->name('showpropertycriminal');
@@ -128,7 +123,6 @@ Route::post('/criminalpropertycrimeverdict', [CriminalpropertyController::class,
 Route::get('/criminalpropertyview/{id}', [CriminalpropertyController::class, 'View'])->name('criminalpropertyview');
 Route::post('/criminalpropertyupdate', [CriminalpropertyController::class, 'update'])->name('criminalpropertyupdate');
 Route::post('/criminalpropertycrimeverdictupdate', [CriminalpropertyController::class, 'updateotherCrimeVerdict'])->name('criminalpropertycrimeverdictupdate');
-
 
 
 //Criminalviolent Controller Routes
@@ -163,6 +157,10 @@ Route::get('/convictedcriminals', [ConvictedcriminalController::class, 'index'])
 Route::get('/showconvictedcriminals', [ConvictedcriminalController::class, 'showconvictedcriminals'])->name('showconvictedcriminals');
 
 
+// Crime Dashboard Controller Routes
+Route::get('/crimedashboard', [CrimedashboardController::class, 'index'])->name('crimedashboard');
+Route::post('/crimesearch', [CrimedashboardController::class, 'search'])->name('crimesearch');
+Route::get('/crimeview/{id}', [CrimedashboardController::class, 'view'])->name('crimeview');
 
 // investigation Contontroller Routes
 Route::get('/investigations', [InvestigationController::class, 'index'])->name('investigations');
@@ -191,6 +189,7 @@ Route::get('/closedinvestigations', [ClosedinvestigationController::class, 'inde
 Route::get('/showclosedinvestigations', [ClosedinvestigationController::class, 'showclosedinvestigations'])->name('showclosedinvestigations');
 Route::get('/closedinvestigationsviewapprove/{id}', [ClosedinvestigationController::class, 'viewforapprove'])->name('closedinvestigationsviewapprove');
 Route::get('/closedinvestigationapprove/{id}', [ClosedinvestigationController::class, 'approveclosing'])->name('closedinvestigationapprove');
+Route::get('/closedinvestigationsview/{id}', [ClosedinvestigationController::class, 'view'])->name('closedinvestigationsview');
 
 
 

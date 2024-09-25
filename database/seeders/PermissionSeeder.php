@@ -86,11 +86,14 @@ class PermissionSeeder extends Seeder
             // ['name' => 'Investigation-Delete', 'module_name' => 'Investigation'],
             // ['name' => 'Investigation-Status', 'module_name' => 'Investigation'],
             // ['name' => 'Ongoing-Investigation-List', 'module_name' => 'Ongoing-Investigation'],
-            // ['name' => 'Closed-Investigation-List', 'module_name' => 'Closed-Investigation'],
-            // ['name' => 'Investigation-Crime-Note-Add', 'module_name' => 'Ongoing Investigation'],
-            // ['name' => 'Investigation-Crime-Note-Edit', 'module_name' => 'Ongoing Investigation'],
-            // ['name' => 'Investigation-Crime-Note-Delete', 'module_name' => 'Ongoing Investigation'],
-            // ['name' => 'Investigation-Closing-Add', 'module_name' => 'Ongoing Investigation'],
+            // ['name' => 'Investigation-Crime-Note-Add', 'module_name' => 'Ongoing-Investigation'],
+            // ['name' => 'Investigation-Crime-Note-Edit', 'module_name' => 'Ongoing-Investigation'],
+            // ['name' => 'Investigation-Crime-Note-Delete', 'module_name' => 'Ongoing-Investigation'],
+            // ['name' => 'Investigation-Closing-Add', 'module_name' => 'Ongoing-Investigation'],
+              // ['name' => 'Closed-Investigation-List', 'module_name' => 'Closed-Investigation'],
+            //    ['name' => 'Closed-Investigation-Approve', 'module_name' => 'Closed-Investigation'],
+            //    ['name' => 'Closed-Investigation-Print', 'module_name' => 'Closed-Investigation'],
+            //    ['name' => 'Closed-Investigation-Reopen', 'module_name' => 'Closed-Investigation'],
 
            
           
