@@ -51,26 +51,11 @@
                             <div class="col-4 required">
                                 <label class="inputlabel">Related Investigation</label>
                                 <select class="selectpicker" data-style="select-with-transition"  style="width:200px;" title="Select Investigation" name="reletedinvestigation" id="reletedinvestigation" required>
-                                    <option value="1">Investigation 1</option>
-                                    <option value="2">Investigation 2</option>
-                                </select>
-                            </div>
-                            {{-- <div class="col-4 required">
-                                <label class="inputlabel">Arrested Date</label>
-                                <input type="date" class="form-control" id="arresteddate" name="arresteddate">
-                            </div>
-                            <div class="col-4 required">
-                                <label class="inputlabel">Arrested Station</label>
-                                <select class="selectpicker" data-style="select-with-transition"
-                                    title="Arrested Station" name="arrestedstation" id="arrestedstation" readonly>
-                                    @foreach($stationlist as $station)
-                                    <option value="{{ $station->id }}">{{$station->station_name}}</option>
+                                    @foreach($investigationlist as $investigation)
+                                    <option value="{{ $investigation->id }}">{{$investigation->title_incident}}</option>
                                     @endforeach
                                 </select>
-                            </div> --}}
-                        </div>
-
-                        <div class="row">
+                            </div>
                             <div class="col-4 required">
                                 <label class="inputlabel">Arrested Crime</label>
                                 <select class="selectpicker" data-style="select-with-transition" title="Arrested Crime"
@@ -84,6 +69,9 @@
                                 <label class="inputlabel">Arrested Date</label>
                                 <input type="date" class="form-control" id="arresteddate" name="arresteddate">
                             </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-4 required">
                                 <label class="inputlabel">Arrested Station</label>
                                 <select class="selectpicker" data-style="select-with-transition"
@@ -93,8 +81,6 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-4 required">
                                 <label class="inputlabel">Incident Location</label>
                                 <input type="text" class="form-control" id="incidentlocation" name="incidentlocation"
@@ -104,6 +90,8 @@
                                 <label class="inputlabel">City</label>
                                 <input type="text" class="form-control" id="city" name="city" required>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-4 required">
                                 <label class="inputlabel">Date Of Incident</label>
                                 <input type="date" class="form-control" id="incidentdate" name="incidentdate" required>

@@ -155,6 +155,7 @@ Route::post('/criminalothercrimeverdictupdate', [CriminalotherController::class,
 //Convictedcriminal Controller Routes
 Route::get('/convictedcriminals', [ConvictedcriminalController::class, 'index'])->name('convictedcriminals');
 Route::get('/showconvictedcriminals', [ConvictedcriminalController::class, 'showconvictedcriminals'])->name('showconvictedcriminals');
+Route::get('/convictedcriminalsview/{id}', [ConvictedcriminalController::class, 'View'])->name('convictedcriminalsview');
 
 
 // Crime Dashboard Controller Routes

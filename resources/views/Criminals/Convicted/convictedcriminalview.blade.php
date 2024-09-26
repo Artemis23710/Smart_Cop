@@ -239,7 +239,6 @@
                                     <th>Offense Location</th>
                                     <th>City</th>
                                     <th>Offense Date</th>
-                                    <th>Action</th>
                                 </thead>
                                 <tbody>
                                     @foreach($crimedetails as $crimedetail)
@@ -250,15 +249,6 @@
                                         <td>{{ $crimedetail->incident_location }}</td>
                                         <td>{{ $crimedetail->incident_city }}</td>
                                         <td>{{ $crimedetail->dateofincident }}</td>
-                                        <td class="text-right">      
-                                            @can('Serious-Crime_details-Edit')
-                                            <button class="icon-button btn btn-info btn-sm mr-1 report-btn" title="Edit" id="{{ $crimedetail->id }}" data-bs-toggle="tooltip" 
-                                                data-bs-placement="top"><i class="material-icons">edit</i></button>  
-                                            @endcan
-                                            @can('Serious-Crime_details-Delete')  
-                                            <button class="btn btn-danger btn-sm mr-1 delete-btn" id="{{ $crimedetail->id }}" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">delete</i></button>  
-                                            @endcan
-                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -275,7 +265,6 @@
                                     <th>Date of gave Judgement</th>
                                     <th>Verdict</th>
                                     <th>Penalty</th>
-                                    <th>Action</th>
                                 </thead>
                                 <tbody>
                                     @foreach($courtjudements as $courtjudement)
@@ -285,14 +274,6 @@
                                         <td>{{ $courtjudement->dateofjudgement }}</td>
                                         <td>{{ $courtjudement->verdict }}</td>
                                         <td>{{ $courtjudement->penelty }}</td>
-                                        <td class="text-right">      
-                                            @can('Serious-Crime_Judgement-Edit')
-                                                <button class="icon-button btn btn-info btn-sm mr-1 judment-btn" title="Edit"id="{{ $courtjudement->id }}" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">edit</i></button>  
-                                            @endcan
-                                            @can('Serious-Crime_Judgement-Delete')
-                                                <button class="btn btn-danger btn-sm mr-1 deletejudgement-btn" id="{{ $courtjudement->id }}" title="Delete" data-bs-toggle="tooltip" data-bs-placement="top"><i class="material-icons">delete</i></button>  
-                                            @endcan
-                                            </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -303,335 +284,13 @@
         </div>
 </div>
 
-{{-- Crime Record details add model --}}
-<div class="modal fade" id="reportmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="myModalLabel">Edit Suspect Crime Details</h3>
-                <button type="button" class="close modelclosebtn" data-dismiss="modal" aria-hidden="true">
-                    <i class="material-icons">close</i>
-                </button>
-            </div>
-            <hr style="width:100%; height:1px; background-color:#000;">
-            <div class="modal-body">
-                <div>
-                    <form action="{{ route('criminalseriousupdate') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <div class="col-4 required">
-                                <label class="inputlabel">Related Investigation</label>
-                                <select class="selectpicker" data-style="select-with-transition"  style="width:200px;" title="Select Investigation" name="reletedinvestigation" id="reletedinvestigation" required>
-                                    @foreach($investigationlist as $investigation)
-                                    <option value="{{ $investigation->id }}">{{$investigation->title_incident}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-4 required">
-                                <label class="inputlabel">Incident Location</label>
-                                <input type="text" class="form-control" id="incidentlocation" name="incidentlocation"
-                                    required>
-                            </div>
-                            <div class="col-4 required">
-                                <label class="inputlabel">City</label>
-                                <input type="text" class="form-control" id="city" name="city" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4 required">
-                                <label class="inputlabel">Date Of Incident</label>
-                                <input type="date" class="form-control" id="incidentdate" name="incidentdate" required>
-                            </div>
-                            <div class="col-8">
-                                <label class="inputlabel">Incident Description</label>
-                                <textarea name="incidentnote" id="incidentnote" class="form-control" cols="20" rows="5"></textarea>
-                            </div>
-                        </div>
-                        
-                        <hr style="width:100%; height:1px; background-color:#000;">
-                        <div class="col-12">
-                            <label class="inputlabel">Incident Evidences</label>
-                            <input class="form-control" type="file" name="incidentevedance">
-                        </div>
-                        <hr style="width:100%; height:1px; background-color:#000;">
-                        <div class="col-12">
-                            <label class="inputlabel">Incident Follow Up</label>
-                            <textarea name="incidentfalowup" id="incidentfalowup" class="form-control" cols="20" rows="5"></textarea>
-                        </div>
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            @foreach ($errors->all() as $error)
-                            {{ $error }}
-                            @endforeach
-                        </div>
-                        @endif
-                        <input type="hidden" id="recordID" name="recordID">
-                        <hr style="width:100%; height:1px; background-color:#000000;">
-                        <div class="modal-footer justify-content-center">
-                            @can('Serious-Crime_details-Edit')
-                            <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
-                                <i class="fas fa-save"></i>&nbsp;Update Crime Record
-                            </button>
-                            @endcan
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-    {{-- curt judgement add model --}}
-<div class="modal fade" id="judgementmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="myModalLabel">Add Suspect's Court Judgement Details</h3>
-                <button type="button" class="close modelclosebtn" data-dismiss="modal" aria-hidden="true" >
-                    <i class="material-icons">close</i>
-                </button>
-            </div>
-            <hr style="width:100%; height:1px; background-color:#000;">
-            <div class="modal-body">
-                <form action="{{ route('criminalseriouscrimeverdictupdate') }}" method="POST">
-                    @csrf
-                    <br>
-                    <div class="row">
-                        <div class="col-3 required">
-                            <label class="inputlabel">Day of Gave Judgment</label>
-                            <input type="date" class="form-control" id="datejudgement" name="datejudgement" required>
-                        </div>
-            
-                        <div class="col-3 required">
-                            <label class="inputlabel">Verdict</label>
-                            
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="radio" name="judgement" id="judnotconvicted"
-                                        value="Not Guilty"><label class="inputlabel" for="judnotconvicted">Not Guilty</label>
-                                    <span class="circle"><span class="check"></span></span>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="radio" name="judgement" value="Found Guilty"
-                                        id="judconvicted"><label class="inputlabel" for="judconvicted">Found Guilty</label>
-                                    <span class="circle"> <span class="check"></span></span>
-                                </label>
-                            </div>
-                            
-                            </select>
-                        </div>
-            
-                        <div class="col-6" id="peneltysection">
-                            <label class="inputlabel">Penalty</label>
-                            <input type="text" class="form-control" id="penelty" name="penelty">
-                        </div>
-                    </div>
-                    <br>
-                    <div class="col-12">
-                        <label class="inputlabel"> Judgment Summary</label>
-                        <textarea name="judgementnote" id="judgementnote" class="form-control" cols="20" rows="5"></textarea>
-                    </div>
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        @foreach ($errors->all() as $error)
-                        {{ $error }}
-                        @endforeach
-                    </div>
-                    @endif
-                    <input type="hidden" id="judgementID" name="recordID">
-                    <input type="hidden" id="suspectrecordID" name="suspectrecordID">
-                    <input type="hidden" id="investigtionID" name="investigtionID">
-
-                    <hr style="width:100%; height:1px; background-color:#000000;">
-                    <div class="modal-footer justify-content-center">
-                        @can('Serious-Crime_Judgement-Edit')
-                        <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
-                            <i class="fas fa-save"></i>&nbsp;Save Verdict Record
-                        </button>
-                        @endcan
-                        
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 @endsection
 @section('script')
 
 <script>
 $(document).ready(function(){
-
-    $("#seriouslink").addClass('active');
-    // open crime details edit model
-    $(document).on('click', '.report-btn', function () {
-        var id = $(this).attr('id');
-        $('#recordID').val(id);
-
-        $.ajax({
-            url: '/getCrimeDetails/' + id,
-            method: 'GET',
-            success: function (response) {
-                $('#incidentlocation').val(response.incident_location);
-                $('#city').val(response.incident_city);
-                $('#incidentdate').val(response.dateofincident);
-                $('#incidentnote').val(response.incident_note);
-                $('#incidentfalowup').val(response.incident_followup);
-                $('#reletedinvestigation').val(response.investigation_id);
-                $('#reletedinvestigation').selectpicker('refresh');
-                $('#reportmodel').modal('show');
-            },
-            error: function (xhr) {
-                console.log(xhr.responseText);
-            }
-        });
-    });
-
-    // open crime Judgement edit model
-    $(document).on('click', '.judment-btn', function () {
-        var id = $(this).attr('id');
-        $('#judgementID').val(id);
-
-        $.ajax({
-            url: '/getCrimejudgementDetails/' + id,
-            method: 'GET',
-            success: function (response) {
-                $('#datejudgement').val(response.dateofjudgement);
-                $('#penelty').val(response.penelty);
-                $('#judgementnote').val(response.judgment_summary);
-                $('#suspectrecordID').val(response.suspect_id);
-                $('#investigtionID').val(response.investigation_id);
-                if (response.penelty === 'Not Guilty') {
-                    $('#judnotconvicted').prop('checked', true);
-                } else {
-                    $('#judconvicted').prop('checked', true);
-                }
-                $('#judgementmodel').modal('show');
-            },
-            error: function (xhr) {
-                console.log(xhr.responseText);
-            }
-        });
-    });
-
-
+    $("#convictedlink").addClass('active');
 });
-
-  document.addEventListener('DOMContentLoaded', function () {
-      const divisionSelect = document.getElementById('divisionid');
-      const stationSelect = document.getElementById('arreststationid');
-
-      divisionSelect.addEventListener('change', function () {
-          const divisionID = this.value;
-
-          if (divisionID) {
-              fetch(`/policestations/${divisionID}`)
-                  .then(response => response.json())
-                  .then(data => {
-                      stationSelect.innerHTML = '<option value="">Choose Station</option>';
-                      data.forEach(stations => {
-                          const option = document.createElement('option');
-                          option.value = stations.id;
-                          option.textContent = stations.station_name;
-                          stationSelect.appendChild(option);
-                      });
-                      $('.selectpicker').selectpicker('refresh');
-                  })
-                  .catch(error => console.error('Error fetching districts:', error));
-          } else {
-              stationSelect.innerHTML = '<option value="">Choose Arrested Police Station</option>';
-              $('.selectpicker').selectpicker('refresh');
-          }
-      });
-  });
-
-  document.addEventListener('DOMContentLoaded', function () {
-      const categorySelect = document.getElementById('crimecategory');
-      const crimeSelect = document.getElementById('arrestedcrime');
-
-      categorySelect.addEventListener('change', function () {
-          const maincategoryID = this.value;
-
-          if (maincategoryID) {
-              fetch(`/crimelist/${maincategoryID}`)
-                  .then(response => response.json())
-                  .then(data => {
-                    crimeSelect.innerHTML = '<option value="">Choose Crime</option>';
-                      data.forEach(crimelist => {
-                          const option = document.createElement('option');
-                          option.value = crimelist.id;
-                          option.textContent = crimelist.crime;
-                          crimeSelect.appendChild(option);
-                      });
-                      $('.selectpicker').selectpicker('refresh');
-                  })
-                  .catch(error => console.error('Error fetching districts:', error));
-          } else {
-            crimeSelect.innerHTML = '<option value="">Choose Crime for Arrest</option>';
-              $('.selectpicker').selectpicker('refresh');
-          }
-      });
-  });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        @if(session('message'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: '{{session('message')}}',
-            showConfirmButton: false,
-            position: "top-end",
-            timer: 1000
-        });
-        @endif
-    });
-
-    document.addEventListener('click', function (event) {
-        if (event.target.closest('.delete-btn')) {
-            var deleteButton = event.target.closest('.delete-btn');
-            var deleteId = deleteButton.getAttribute('id');
-
-            Swal.fire({
-                title: 'Are you want to Delete this Record?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '{{ url("deletecrimedetails") }}/' + deleteId;
-                }
-            });
-        }
-    });
-
-    document.addEventListener('click', function (event) {
-        if (event.target.closest('.deletejudgement-btn')) {
-            var deleteButton = event.target.closest('.deletejudgement-btn');
-            var officerId = deleteButton.getAttribute('id');
-
-            Swal.fire({
-                title: 'Are you want to Delete this Record?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '{{ url("deletejudgementdetails") }}/' + officerId;
-                }
-            });
-        }
-    });
     
 </script>
 

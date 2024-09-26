@@ -8,6 +8,7 @@ use App\Models\Maincrimecategory;
 use App\Models\PoliceDivision;
 use App\Models\Suspectphoto;
 use App\Models\Crimelist;
+use App\Models\investigation_details;
 use App\Models\policestations;
 use App\Models\Suspect;
 use App\Services\CriminalSeriousService;
@@ -28,7 +29,8 @@ class CriminalseriousController extends Controller
 
         $crimelist = Crimelist::all();
         $stationlist = policestations::where('status', 1)->get();
-        return view('Criminals.Criminal_Serious.criminalseriouscrime',compact('crimelist','stationlist'));
+        $investigationlist = investigation_details::where('status', 1)->where('investigation_status', 0)->get();
+        return view('Criminals.Criminal_Serious.criminalseriouscrime',compact('crimelist','stationlist','investigationlist'));
     }
 
     public function showseriouscriminal(Request $request)
@@ -38,6 +40,7 @@ class CriminalseriousController extends Controller
             $data = Suspect::with(['station', 'maincategory','crimecategory'])
                             ->whereIn('suspects.status', [1, 2])
                             ->where('suspects.maincategoryid', 1)
+                            ->where('suspects.convictedstatus', 0)
                             ->get();
 
             return DataTables::of($data)
@@ -107,9 +110,10 @@ class CriminalseriousController extends Controller
 
         $crimedetails = CrimeDetails::where('suspect_id', $suspectID)->where('status', 1)->get();
         $courtjudements = CourtVerdicts::where('suspect_id', $suspectID)->where('status', 1)->get();
+        $investigationlist = investigation_details::where('status', 1)->where('investigation_status', 0)->get();
         
         return view('Criminals.Criminal_Serious.criminalseriousview', compact('maincrimecategory','policedivisions','stations','suspectinfo',
-                     'suspectphoto','divisionID','crimelists','crimedetails','courtjudements'));
+                     'suspectphoto','divisionID','crimelists','crimedetails','courtjudements','investigationlist'));
 
     }
 
