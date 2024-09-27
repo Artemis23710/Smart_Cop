@@ -18,6 +18,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvestigationController;
 use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\OngoinginvestigationController;
+use App\Http\Controllers\PDFInvestigationDocumentController;
 use App\Http\Controllers\SuspectController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -114,7 +115,6 @@ Route::get('/criminalseriousview/{id}', [CriminalseriousController::class, 'View
 Route::post('/criminalseriousupdate', [CriminalseriousController::class, 'update'])->name('criminalseriousupdate');
 Route::post('/criminalseriouscrimeverdictupdate', [CriminalseriousController::class, 'updateotherCrimeVerdict'])->name('criminalseriouscrimeverdictupdate');
 
-
 //Criminalproperty Controller Routes
 Route::get('/criminalproperty', [CriminalpropertyController::class, 'index'])->name('criminalproperty');
 Route::get('/showpropertycriminal', [CriminalpropertyController::class, 'showpropertycriminal'])->name('showpropertycriminal');
@@ -141,7 +141,6 @@ Route::get('/getcrimerecordlist', [CriminalviolentController::class, 'getCrimeRe
 Route::get('/deletecrimedetails/{id}', [CriminalviolentController::class, 'deletecrimedetails'])->name('deletecrimedetails');
 Route::get('/deletejudgementdetails/{id}', [CriminalviolentController::class, 'deletejudgementdetails'])->name('deletejudgementdetails');
 
-
 //Criminalother Controller Routes
 Route::get('/criminalother', [CriminalotherController::class, 'index'])->name('criminalother');
 Route::get('/showothercriminal', [CriminalotherController::class, 'showothercriminal'])->name('showothercriminal');
@@ -151,12 +150,10 @@ Route::post('/criminalothercrimeverdict', [CriminalotherController::class, 'crim
 Route::post('/criminalotherupdate', [CriminalotherController::class, 'update'])->name('criminalotherupdate');
 Route::post('/criminalothercrimeverdictupdate', [CriminalotherController::class, 'updateotherCrimeVerdict'])->name('criminalothercrimeverdictupdate');
 
-
 //Convictedcriminal Controller Routes
 Route::get('/convictedcriminals', [ConvictedcriminalController::class, 'index'])->name('convictedcriminals');
 Route::get('/showconvictedcriminals', [ConvictedcriminalController::class, 'showconvictedcriminals'])->name('showconvictedcriminals');
 Route::get('/convictedcriminalsview/{id}', [ConvictedcriminalController::class, 'View'])->name('convictedcriminalsview');
-
 
 // Crime Dashboard Controller Routes
 Route::get('/crimedashboard', [CrimedashboardController::class, 'index'])->name('crimedashboard');
@@ -172,8 +169,6 @@ Route::get('/investigationstatus/{id}/{status}', [InvestigationController::class
 Route::get('/investigationsedit/{id}', [InvestigationController::class, 'edit'])->name('investigationsedit');
 Route::get('/investigationsvictimdelete/{id}', [InvestigationController::class, 'victimdelete'])->name('investigationsvictimdelete');
 
-
-
 // ongoing investigation controller routes
 Route::get('/ongoinginvestigations', [OngoinginvestigationController::class, 'index'])->name('ongoinginvestigations');
 Route::get('/showongoinginvestigations', [OngoinginvestigationController::class, 'showongoinginvestigations'])->name('showongoinginvestigations');
@@ -184,7 +179,6 @@ Route::get('/getCrimeNoteDetails/{id}', [OngoinginvestigationController::class, 
 Route::post('/updateinvestigationnote', [OngoinginvestigationController::class, 'updateinvestigationnote'])->name('updateinvestigationnote');
 Route::get('/deleteinvestigationnote/{id}', [OngoinginvestigationController::class, 'deleteinvestigationnote'])->name('deleteinvestigationnote');
 
-
 // colsed investigation controller routes
 Route::get('/closedinvestigations', [ClosedinvestigationController::class, 'index'])->name('closedinvestigations');
 Route::get('/showclosedinvestigations', [ClosedinvestigationController::class, 'showclosedinvestigations'])->name('showclosedinvestigations');
@@ -192,5 +186,7 @@ Route::get('/closedinvestigationsviewapprove/{id}', [ClosedinvestigationControll
 Route::get('/closedinvestigationapprove/{id}', [ClosedinvestigationController::class, 'approveclosing'])->name('closedinvestigationapprove');
 Route::get('/closedinvestigationsview/{id}', [ClosedinvestigationController::class, 'view'])->name('closedinvestigationsview');
 
+// print pdf investigation document controller routes 
+Route::post('/printinvestigationdocument', [PDFInvestigationDocumentController::class, 'printdocument'])->name('printinvestigationdocument');
 
 
