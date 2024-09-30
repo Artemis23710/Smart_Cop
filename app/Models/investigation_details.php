@@ -45,4 +45,8 @@ class investigation_details extends Model
     {
         return $this->belongsTo(policestations::class, 'arrested_station');
     }
+
+    public function officer(){
+        return $this->belongsTo(Officers::class, 'investigating_officer');
+    }
 }
