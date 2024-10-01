@@ -90,8 +90,8 @@ class PDFInvestigationDocumentController extends Controller
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3" class="form-label">NOTE TITLE</td>
-                                        <td class="form-label">DATE OF NOTE</td>
+                                        <td colspan="3" class="form-label">TITLE</td>
+                                        <td class="form-label">DATE</td>
                                         <td colspan="2" class="form-label">RELATED LOCATION</td>
                                     </tr>
                                     <tr>
@@ -100,7 +100,7 @@ class PDFInvestigationDocumentController extends Controller
                                         <td colspan="2" class="form-cell"><label>' . $note->related_location. '</label></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="6" class="form-label">NOTE SUMMARY</td>
+                                        <td colspan="6" class="form-label">SUMMARY</td>
                                     </tr>
                                     <tr>
                                         <td colspan="6" class="form-cell"><label>' .$note->description. '</label></td>
@@ -129,15 +129,9 @@ class PDFInvestigationDocumentController extends Controller
                                     }else{
                                         $htmlnotes .= '<tr><td colspan="6" class="form-cell">No evidence available for this note.</td></tr>';
                                     }
-                    $htmlnotes .= '</table><br>';
+                    $htmlnotes .= '</table><br><br><br>';
                     }
         
-        
-        
-
-        
-
-
 
         $html ='
             <!DOCTYPE html>
@@ -151,11 +145,11 @@ class PDFInvestigationDocumentController extends Controller
                     * {
                         margin: 0;
                         padding: 0;
-                        font-family: Arial, sans-serif;
+                        font-family: Courier New, Courier, monospace;
                     }
 
                     body {
-                        background-color: #f4f4f4;
+                        background-color: #fff;
                         padding: 20px;
                         position: relative;
                     }
@@ -165,9 +159,7 @@ class PDFInvestigationDocumentController extends Controller
                         padding: 20px;
                         max-width: 900px;
                         margin: 0 auto;
-                        border: 1px solid #ccc;
                         border-radius: 5px;
-                        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
                         position: relative;
                         z-index: 1;
                     }
@@ -396,8 +388,7 @@ class PDFInvestigationDocumentController extends Controller
                             </tr>
                         </table>
                     </div>
-                    <br>
-                    <hr><br><br>
+                    <br><br><br><br>
                     <div class="section">
                         <table class="form-table">
                             <tr>
@@ -413,9 +404,9 @@ class PDFInvestigationDocumentController extends Controller
                               ' . $htmlvictims . '
                         </table>
                     </div>
-                    <br>
-                    <hr><br>
-                    <br>
+
+                    <br><br><br><br>
+
                     <div class="section">
                         <table class="form-table">
                             <tr>
@@ -426,8 +417,8 @@ class PDFInvestigationDocumentController extends Controller
                             '. $htmlsuspects.'
                         </table>
                     </div>
-                    <br>
-                    <hr><br>
+                    <br><br><br><br>
+
                     <div class="section">
                         <table class="form-table">
                             <tr>
@@ -453,8 +444,9 @@ class PDFInvestigationDocumentController extends Controller
                             </tr>
                         </table>
                     </div>
-                    <br>
-                    <hr><br>
+
+                    <br><br><br><br>
+
                     <div class="section">
                         '. $htmlnotes.'
                     </div>

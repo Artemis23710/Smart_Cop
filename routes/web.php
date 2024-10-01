@@ -18,6 +18,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvestigationController;
 use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\OngoinginvestigationController;
+use App\Http\Controllers\PDFCriminalDocumentController;
 use App\Http\Controllers\PDFInvestigationDocumentController;
 use App\Http\Controllers\SuspectController;
 use Illuminate\Support\Facades\Auth;
@@ -188,5 +189,8 @@ Route::get('/closedinvestigationsview/{id}', [ClosedinvestigationController::cla
 
 // print pdf investigation document controller routes 
 Route::post('/printinvestigationdocument', [PDFInvestigationDocumentController::class, 'printdocument'])->name('printinvestigationdocument');
+
+// print pdf criminal document controller routes 
+Route::post('/printcriminaldocument', [PDFCriminalDocumentController::class, 'printdocument'])->name('printcriminaldocument');
 
 
