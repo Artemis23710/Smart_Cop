@@ -148,6 +148,10 @@
            <li><a href="#3"><i class="fas fa-gavel navfasicon"></i> Convicted Criminals</a></li>
            <li><a href="#3"><i class="fas fa-eye"></i>&nbsp; View Convicted Criminals</a></li>
 
+           @elseif(request()->route()->getName() == 'criminalview')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">person_outline</i> Criminals</a></li>
+           <li><a href="#3"><i class="fas fa-eye"></i>&nbsp; View Criminal</a></li>
            
            {{-- Investigation section --}}
            @elseif(request()->route()->getName() == 'crimedashboard')

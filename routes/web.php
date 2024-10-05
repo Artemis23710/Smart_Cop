@@ -95,6 +95,10 @@ Route::post('/offierslogincreate', [OfficerController::class, 'createofficerlogi
 
 // Criminal Dashboard Controller Routes
 Route::get('/criminaldashboard', [CriminaldashboardController::class, 'index'])->name('criminaldashboard');
+Route::post('/criminalsearch', [CriminaldashboardController::class, 'search'])->name('criminalsearch');
+Route::get('/criminalview/{id}', [CriminaldashboardController::class, 'View'])->name('criminalview');
+Route::post('/criminalsearchimage', [CriminaldashboardController::class, 'Imagesearch'])->name('criminalsearchimage');
+
 
 // Suspects Controller Routes
 Route::get('/suspects', [SuspectController::class, 'index'])->name('suspects');

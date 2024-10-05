@@ -79,6 +79,14 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'Targetimages' => [
+                    'driver' => 'local',
+                    'root' => storage_path('app/public/Targetimages'),
+                    'url' => env('APP_URL').'/storage',
+                    'visibility' => 'public',
+                    'throw' => false,
+                ],
+
 
         's3' => [
             'driver' => 's3',
