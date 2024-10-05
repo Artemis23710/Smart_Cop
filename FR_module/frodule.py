@@ -10,7 +10,6 @@ DATASET_FOLDER = '../public/storage/Photos/SuspectFace'
 # Load pre-trained Haar Cascade classifier for gender detection
 gender_classifier = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
-# Path to the shape predictor file
 shape_predictor_path = "C:/xampp 8.2/htdocs/Smart_Cop/FR_module/req_files/shape_predictor_68_face_landmarks.dat"
 landmark_predictor = dlib.shape_predictor(shape_predictor_path)
 

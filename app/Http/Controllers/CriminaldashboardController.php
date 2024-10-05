@@ -81,8 +81,6 @@ class CriminaldashboardController extends Controller
 
     }
 
-
-
     public function Imagesearch(Request $request)
     {
 
@@ -107,12 +105,27 @@ class CriminaldashboardController extends Controller
         // Construct the command with proper quoting
         $output = shell_exec("\"$pythonPath\" \"$pythonScriptPath\" \"$fullImagePath\" 2>&1");
 
-
-        dd($output);
-
         if (trim($output) === "No match found") {
-            return view('Dashboards.criminaldashboard');
+
+            $message = 'No Matching Record were Found ';
+            return redirect()->back()->with('message', $message);
+        }else{
+
+            $suspectImage = trim($output);
+            $suspectPhoto = Suspectphoto::where('frontside', $suspectImage)->where('status', 1)->first();
+
+            if ($suspectPhoto) {
+                $suspectId = $suspectPhoto->suspect_id;
+                return redirect()->route('criminalview', ['id' => $suspectId]);
+            } else {
+
+                $message = 'No Matching Record in the Database';
+                return redirect()->back()->with('message', $message);
+            }
+
         }
 
     }
+
+
 }

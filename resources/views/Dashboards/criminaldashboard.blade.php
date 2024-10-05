@@ -228,7 +228,6 @@
                             <h2 class="header-title">Search Criminal with Image</h2>
                             <i class="close-icon material-icons" id="close-btn" style="font-size:35px;">close</i>
                         </div>
-
                         <form action="{{ route('criminalsearchimage') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="upload-box" id="drop-area">
@@ -237,14 +236,9 @@
                                 </div>
                                 <p class="upload-text">Drag an image here or
                                     <label for="file-input" class="upload-link">select a file</label>
-                                    
                                 </p>
-
-                                
                             </div>
-
                             <input type="file" id="file-input" name="criminalimage" required>
-
                             <div class="input-section">
                                
                                 <button type="submit" class="submit-btn" id="upload-btn"><i
@@ -345,6 +339,19 @@ $(document).ready(function() {
         document.getElementById('image-search-wrapper').style.display = 'none';
         document.getElementById('search-container').style.display = 'block';
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+            @if(session('message'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Not Found',
+                    text: '{{ session('message') }}',
+                    showConfirmButton: false,
+                    position: "top-end",
+                    timer: 1000
+                });
+            @endif
+        });
 
 </script>
 
