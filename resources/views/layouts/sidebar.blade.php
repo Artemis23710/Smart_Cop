@@ -5,15 +5,15 @@
                 <img src="{{ asset('Images/avatar.jpg') }}" id="imguser" alt="User Image">
             </div>
             <div class="userinfo">
-                <p class="username">John Doe</p>
-                <p class="designation">Administrator</p>
+                <p class="username">{{ Auth::user()->name }}</p>
+                <p class="designation">{{ Auth::user()->role->name }}</p>
             </div>
         </div>
 
         <table style="margin-left:45px;">
             <tr>
-                <td><a href="#"> <i class="material-icons" style="font-size:25px;">account_circle</i></a></td>
-                <td><a href="#"><i class="material-icons" style=" margin-left:40px; font-size:25px;">settings</i></a>
+                <td><a href="{{ route('userprofile') }}"> <i class="material-icons" style="font-size:25px;">account_circle</i></a></td>
+                <td><a href="{{ route('usersettings') }}"><i class="material-icons" style=" margin-left:40px; font-size:25px;">settings</i></a>
                 </td>
                 <td> <a href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"

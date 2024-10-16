@@ -20,6 +20,7 @@ use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\OngoinginvestigationController;
 use App\Http\Controllers\PDFCriminalDocumentController;
 use App\Http\Controllers\PDFInvestigationDocumentController;
+use App\Http\Controllers\ProfilesettingController;
 use App\Http\Controllers\SuspectController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -197,4 +198,5 @@ Route::post('/printinvestigationdocument', [PDFInvestigationDocumentController::
 // print pdf criminal document controller routes 
 Route::post('/printcriminaldocument', [PDFCriminalDocumentController::class, 'printdocument'])->name('printcriminaldocument');
 
-
+Route::get('/userprofile', [ProfilesettingController::class, 'index'])->name('userprofile');
+Route::get('/usersettings', [ProfilesettingController::class, 'index'])->name('usersettings');

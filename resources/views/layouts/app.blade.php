@@ -104,6 +104,12 @@
     <script src="{{ url('/js/plugins/jquery.dataTables.min.js') }}"></script>
     <script src="{{ url('/js/plugins/bootstrap-selectpicker.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ url('/js/plugins/jquery-jvectormap.js') }}"></script>
+
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/mapdata/countries/lk/lk-all.js"></script>
+    
+
 
     <script>
 
@@ -142,8 +148,6 @@
         }
     </script>
    
-  
-
 @yield('script')
 </body>
 </html>
