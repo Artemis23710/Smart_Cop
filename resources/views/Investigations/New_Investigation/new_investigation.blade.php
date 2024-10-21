@@ -174,7 +174,7 @@
                         @can('Investigation-Create')
                             <div class="col-12 d-flex align-items-center justify-content-center">
                               <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
-                              <i class="fas fa-save"></i>&nbsp;Save Suspect Information</button>
+                              <i class="fas fa-save"></i>&nbsp;Save Investigation Information</button>
                           </div>
                         @endcan
 

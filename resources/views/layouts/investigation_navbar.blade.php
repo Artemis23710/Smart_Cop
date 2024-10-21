@@ -26,7 +26,7 @@
 
         @can('Officer-List')
         <li class="nav-item">
-          <a class="nav-link navbutton"  href="{{ route('offiers')}}" id="crimeanalizelink" ><i class="material-icons">insights</i>  
+          <a class="nav-link navbutton"  href="{{ route('crimeanalizer')}}" id="crimeanalizelink" ><i class="material-icons">insights</i>  
           Crime Analizer
           </a>
         </li>

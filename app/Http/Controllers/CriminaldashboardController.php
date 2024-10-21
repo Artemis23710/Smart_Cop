@@ -46,7 +46,8 @@ class CriminaldashboardController extends Controller
                 $html .= '<td>' . $suspect->arresteddate . '</td>';
                 $html .= '<td class ="text-right">';
 
-                $html .= '<a href="' . route('criminalview', ['id' => $suspect->id]) . '" target="_self" title="View" data-bs-toggle="tooltip" data-bs-placement="top" class="icon-button btn btn-info  btn-sm mr-1 viewbtn"> 
+                $html .= '<a href="' . route('criminalview', ['id' => $suspect->id]) . '" target="_self" title="View"
+                data-bs-toggle="tooltip" data-bs-placement="top" class="icon-button btn btn-info  btn-sm mr-1 viewbtn"> 
                 <i class="material-icons">visibility</i></a> &nbsp;';
                 $html .= '</td>';
 

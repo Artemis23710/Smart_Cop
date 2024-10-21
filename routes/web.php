@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admincontroller;
 use App\Http\Controllers\ClosedinvestigationController;
 use App\Http\Controllers\ConvictedcriminalController;
+use App\Http\Controllers\CrimeanalizerController;
 use App\Http\Controllers\CrimedashboardController;
 use App\Http\Controllers\CriminaldashboardController;
 use App\Http\Controllers\CriminalotherController;
@@ -200,3 +201,7 @@ Route::post('/printcriminaldocument', [PDFCriminalDocumentController::class, 'pr
 
 Route::get('/userprofile', [ProfilesettingController::class, 'index'])->name('userprofile');
 Route::get('/usersettings', [ProfilesettingController::class, 'index'])->name('usersettings');
+
+// Crime Anaizer
+Route::get('/crimeanalizer', [CrimeanalizerController::class, 'index'])->name('crimeanalizer');
+Route::post('/analizecrime', [CrimeanalizerController::class, 'analizer'])->name('analizecrime');

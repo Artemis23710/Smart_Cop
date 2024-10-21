@@ -108,7 +108,7 @@
 
     <script src="https://code.highcharts.com/maps/highmaps.js"></script>
     <script src="https://code.highcharts.com/mapdata/countries/lk/lk-all.js"></script>
-    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
     <script>

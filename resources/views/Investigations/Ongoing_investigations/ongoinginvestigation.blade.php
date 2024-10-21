@@ -175,7 +175,7 @@
                     <div class="modal-footer justify-content-center">
                         @can('Investigation-Closing-Add')
                         <button type="submit" name="btnsubmituser" id="btnsubmituser" class="btn btn-info">
-                            <i class="fas fa-save"></i>&nbsp;Save Verdict Record
+                            <i class="fas fa-save"></i>&nbsp;Close Investigation 
                         </button>
                         @endcan
                         
