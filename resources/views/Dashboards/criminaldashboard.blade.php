@@ -205,7 +205,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <div class="card" style=" height:78vh; max-height: 100%;">
+            <div class="card" style=" height:100vh; max-height: 100%;">
                 <div class="card-body">
 
                     <div class="search-container" >
@@ -223,29 +223,41 @@
                         </div>
                     </div>
                 
-                    <div class="image-search-wrapper" id="image-search-wrapper" style="display: none;">
-                        <div class="header-section">
-                            <h2 class="header-title">Search Criminal with Image</h2>
-                            <i class="close-icon material-icons" id="close-btn" style="font-size:35px;">close</i>
-                        </div>
-                        <form action="{{ route('criminalsearchimage') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="upload-box" id="drop-area">
-                                <div class="icon-box">
-                                    <i class="material-icons">image</i>
+                    <div class="image-search-wrapper col-12" id="image-search-wrapper" style="display: none; width:70%; height:50%;">
+                            <div class="col-6"  >
+                                <div class="header-section">
+                                    <h2 class="header-title">Search Criminal with Image</h2>
+                                    <i class="close-icon material-icons" id="close-btn" style="font-size:35px;">close</i>
                                 </div>
-                                <p class="upload-text">Drag an image here or
-                                    <label for="file-input" class="upload-link">select a file</label>
-                                </p>
+                                <form action="{{ route('criminalsearchimage') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="upload-box" id="drop-area">
+                                        <div class="icon-box">
+                                            <i class="material-icons">image</i>
+                                        </div>
+                                        <p class="upload-text">Drag an image here or
+                                            <label for="file-input" class="upload-link">select a file</label>
+                                        </p>
+                                    </div>
+                                    <input type="file" id="file-input" name="criminalimage" required>
+                                    <div class="input-section">
+                                       
+                                        <button type="submit" class="submit-btn" id="upload-btn"><i
+                                                class="material-icons">search</i>Search</button>
+                                    </div>
+                                </form>
+                        </div>
+                        <div class="col-6">
+                            <div id="camera-section" style="display: none;">
+                                <video id="video" width="100%" height="300" autoplay></video>
+                                <button type="button" id="capture-btn" class="upload-link">Capture</button>
+                                <canvas id="canvas" style="display: none;"></canvas>
+                                <img id="captured-image" src="#" alt="Captured Image" style="display: none;" />
+                                <input type="hidden" name="cameraImage" id="cameraImage">
                             </div>
-                            <input type="file" id="file-input" name="criminalimage" required>
-                            <div class="input-section">
-                               
-                                <button type="submit" class="submit-btn" id="upload-btn"><i
-                                        class="material-icons">search</i>Search</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
+                    
 
                     <br><br><hr>
 
@@ -410,6 +422,9 @@ $(document).ready(function() {
                 };
             }
         }
+
+        
 </script>
+
 
 @endsection
