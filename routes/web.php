@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admincontroller;
 use App\Http\Controllers\ClosedinvestigationController;
+use App\Http\Controllers\ComplainDashboard;
 use App\Http\Controllers\ConvictedcriminalController;
 use App\Http\Controllers\CrimeanalizerController;
 use App\Http\Controllers\CrimedashboardController;
@@ -17,8 +18,10 @@ use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\StationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvestigationController;
+use App\Http\Controllers\MissingpersonController;
 use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\OngoinginvestigationController;
+use App\Http\Controllers\OthercomplainsController;
 use App\Http\Controllers\PDFCriminalDocumentController;
 use App\Http\Controllers\PDFInvestigationDocumentController;
 use App\Http\Controllers\ProfilesettingController;
@@ -205,3 +208,14 @@ Route::get('/usersettings', [ProfilesettingController::class, 'index'])->name('u
 // Crime Anaizer
 Route::get('/crimeanalizer', [CrimeanalizerController::class, 'index'])->name('crimeanalizer');
 Route::post('/analizecrime', [CrimeanalizerController::class, 'analizer'])->name('analizecrime');
+
+
+// Crime Dashboard Controller Routes
+Route::get('/complaindashboard', [ComplainDashboard::class, 'index'])->name('complaindashboard');
+
+
+// Missing Person Complains Controller Routes
+Route::get('/missingpersioncomplains', [MissingpersonController::class, 'index'])->name('missingpersioncomplains');
+
+// other Complains Controller Routes
+Route::get('/othercomplains', [OthercomplainsController::class, 'index'])->name('othercomplains');

@@ -53,6 +53,14 @@
                 </a>
             </li>
             @endcan
+          
+            <li class="list-nav">
+                <a class="nav-link dashbordlink" href="{{ route('complaindashboard')}}" id="complainlink">
+                    <i class="material-icons" id="sidebaricons">feedback</i>
+                    <p id="listtext"> Complains </p>
+                </a>
+            </li>
+
             @can('Access-Administrator')
             <li class="list-nav">
                 <a class="nav-link dashbordlink" href="{{ route('userdashbord')}}" id="adminlink">
@@ -64,7 +72,5 @@
         
             
         </ul>
-
-
     </div>
 </div>
