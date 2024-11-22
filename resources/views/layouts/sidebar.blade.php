@@ -57,7 +57,7 @@
             <li class="list-nav">
                 <a class="nav-link dashbordlink" href="{{ route('complaindashboard')}}" id="complainlink">
                     <i class="material-icons" id="sidebaricons">feedback</i>
-                    <p id="listtext"> Complains </p>
+                    <p id="listtext"> Complaints</p>
                 </a>
             </li>
 

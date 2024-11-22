@@ -12,7 +12,7 @@
             <div class="card-body">
               <div class="col-12">
                 @can('Suspect-Create')
-                <a href="{{ route('newsuspects') }}"   class="btn btn-info fa-pull-right"><i class="fas fa-plus mr-2"></i>Add New Suspect</a>
+                <a href="{{ route('newmissingcomplains') }}"   class="btn btn-info fa-pull-right"><i class="fas fa-plus mr-2"></i>Add New Missing Persion Complaints</a>
                 @endcan
             </div>
             <br>

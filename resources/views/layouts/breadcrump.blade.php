@@ -213,6 +213,32 @@
            <li><a href="#2"><i class="material-icons">gavel</i> Investigations</a></li>
            <li><a href="#2"><i class="material-icons">insights</i>Crime Analizer</a></li>
 
+           @elseif(request()->route()->getName() == 'complaindashboard')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">feedback</i> Complaints</a></li>
+
+           @elseif(request()->route()->getName() == 'missingpersioncomplains')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">feedback</i> Complaints</a></li>
+           <li><a href="#2"><i class="material-icons">person_search</i>Missing Person Complaints</a></li>
+
+           @elseif(request()->route()->getName() == 'othercomplains')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">feedback</i> Complaints</a></li>
+           <li><a href="#2"><i class="material-icons">report_problem</i>  Other Complaints</a></li>
+
+           @elseif(request()->route()->getName() == 'newmissingcomplains')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">feedback</i> Complaints</a></li>
+           <li><a href="#2"><i class="material-icons">person_search</i>Missing Person Complaints</a></li>
+           <li><a href="#3"><i class="fas fa-plus fasicons" ></i> New Missing Person Complaints</a></li>
+
+           @elseif(request()->route()->getName() == 'newothercomplains')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">feedback</i> Complaints</a></li>
+           <li><a href="#2"><i class="material-icons">report_problem</i>  Other Complaints</a></li>
+           <li><a href="#3"><i class="fas fa-plus fasicons" ></i> New Other Complaints</a></li>
+
           @endif
       </ul>
   </div>
