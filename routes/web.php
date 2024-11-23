@@ -217,6 +217,10 @@ Route::get('/complaindashboard', [ComplainDashboard::class, 'index'])->name('com
 // Missing Person Complains Controller Routes
 Route::get('/missingpersioncomplains', [MissingpersonController::class, 'index'])->name('missingpersioncomplains');
 Route::get('/newmissingcomplains', [MissingpersonController::class, 'newmissingcomplains'])->name('newmissingcomplains');
+Route::post('/missingpersioncomplainsinsert', [MissingpersonController::class, 'insert'])->name('missingpersioncomplainsinsert');
+Route::get('/showmissingpersioncomplain', [MissingpersonController::class, 'showcomplaints'])->name('showmissingpersioncomplain');
+Route::get('/missingpersioncomplainsdelete/{id}', [MissingpersonController::class, 'delete'])->name('missingpersioncomplainsdelete');
+
 
 // other Complains Controller Routes
 Route::get('/othercomplains', [OthercomplainsController::class, 'index'])->name('othercomplains');

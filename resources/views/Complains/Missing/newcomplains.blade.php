@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('suspectsstore') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('missingpersioncomplainsinsert') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-9">
@@ -150,19 +150,26 @@
                                     </div>
                                     <div class="col-3">
                                         <div class="form-group required">
+                                            <label class="inputlabel">Identity Card No</label>
+                                            <input type="text" class="form-control" id="idcardnoperson" name="idcardnoperson" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group required">
                                             <label class="inputlabel">Contact No</label>
                                             <input type="text" class="form-control" id="contactno" name="contactno" required>
                                         </div>
                                     </div>
+                                   
+                                </div>
+
+                                <div class="row">
                                     <div class="col-3">
                                         <div class="form-group required">
                                             <label class="inputlabel">Address </label>
                                             <input type="text" class="form-control" id="permentaddress" name="permentaddress" required>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="row">
                                     <div class="col-3">
                                         <div class="form-group required">
                                             <select class="selectpicker" data-style="select-with-transition"
@@ -185,8 +192,8 @@
                                     <div class="col-3">
                                         <div class="form-group required">
                                             <label class="inputlabel">Date Of Complaint</label>
-                                            <input type="date" class="form-control" id="arrestdate"
-                                                name="arrestdate" required>
+                                            <input type="date" class="form-control" id="complaindate"
+                                                name="complaindate" required>
                                         </div>
                                     </div>
                                 </div>

@@ -23,12 +23,13 @@
                     <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                         <thead>
                             <tr>
-                              <th>Suspect Name</th>
-                              <th>NIC</th>
-                              <th>Crime Category</th>
-                              <th>Crime</th>
-                              <th>Arrested Station</th>
-                              <th>Arrested Date</th>
+                                <th>#</th>
+                            <th>Date of Complaint</th>
+                              <th>Person Name</th>
+                              <th>Gender</th>
+                              <th>Last Seen at</th>
+                              <th>Person Posted the Complaint</th>
+                              <th>Person Posted the Complaint ID</th>
                               <th class="disabled-sorting text-right">Actions</th>
                             </tr>
                           </thead>
@@ -48,9 +49,8 @@
 $(document).ready(function () {
 
     $("#missingpersonlink").addClass('active');
-
-    
     var table = $('#datatable').DataTable();
+
     $('#datatables').DataTable({
         "pagingType": "full_numbers",
         "lengthMenu": [
@@ -64,30 +64,34 @@ $(document).ready(function () {
         },
         processing: true,
         serverSide: true,
-        ajax: "{{ route('showsuspects') }}",
-        columns: [{
-                data: 'namewithintial',
-                name: 'namewithintial'
+        ajax: "{{ route('showmissingpersioncomplain') }}",
+        columns: [
+            {
+                data: 'id',
+                name: 'id'
+            },{
+                data: 'dateofcomplain',
+                name: 'dateofcomplain'
             },
             {
-                data: 'idcardno',
-                name: 'idcardno'
+                data: 'missingperson_fullname',
+                name: 'missingperson_fullname'
             },
             {
-                data: 'maincategory',
-                name: 'maincategory'
+                data: 'missingperson_gender',
+                name: 'missingperson_gender'
             },
             {
-                data: 'crimecategory',
-                name: 'crimecategory'
+                data: 'missingperson_lastseen',
+                name: 'missingperson_lastseen'
             },
             {
-                data: 'station',
-                name: 'station'
+                data: 'poctperson_name',
+                name: 'poctperson_name'
             },
             {
-                data: 'arresteddate',
-                name: 'arresteddate'
+                data: 'poctperson_idnumber',
+                name: 'poctperson_idnumber'
             },
             {
                 data: 'action',
@@ -98,6 +102,7 @@ $(document).ready(function () {
             }
         ]
     });
+
 });
 
 
@@ -129,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '{{ url("suspectstatus") }}/' + officerId + '/3';
+                    window.location.href = '{{ url("missingpersioncomplainsdelete") }}/' + officerId ;
                 }
             });
         }

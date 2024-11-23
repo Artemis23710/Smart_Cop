@@ -85,7 +85,14 @@ return [
                     'url' => env('APP_URL').'/storage',
                     'visibility' => 'public',
                     'throw' => false,
-                ],
+        ],
+        'Missing' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/Photos'),
+            'url' => env('APP_URL').'/storage/Photos',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
 
 
         's3' => [
