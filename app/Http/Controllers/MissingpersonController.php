@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\complains;
 use Illuminate\Http\Request;
 use App\Models\PoliceDivision;
+use App\Models\policestations;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -81,6 +82,47 @@ class MissingpersonController extends Controller
             ]);
 
             $message = 'Missing Person Complaint Created Successfully.';
+        }else{
+
+            $complaints = complains::find($request->recordID);
+            if ($complaints) {
+    
+                $complaints->update([
+                    'dateofcomplain' => $request->complaindate,
+                    'description' => $request->discription,
+                    'missingperson_id' => $request->idcardno,
+                    'missingperson_fname' => $request->firstname,
+                    'missingperson_mname' => $request->middlename,
+                    'missingperson_lname' => $request->lastname,
+                    'missingperson_fullname' => $request->fullname,
+                    'missingperson_gender' => $request->gender,
+                    'missingperson_dob' => $request->officerdob,
+                    'missingperson_age' => $request->suspectage,
+                    'missingperson_nationality' => $request->nationality,
+                    'missingperson_lastseen' => $request->lastseenat,
+                    'poctperson_name' => $request->fullnameperson,
+                    'poctperson_relation' => $request->relation,
+                    'poctperson_idnumber' => $request->idcardnoperson,
+                    'poctperson_contactno' => $request->contactno,
+                    'poctperson_address' => $request->permentaddress,
+                    'station' => $request->arreststationid,
+                    'updated_by' => Auth::id()
+                ]);
+                
+
+                if ($request->hasFile('officerphoto')) {
+                    $file = $request->file('officerphoto');
+                    $fileName = now()->year . '-' . $request->idcardno . '.' . $file->getClientOriginalExtension();
+                    $officerPhotoPath = $file->storeAs('Missing', $fileName, 'Missing');
+
+                    $complaints->update([
+                       'missingperson_image' => $officerPhotoPath,
+                    ]);
+                    
+                }
+            }
+            $message = 'Missing Person Complaint Updated Successfully.';
+
         }
         return redirect()->route('missingpersioncomplains')->with('message', $message);
     }
@@ -99,7 +141,7 @@ class MissingpersonController extends Controller
                     $btn = '<td class="text-right">';
                     
                     if (auth()->user()->can('Officer-Edit')) {
-                        $btn .= '<a href="' . route('offieredit', ['id' => $row->id]) . '"  target="_self" title="Edit" data-bs-toggle="tooltip" data-bs-placement="top"  class="icon-button btn btn-info btn-sm mr-1 editbtn"><i class="material-icons">edit</i></a>';
+                        $btn .= '<a href="' . route('missingpersioncomplainsedit', ['id' => $row->id]) . '"  target="_self" title="Edit" data-bs-toggle="tooltip" data-bs-placement="top"  class="icon-button btn btn-info btn-sm mr-1 editbtn"><i class="material-icons">edit</i></a>';
                     }
 
                     if (auth()->user()->can('Officer-Delete')) {
@@ -126,6 +168,20 @@ class MissingpersonController extends Controller
         $message = 'Missing Person Complaint Deleted Succssfully.';
         return redirect()->back()->with('message', $message);
     }
+
+    public function edit($complainID)
+    {
+        $policedivisions = PoliceDivision::all();
+        $complaininfo = complains::find($complainID);
+        $stations = policestations::all();
+        $stationID = $complaininfo->station;
+
+        $station = policestations::find($stationID);
+        $divisionID = $station ? $station->division_id : null;
+        return view('Complains.Missing.editcomplains', compact('policedivisions','complaininfo','divisionID','stations'));  
+
+    }
+
     
     
 }

@@ -24,13 +24,12 @@
                     <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                         <thead>
                             <tr>
-                              <th>Suspect Name</th>
-                              <th>NIC</th>
-                              <th>Crime Category</th>
-                              <th>Crime</th>
-                              <th>Arrested Station</th>
-                              <th>Arrested Date</th>
-                              <th class="disabled-sorting text-right">Actions</th>
+                            <th>#</th>
+                            <th>Date of Complaint</th>
+                            <th>Type of Complaint</th>
+                            <th>Person Posted the Complaint</th>
+                            <th>Person Posted the Complaint ID</th>
+                            <th class="disabled-sorting text-right">Actions</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -65,30 +64,25 @@ $(document).ready(function () {
         },
         processing: true,
         serverSide: true,
-        ajax: "{{ route('showsuspects') }}",
-        columns: [{
-                data: 'namewithintial',
-                name: 'namewithintial'
+        ajax: "{{ route('showothercomplains') }}",
+        columns: [ {
+                data: 'id',
+                name: 'id'
+            },{
+                data: 'dateofcomplain',
+                name: 'dateofcomplain'
             },
             {
-                data: 'idcardno',
-                name: 'idcardno'
+                data: 'complain_type',
+                name: 'complain_type'
             },
             {
-                data: 'maincategory',
-                name: 'maincategory'
+                data: 'poctperson_name',
+                name: 'poctperson_name'
             },
             {
-                data: 'crimecategory',
-                name: 'crimecategory'
-            },
-            {
-                data: 'station',
-                name: 'station'
-            },
-            {
-                data: 'arresteddate',
-                name: 'arresteddate'
+                data: 'poctperson_idnumber',
+                name: 'poctperson_idnumber'
             },
             {
                 data: 'action',
@@ -99,6 +93,7 @@ $(document).ready(function () {
             }
         ]
     });
+    
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -129,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '{{ url("suspectstatus") }}/' + officerId + '/3';
+                    window.location.href = '{{ url("othercomplainsdelete") }}/' + officerId ;
                 }
             });
         }

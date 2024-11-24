@@ -22,8 +22,7 @@
                                               <select class="selectpicker" data-style="select-with-transition"
                                                   title="Choose Division" name="divisionid" id="divisionid" required>
                                                   @foreach($policedivisions as $division)
-                                                  <option value="{{ $division->id }}">{{ $division->division_name}}
-                                                  </option>
+                                                  <option value="{{ $division->id }}"  {{ $division->id == $divisionID ? 'selected' : '' }}>{{ $division->division_name}}</option>
                                                   @endforeach
                                               </select>
                                           </div>
@@ -34,6 +33,9 @@
                                               <select class="selectpicker" data-style="select-with-transition"
                                                   title="Choose Arrested Police Station" name="arreststationid"
                                                   id="arreststationid" required>
+                                                  @foreach($stations as $station)
+                                                  <option value="{{ $station->id }}" {{ $station->id == $complaininfo->station ? 'selected' : '' }}>{{ $station->station_name}}</option>
+                                              @endforeach  
                                               </select>
                                           </div>
                                       </div>
@@ -41,14 +43,14 @@
                                       <div class="col-3">
                                           <div class="form-group required">
                                               <label class="inputlabel">Date of Complaint</label>
-                                              <input type="date" class="form-control" id="dateofcomplaint" name="dateofcomplaint" required>
+                                              <input type="date" class="form-control" id="dateofcomplaint" name="dateofcomplaint" value="{{ $complaininfo->dateofcomplain}}" required>
                                           </div>
                                       </div>
 
                                       <div class="col-3">
                                         <div class="form-group required">
                                             <label class="inputlabel">Type Of Complaint</label>
-                                            <input type="text" class="form-control" id="typeofcomplaint" name="typeofcomplaint" required>
+                                            <input type="text" class="form-control" id="typeofcomplaint" value="{{ $complaininfo->complain_type}}" name="typeofcomplaint" required>
                                         </div>
                                       </div>
                                   </div>
@@ -57,7 +59,7 @@
                                     <div class="col-8">
                                         <div class="form-group required">
                                             <label class="inputlabel">Description of Complaint</label>
-                                           <textarea name="discription" class="form-control" id="" cols="50" rows="3"></textarea>
+                                           <textarea name="discription" class="form-control" id="" cols="50" rows="3">{{$complaininfo->description}}</textarea>
                                         </div>
                                     </div>
                                   </div>
@@ -69,7 +71,7 @@
                                         <div class="col-3">
                                             <div class="form-group required">
                                                 <label class="inputlabel">Identity Card No</label>
-                                                <input type="text" class="form-control" id="idcardno" name="idcardno"
+                                                <input type="text" class="form-control" id="idcardno" name="idcardno" value="{{ $complaininfo->poctperson_idnumber}}"
                                                     required>
                                             </div>
                                         </div>
@@ -77,7 +79,7 @@
                                         <div class="col-4">
                                             <div class="form-group required">
                                                 <label class="inputlabel"> Full Name</label>
-                                                <input type="text" class="form-control" id="fullname" name="fullname"
+                                                <input type="text" class="form-control" id="fullname" name="fullname"  value="{{ $complaininfo->poctperson_name}}"
                                                     required>
                                             </div>
                                         </div>
@@ -85,14 +87,14 @@
                                         <div class="col-2">
                                             <div class="form-group required">
                                                 <label class="inputlabel">Contact No</label>
-                                                <input type="text" class="form-control" id="contactno" name="contactno"
+                                                <input type="text" class="form-control" id="contactno" name="contactno" value="{{ $complaininfo->poctperson_contactno}}"
                                                     required>
                                             </div>
                                         </div>
                                         <div class="col-3">
                                             <div class="form-group required">
                                                 <label class="inputlabel"> Address </label>
-                                                <input type="text" class="form-control" id="permentaddress"
+                                                <input type="text" class="form-control" id="permentaddress" value="{{ $complaininfo->poctperson_address}}"
                                                     name="permentaddress" required>
                                             </div>
                                         </div>
@@ -112,8 +114,8 @@
                             </div>
                         @endif
 
-                        <input type="hidden" id="hiddenid" name="hiddenid" value="1">
-                        <input type="hidden" id="recordID" name="recordID">
+                        <input type="hidden" id="hiddenid" name="hiddenid" value="2">
+                        <input type="hidden" id="recordID" name="recordID"  value="{{ $complaininfo->id}}">
                     </form>
                 </div>
             </div>

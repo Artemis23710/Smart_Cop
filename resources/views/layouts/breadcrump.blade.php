@@ -239,6 +239,17 @@
            <li><a href="#2"><i class="material-icons">report_problem</i>  Other Complaints</a></li>
            <li><a href="#3"><i class="fas fa-plus fasicons" ></i> New Other Complaints</a></li>
 
+           @elseif(request()->route()->getName() == 'missingpersioncomplainsedit')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">feedback</i> Complaints</a></li>
+           <li><a href="#2"><i class="material-icons">person_search</i>Missing Person Complaints</a></li>
+           <li><a href="#3"><i class="material-icons">edit</i> Edit Missing Person Complaints</a></li>
+
+           @elseif(request()->route()->getName() == 'othercomplainsedit')
+           <li><a href="#1"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+           <li><a href="#2"><i class="material-icons">feedback</i> Complaints</a></li>
+           <li><a href="#2"><i class="material-icons">report_problem</i>  Other Complaints</a></li>
+           <li><a href="#3"><i class="material-icons">edit</i> Edit Other Complaints</a></li>
           @endif
       </ul>
   </div>

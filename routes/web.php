@@ -220,8 +220,13 @@ Route::get('/newmissingcomplains', [MissingpersonController::class, 'newmissingc
 Route::post('/missingpersioncomplainsinsert', [MissingpersonController::class, 'insert'])->name('missingpersioncomplainsinsert');
 Route::get('/showmissingpersioncomplain', [MissingpersonController::class, 'showcomplaints'])->name('showmissingpersioncomplain');
 Route::get('/missingpersioncomplainsdelete/{id}', [MissingpersonController::class, 'delete'])->name('missingpersioncomplainsdelete');
+Route::get('/missingpersioncomplainsedit/{id}', [MissingpersonController::class, 'edit'])->name('missingpersioncomplainsedit');
 
 
 // other Complains Controller Routes
 Route::get('/othercomplains', [OthercomplainsController::class, 'index'])->name('othercomplains');
 Route::get('/newothercomplains', [OthercomplainsController::class, 'newothercomplains'])->name('newothercomplains');
+Route::post('/othercomplainsinsert', [OthercomplainsController::class, 'insert'])->name('othercomplainsinsert');
+Route::get('/showothercomplains', [OthercomplainsController::class, 'showcomplaints'])->name('showothercomplains');
+Route::get('/othercomplainsdelete/{id}', [OthercomplainsController::class, 'delete'])->name('othercomplainsdelete');
+Route::get('/othercomplainsedit/{id}', [OthercomplainsController::class, 'edit'])->name('othercomplainsedit');
