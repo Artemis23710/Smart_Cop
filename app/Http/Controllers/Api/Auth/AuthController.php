@@ -26,6 +26,9 @@ class AuthController extends Controller
         */
 
         $user = Auth::user();
+
+        $user->load('role');
+
         $token = $user->createToken('Personal Access Token');
 
         return response([
@@ -34,7 +37,26 @@ class AuthController extends Controller
             'email' =>$user->email,
             'emp_id' =>$user->emp_id,
             'role_id' =>$user->role_id,
+            'role_name' => $user->role->name,
            'token' => $token->plainTextToken
         ],200);
+    }
+
+    public function logout(Request $request)
+    {
+        /**
+         * @var user $user
+         */
+        $user = Auth::user();
+
+        if ($user) {
+            $user->tokens->each(function ($token) {
+                $token->delete();
+            });
+
+            return response()->json(['message' => 'Logged out successfully'], 200);
+        }
+    
+        return response()->json(['message' => 'No user authenticated'], 400);
     }
 }
