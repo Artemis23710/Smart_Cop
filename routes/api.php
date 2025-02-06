@@ -4,6 +4,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Auth\ComponenetController;
+use App\Http\Controllers\Api\Auth\OperationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +30,8 @@ Route::group(['namespace' => 'Api\Auth'],function(){
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
 });
+
+
+Route::get('/officers', [ComponenetController::class, 'officersList']);
+
+Route::post('/operationsave', [OperationController::class, 'store']);

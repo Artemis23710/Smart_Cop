@@ -22,8 +22,6 @@ class Admincontroller extends Controller
             ->distinct()
             ->get()
             ->toArray();
-
-
         return view('Administrator.privileges.addpriviliges', compact('requestid','role','permissions','rolePermissions','permsWithModules'));
     }
 
