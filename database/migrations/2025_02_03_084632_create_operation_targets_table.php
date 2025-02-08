@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('operation_targets', function (Blueprint $table) {
             $table->id();
+            $table->integer('operation_id'); 
             $table->string('target_name');
             $table->string('target_description');
             $table->integer('status'); 

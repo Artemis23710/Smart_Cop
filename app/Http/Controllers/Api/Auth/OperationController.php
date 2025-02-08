@@ -7,33 +7,17 @@ use App\Models\Operation_officers;
 use App\Models\Operation_targets;
 use App\Models\Operations;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class OperationController extends Controller
 {
     public function store(Request $request)
     {
-        $request->validate([
-            'name_operation' => 'required|string',
-            'title_operation' => 'required|string',
-            'type_operation' => 'required|string',
-            'start_operation' => 'required|date',
-            'end_operation' => 'required|date',
-            'budget_operation' => 'required|numeric',
-            'officer_incharge' => 'required|string',
-            'description' => 'nullable|string',
-            'targetsofopp' => 'array',
-            'targetsofopp.*.name' => 'required|string',
-            'targetsofopp.*.description' => 'nullable|string',
-            'officerinopp' => 'array',
-            'officerinopp.*.officer_id' => 'required|integer',
-            'officerinopp.*.officer_badge' => 'required|string',
-            'officerinopp.*.officer_role' => 'required|string',
-        ]);
-
         DB::beginTransaction();
-
         try {
+
             $operation = Operations::create([
                 'Name' => $request->name_operation,
                 'title' => $request->title_operation,
@@ -46,39 +30,66 @@ class OperationController extends Controller
                 'status' => 1, 
                 'Complete_status' => 0,
                 'approve_status' => 0,
-                'created_by' => auth()->id(),
-                'updated_by' => auth()->id(),
+                'created_by' => Auth::id(),
+                'updated_by' => 0,
             ]);
 
+            $operationId = $operation->id;
+           
+            $targetsofopp = $request->input('targetsofopp'); 
+            $targetArray = json_decode($targetsofopp, true);  
 
-            foreach ($request->targetsofopp as $target) {
-                Operation_targets::create([
-                    'target_name' => $target['name'],
-                    'target_description' => $target['description'],
-                    'status' => 'Active',
-                    'created_by' => auth()->id(),
-                    'updated_by' => auth()->id(),
-                ]);
+
+            if(is_array($targetArray)){
+
+                foreach ($targetArray  as $rowtarget) {
+                    $name = $rowtarget['name'];
+                    $description = $rowtarget['description'];
+                    Operation_targets::create([
+                        'operation_id' => $operationId,
+                        'target_name' => $name,
+                        'target_description' => $description,
+                        'status' => 1,
+                        'created_by' => Auth::id(),
+                        'updated_by' => 0,
+                    ]);
+                }
             }
+          
 
-            foreach ($request->officerinopp as $officer) {
-                Operation_officers::create([
-                    'Officer_id' => $officer['officer_id'],
-                    'officer_badge' => $officer['officer_badge'],
-                    'officer_role' => $officer['officer_role'],
-                    'status' => 'Active',
-                    'created_by' => auth()->id(),
-                    'updated_by' => auth()->id(),
-                ]);
+            $officerinopp = $request->input('officerinopp'); 
+            $officersArray = json_decode($officerinopp, true); 
+
+            if(is_array($officersArray)){
+            foreach ($officersArray as $rowofficer) {
+
+                $officer_id = $rowofficer['officer_id'];
+                $officer_badge = $rowofficer['officer_badge'];
+                $officer_role = $rowofficer['officer_role'];
+
+                    Operation_officers::create([
+                        'operation_id' => $operationId,
+                        'Officer_id' => $officer_id,
+                        'officer_badge' => $officer_badge,
+                        'officer_role' => $officer_role,
+                        'status' => 1,
+                        'created_by' =>Auth::id(),
+                        'updated_by' => 0,
+                    ]);
+                }
             }
-
+           
             DB ::commit();
 
             return response()->json(['message' => 'Operation created successfully'], 201);
-            
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return response()->json(['error' => 'Failed to create operation', 'details' => $e->getMessage()], 500);
-        }
+    } catch (\Exception $e) {
+        DB::rollBack();
+        
+        return response()->json([
+            'error' => $e->getMessage()
+        ], 400);
     }
+    }
+
+
 }

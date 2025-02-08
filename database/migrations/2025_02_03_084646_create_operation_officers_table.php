@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('operation_officers', function (Blueprint $table) {
             $table->id();
+            $table->integer('operation_id'); 
             $table->integer('Officer_id');
             $table->string('officer_badge');
             $table->string('officer_role');

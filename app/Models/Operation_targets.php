@@ -10,6 +10,7 @@ class Operation_targets extends Model
     use HasFactory;
 
     protected $fillable = [
+        'operation_id',
         'target_name',
         'target_description',
         'status',

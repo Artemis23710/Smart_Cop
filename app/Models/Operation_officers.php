@@ -10,6 +10,7 @@ class Operation_officers extends Model
     use HasFactory;
 
     protected $fillable = [
+        'operation_id',
         'Officer_id',
         'officer_badge',
         'officer_role',
