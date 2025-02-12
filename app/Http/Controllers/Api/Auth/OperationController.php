@@ -37,12 +37,12 @@ class OperationController extends Controller
             $operationId = $operation->id;
            
             $targetsofopp = $request->input('targetsofopp'); 
-            $targetArray = json_decode($targetsofopp, true);  
 
 
-            if(is_array($targetArray)){
 
-                foreach ($targetArray  as $rowtarget) {
+            if(is_array($targetsofopp)){
+
+                foreach ($targetsofopp  as $rowtarget) {
                     $name = $rowtarget['name'];
                     $description = $rowtarget['description'];
                     Operation_targets::create([
@@ -58,10 +58,9 @@ class OperationController extends Controller
           
 
             $officerinopp = $request->input('officerinopp'); 
-            $officersArray = json_decode($officerinopp, true); 
 
-            if(is_array($officersArray)){
-            foreach ($officersArray as $rowofficer) {
+            if(is_array($officerinopp)){
+            foreach ($officerinopp as $rowofficer) {
 
                 $officer_id = $rowofficer['officer_id'];
                 $officer_badge = $rowofficer['officer_badge'];
