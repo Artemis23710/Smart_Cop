@@ -35,3 +35,6 @@ Route::group(['namespace' => 'Api\Auth'],function(){
 Route::get('/officers', [ComponenetController::class, 'officersList']);
 
 Route::post('/operationsave', [OperationController::class, 'store']);
+Route::get('/OperationList', [OperationController::class, 'operationlist']);
+Route::post('/operationedit', [OperationController::class, 'edit']);
+Route::post('/operationdelete', [OperationController::class, 'delete']);
