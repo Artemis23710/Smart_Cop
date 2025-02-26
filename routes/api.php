@@ -38,3 +38,4 @@ Route::post('/operationsave', [OperationController::class, 'store']);
 Route::get('/OperationList', [OperationController::class, 'operationlist']);
 Route::post('/operationedit', [OperationController::class, 'edit']);
 Route::post('/operationdelete', [OperationController::class, 'delete']);
+Route::post('/operationupdate', [OperationController::class, 'update']);

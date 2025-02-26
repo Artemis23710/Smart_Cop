@@ -148,5 +148,102 @@ class OperationController extends Controller
     }
 
 
+    public function update(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+
+            $userid = $request->user_id;
+            $record_ID = $request->recordID;
+            $operation = Operations::where('id', $record_ID )->update([
+                'Name' => $request->name_operation,
+                'title' => $request->title_operation,
+                'operation_Type' => $request->type_operation,
+                'Start_date' => $request->start_operation,
+                'End_date' => $request->end_operation,
+                'operation_budget' => $request->budget_operation,
+                'officerincharge' => $request->officer_incharge,
+                'description' => $request->description,
+                'updated_by' => $userid,
+            ]);
+           
+            $targetsofopp = $request->input('targetsofopp'); 
+
+
+
+            if(is_array($targetsofopp)){
+
+                foreach ($targetsofopp  as $rowtarget) {
+                    $name = $rowtarget['name'];
+                    $description = $rowtarget['description'];
+                    $targetrecord_id = $rowtarget['targetrecord_id'];
+
+                    if(!empty($targetrecord_id)){
+                        Operation_targets::where('id', $targetrecord_id )->update([
+                            'target_name' => $name,
+                            'target_description' => $description,
+                            'updated_by' => $userid,
+
+                        ]);
+                    }else{
+                        Operation_targets::create([
+                            'operation_id' => $record_ID,
+                            'target_name' => $name,
+                            'target_description' => $description,
+                            'status' => 1,
+                            'created_by' => $userid,
+                            'updated_by' => 0,
+                        ]);
+                    }
+                  
+                }
+            }
+          
+
+            $officerinopp = $request->input('officerinopp'); 
+
+            if(is_array($officerinopp)){
+            foreach ($officerinopp as $rowofficer) {
+
+                $officer_id = $rowofficer['officer_id'];
+                $officer_badge = $rowofficer['officer_badge'];
+                $officer_role = $rowofficer['officer_role'];
+                $officerrecord_id = $rowofficer['officerrecord_id'];
+
+                if( !empty($officerrecord_id) ){
+
+                    Operation_officers::where('id', $officerrecord_id)->update([
+                        'Officer_id' => $officer_id,
+                        'officer_badge' => $officer_badge,
+                        'officer_role' => $officer_role,
+                        'updated_by' =>$userid,
+                    ]);
+
+                }else{
+                    
+                    Operation_officers::create([
+                        'operation_id' => $record_ID,
+                        'Officer_id' => $officer_id,
+                        'officer_badge' => $officer_badge,
+                        'officer_role' => $officer_role,
+                        'status' => 1,
+                        'created_by' =>$userid,
+                        'updated_by' => 0,
+                    ]);
+                }
+                }
+            }
+           
+            DB ::commit();
+
+                    return response()->json(['message' => 'Operation Updated successfully'], 201);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                
+                return response()->json([
+                    'error' => $e->getMessage()
+                ], 400);
+            }
+    }
 
 }
