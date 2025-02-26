@@ -39,3 +39,5 @@ Route::get('/OperationList', [OperationController::class, 'operationlist']);
 Route::post('/operationedit', [OperationController::class, 'edit']);
 Route::post('/operationdelete', [OperationController::class, 'delete']);
 Route::post('/operationupdate', [OperationController::class, 'update']);
+Route::post('/operationdeletetarget', [OperationController::class, 'deletetarget']);
+Route::post('/operationdeleteofficers', [OperationController::class, 'deleteofficers']);

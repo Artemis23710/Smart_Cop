@@ -246,4 +246,21 @@ class OperationController extends Controller
             }
     }
 
+    public function deletetarget(Request $request){
+        $recordID = $request->id;
+        $userid = $request->user_id;
+
+        DB::table('operation_targets')->where('id', $recordID)->update(['status' => 3,'updated_by' => $userid]);
+
+        return response()->json(['message' => 'Operation Target Deleted successfully'], 201);
+    }
+
+    public function deleteofficers(Request $request){
+        $recordID = $request->id;
+        $userid = $request->user_id;
+
+        DB::table('operation_officers')->where('id', $recordID)->update(['status' => 3,'updated_by' => $userid]);
+
+        return response()->json(['message' => 'Operation Officers Deleted successfully'], 201);
+    }
 }
