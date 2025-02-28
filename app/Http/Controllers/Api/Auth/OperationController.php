@@ -263,4 +263,15 @@ class OperationController extends Controller
 
         return response()->json(['message' => 'Operation Officers Deleted successfully'], 201);
     }
+
+    public function approve(Request $request){
+
+        $recordID = $request->operation_id;
+        $userid = $request->user_id;
+
+        DB::table('operations')->where('id', $recordID)->update(['approve_status' => 1,'approved_by' => $userid]);
+
+        return response()->json(['message' => 'Operation Approved successfully'], 201);
+    }
+
 }
