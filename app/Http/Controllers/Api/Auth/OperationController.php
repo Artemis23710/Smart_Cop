@@ -274,4 +274,13 @@ class OperationController extends Controller
         return response()->json(['message' => 'Operation Approved successfully'], 201);
     }
 
+    public function closedoperationlist(Request $request){
+
+        $operations=DB::table('operations')->select('*')->where('status',1)->where('Complete_status',1)->get();
+
+        $data = array(
+            'operationlist' => $operations
+        );
+        return (new BaseController)->sendResponse($data, 'operationlist');
+    }
 }
