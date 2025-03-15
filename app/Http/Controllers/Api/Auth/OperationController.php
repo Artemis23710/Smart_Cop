@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\operation_close;
 use App\Models\Operation_officers;
+use App\Models\operation_progress;
 use App\Models\Operation_targets;
 use App\Models\Operations;
 use Illuminate\Http\Request;
@@ -282,5 +284,67 @@ class OperationController extends Controller
             'operationlist' => $operations
         );
         return (new BaseController)->sendResponse($data, 'operationlist');
+    }
+
+    public function operationprogress(Request $request){
+        
+        DB::beginTransaction();
+        try {
+
+            $userid = $request->user_id;
+            $operation = operation_progress::create([
+                'operation_id' => $request->recordID,
+                'report_date' => $request->progressdate,
+                'report_title' => $request->progresstitle,
+                'description' => $request->progressdescription,
+                'status' => 1, 
+                'created_by' =>  $userid,
+                'updated_by' => 0,
+            ]);
+
+            DB ::commit();
+
+                    return response()->json(['message' => 'Operation Progress Report created successfully'], 201);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                
+                return response()->json([
+                    'error' => $e->getMessage()
+                ], 400);
+            }
+    }
+
+
+    public function operationclosing(Request $request){
+        
+        DB::beginTransaction();
+        try {
+
+            $recordID = $request->recordID;
+            $userid = $request->user_id;
+            $operation = operation_close::create([
+                'operation_id' => $request->recordID,
+                'closing_date' => $request->closing_date,
+                'closing_type' => $request->closing_type,
+                'closing_reason' => $request->close_reason,
+                'closing_description' => $request->closingdescription,
+                'status' => 1, 
+                'created_by' =>  $userid,
+                'updated_by' => 0,
+            ]);
+
+            DB::table('operations')->where('id', $recordID)
+            ->update(['Complete_status' => 1,'approved_by' => $userid]);
+
+            DB ::commit();
+
+                    return response()->json(['message' => 'Operation Closing Report created successfully'], 201);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                
+                return response()->json([
+                    'error' => $e->getMessage()
+                ], 400);
+            }
     }
 }
