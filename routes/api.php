@@ -45,3 +45,4 @@ Route::post('/operationapprove', [OperationController::class, 'approve']);
 Route::get('/closedoperationlist', [OperationController::class, 'closedoperationlist']);
 Route::post('/operationprogress', [OperationController::class, 'operationprogress']);
 Route::post('/operationclosing', [OperationController::class, 'operationclosing']);
+Route::post('/operationview', [OperationController::class, 'viewoperation']);

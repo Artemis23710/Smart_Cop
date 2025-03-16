@@ -334,7 +334,7 @@ class OperationController extends Controller
             ]);
 
             DB::table('operations')->where('id', $recordID)
-            ->update(['Complete_status' => 1,'approved_by' => $userid]);
+            ->update(['End_date' => $request->closing_date,'Complete_status' => 1,'approved_by' => $userid]);
 
             DB ::commit();
 
@@ -346,5 +346,44 @@ class OperationController extends Controller
                     'error' => $e->getMessage()
                 ], 400);
             }
+    }
+
+    public function viewoperation(Request $request)
+    {
+        $recordID = $request->id;
+
+        $operations=DB::table('operations')->select('*')->where('id',$recordID) ->first();
+        $operation_tragets=DB::table('operation_targets')->select('*')->where('operation_id',$recordID)->where('status',1)->get();
+        
+        $operation_officers = Operation_officers::with('officers:id,fullname') 
+        ->where('operation_id', $recordID)
+        ->where('status', 1)
+        ->get()
+        ->map(function ($officer) {
+            return [
+                'id' => $officer->id,
+                'operation_id' => $officer->operation_id,
+                'Officer_id' => $officer->Officer_id,
+                'officer_badge' => $officer->officer_badge,
+                'officer_role' => $officer->officer_role,
+                'status' => $officer->status,
+                'created_by' => $officer->created_by,
+                'updated_by' => $officer->updated_by,
+                'officer_name' => $officer->officers->fullname ?? null,
+            ];
+        });
+
+        $operationclose=DB::table('operation_closes')->select('*')->where('operation_id',$recordID) ->where('status',1) ->first();
+        $operation_progress=DB::table('operation_progresses')->select('*')->where('operation_id',$recordID)->where('status',1)->get();
+
+        $data = array(
+            'operationlist' => $operations,
+            'targetlist' => $operation_tragets,
+            'officerslist' => $operation_officers,
+            'operationcloselist' => $operationclose,
+            'operationprogresslist' => $operation_progress,
+        );
+        return (new BaseController)->sendResponse($data, 'operationlist', 'targetlist','officerslist','operationcloselist','operationprogresslist');
+
     }
 }
