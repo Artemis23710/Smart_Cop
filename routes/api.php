@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Auth\ComponenetController;
+use App\Http\Controllers\Api\Auth\InvestigationController;
 use App\Http\Controllers\Api\Auth\OperationController;
 
 /*
@@ -46,3 +47,6 @@ Route::get('/closedoperationlist', [OperationController::class, 'closedoperation
 Route::post('/operationprogress', [OperationController::class, 'operationprogress']);
 Route::post('/operationclosing', [OperationController::class, 'operationclosing']);
 Route::post('/operationview', [OperationController::class, 'viewoperation']);
+
+
+Route::post('/operationsearch', [InvestigationController::class, 'search']);

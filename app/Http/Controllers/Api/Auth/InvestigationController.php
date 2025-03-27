@@ -10,7 +10,7 @@ class InvestigationController extends Controller
 {
     public function search(Request $request)
     {
-        $keyword = $request->input('keyword');
+        $keyword = $request->input('seachtext');
 
         $investigations = investigation_details::with(['crimemain','crime'])
         ->where(function($query) use ($keyword) {
